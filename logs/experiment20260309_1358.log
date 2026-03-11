@@ -1,0 +1,23 @@
+2026-03-09 13:58:18 [INFO] 📝 Logger initialized. Writing to ./logs\experiment20260309_1358.log
+2026-03-09 13:58:18 [INFO] Random seed set to 42
+2026-03-09 13:58:18 [INFO] ========================================
+2026-03-09 13:58:18 [INFO]       LLM Experiment Framework v2.0     
+2026-03-09 13:58:18 [INFO] ========================================
+2026-03-09 13:58:29 [INFO] 📝 Logger initialized. Writing to ./logs\experiment20260309_1358.log
+2026-03-09 13:58:29 [INFO] Random seed set to 42
+2026-03-09 13:58:29 [INFO] ========================================
+2026-03-09 13:58:29 [INFO]       LLM Experiment Framework v2.0     
+2026-03-09 13:58:29 [INFO] ========================================
+2026-03-09 13:58:54 [INFO] 📝 Logger initialized. Writing to ./logs\experiment20260309_1358.log
+2026-03-09 13:58:54 [INFO] Random seed set to 42
+2026-03-09 13:58:54 [INFO] ========================================
+2026-03-09 13:58:54 [INFO]       LLM Experiment Framework v2.0     
+2026-03-09 13:58:54 [INFO] ========================================
+2026-03-09 13:58:54 [INFO] 🚀 Pipeline Started
+2026-03-09 13:58:54 [INFO] --- [Step 1] Loading Data from: data/bcvcdr_raw/BCVCDR_Processed.csv ---
+2026-03-09 13:58:54 [WARNING] ⚠️ Test Mode: Using only first 2000 rows.
+2026-03-09 13:58:54 [INFO] ✅ Data loaded. Shape: (2000, 12)
+2026-03-09 13:58:54 [INFO] --- [Step 2] Generating Prompts ---
+2026-03-09 13:58:54 [INFO] ⚙️ Auto Mode: Combinations from 1 to 2 methods.
+2026-03-09 13:58:54 [INFO] ✅ Generated 66 prompt combinations.
+2026-03-09 13:58:54 [INFO] --- [Step 3] Running Inference Engine ---

@@ -1,0 +1,2981 @@
+﻿Data_ID,PMID,Model,Prompt_ID,E1,E2,True_Label,Pred_Label,Raw_Output
+0,8701013,gemma3:270m,1,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+1,8701013,gemma3:270m,1,famotidine,ulcers,none,Yes,"Item 1: Yes
+"
+2,439781,gemma3:270m,1,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+"
+3,439781,gemma3:270m,1,sodium,hypotension,none,Yes,"Item 1: Yes
+"
+4,439781,gemma3:270m,1,idm,hypotension,cid,Yes,"Item 1: Yes
+"
+5,439781,gemma3:270m,1,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+"
+6,439781,gemma3:270m,1,angiotensin,hypotension,none,Yes,"Item 1: Yes
+"
+7,22836123,gemma3:270m,1,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+8,22836123,gemma3:270m,1,tacrolimus,src,none,Yes,"Item 1: Yes
+Item 2: No"
+9,22836123,gemma3:270m,1,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+10,22836123,gemma3:270m,1,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+Item 2: No"
+11,22836123,gemma3:270m,1,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+12,22836123,gemma3:270m,1,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+13,22836123,gemma3:270m,1,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No"
+14,22836123,gemma3:270m,1,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+15,22836123,gemma3:270m,1,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No"
+16,22836123,gemma3:270m,1,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+17,22836123,gemma3:270m,1,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+18,22836123,gemma3:270m,1,corticosteroid,src,none,Yes,"Item 1: Yes
+Item 2: No"
+19,22836123,gemma3:270m,1,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No"
+0,8701013,gemma3:270m,2,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+1,8701013,gemma3:270m,2,famotidine,ulcers,none,Yes,"Item 1: Yes
+Item 2: No
+"
+2,439781,gemma3:270m,2,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+"
+3,439781,gemma3:270m,2,sodium,hypotension,none,Yes,"Item 1: Yes
+"
+4,439781,gemma3:270m,2,idm,hypotension,cid,Yes,"Item 1: Yes
+"
+5,439781,gemma3:270m,2,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+"
+6,439781,gemma3:270m,2,angiotensin,hypotension,none,Yes,"Item 1: Yes
+"
+7,22836123,gemma3:270m,2,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+8,22836123,gemma3:270m,2,tacrolimus,src,none,Yes,"Item 1: Yes
+Item 2: No"
+9,22836123,gemma3:270m,2,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+10,22836123,gemma3:270m,2,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+Item 2: No"
+11,22836123,gemma3:270m,2,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+12,22836123,gemma3:270m,2,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+13,22836123,gemma3:270m,2,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+14,22836123,gemma3:270m,2,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No"
+15,22836123,gemma3:270m,2,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No
+"
+16,22836123,gemma3:270m,2,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+17,22836123,gemma3:270m,2,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+18,22836123,gemma3:270m,2,corticosteroid,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+19,22836123,gemma3:270m,2,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No"
+0,8701013,gemma3:270m,3,famotidine,delirium,cid,Yes,"Item 1: Yes
+Item 2: No"
+1,8701013,gemma3:270m,3,famotidine,ulcers,none,Yes,"Item 1: Yes
+"
+2,439781,gemma3:270m,3,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+"
+3,439781,gemma3:270m,3,sodium,hypotension,none,Yes,"Item 1: Yes
+"
+4,439781,gemma3:270m,3,idm,hypotension,cid,Yes,"Item 1: Yes
+"
+5,439781,gemma3:270m,3,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+"
+6,439781,gemma3:270m,3,angiotensin,hypotension,none,Yes,"Item 1: Yes
+"
+7,22836123,gemma3:270m,3,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+8,22836123,gemma3:270m,3,tacrolimus,src,none,Yes,"Item 1: Yes
+Item 2: No"
+9,22836123,gemma3:270m,3,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+10,22836123,gemma3:270m,3,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+Item 2: No"
+11,22836123,gemma3:270m,3,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+12,22836123,gemma3:270m,3,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+13,22836123,gemma3:270m,3,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No"
+14,22836123,gemma3:270m,3,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No"
+15,22836123,gemma3:270m,3,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No"
+16,22836123,gemma3:270m,3,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+17,22836123,gemma3:270m,3,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+18,22836123,gemma3:270m,3,corticosteroid,src,none,Yes,"Item 1: Yes
+Item 2: No"
+19,22836123,gemma3:270m,3,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No"
+0,8701013,gemma3:270m,4,famotidine,delirium,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+1,8701013,gemma3:270m,4,famotidine,ulcers,none,Yes,"Item 1: Yes
+Item 2: No
+"
+2,439781,gemma3:270m,4,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+"
+3,439781,gemma3:270m,4,sodium,hypotension,none,Parse_Error,
+4,439781,gemma3:270m,4,idm,hypotension,cid,Parse_Error,
+5,439781,gemma3:270m,4,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+"
+6,439781,gemma3:270m,4,angiotensin,hypotension,none,Yes,"Item 1: Yes
+"
+7,22836123,gemma3:270m,4,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+8,22836123,gemma3:270m,4,tacrolimus,src,none,Yes,"Item 1: Yes
+Item 2: No"
+9,22836123,gemma3:270m,4,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+10,22836123,gemma3:270m,4,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+11,22836123,gemma3:270m,4,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+12,22836123,gemma3:270m,4,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+13,22836123,gemma3:270m,4,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+14,22836123,gemma3:270m,4,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+15,22836123,gemma3:270m,4,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No
+"
+16,22836123,gemma3:270m,4,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+17,22836123,gemma3:270m,4,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+18,22836123,gemma3:270m,4,corticosteroid,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+19,22836123,gemma3:270m,4,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+0,8701013,gemma3:270m,5,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+1,8701013,gemma3:270m,5,famotidine,ulcers,none,Yes,"Item 1: Yes
+"
+2,439781,gemma3:270m,5,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+"
+3,439781,gemma3:270m,5,sodium,hypotension,none,Yes,"Item 1: Yes
+"
+4,439781,gemma3:270m,5,idm,hypotension,cid,Yes,"Item 1: Yes
+"
+5,439781,gemma3:270m,5,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+"
+6,439781,gemma3:270m,5,angiotensin,hypotension,none,Yes,"Item 1: Yes
+"
+7,22836123,gemma3:270m,5,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+8,22836123,gemma3:270m,5,tacrolimus,src,none,Yes,"Item 1: Yes
+Item 2: No"
+9,22836123,gemma3:270m,5,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No"
+10,22836123,gemma3:270m,5,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+11,22836123,gemma3:270m,5,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+12,22836123,gemma3:270m,5,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+13,22836123,gemma3:270m,5,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No"
+14,22836123,gemma3:270m,5,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+15,22836123,gemma3:270m,5,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No"
+16,22836123,gemma3:270m,5,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+17,22836123,gemma3:270m,5,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+18,22836123,gemma3:270m,5,corticosteroid,src,none,Yes,"Item 1: Yes
+Item 2: No"
+19,22836123,gemma3:270m,5,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No"
+0,8701013,gemma3:270m,6,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+1,8701013,gemma3:270m,6,famotidine,ulcers,none,Yes,"Item 1: Yes
+Item 2: No
+"
+2,439781,gemma3:270m,6,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+"
+3,439781,gemma3:270m,6,sodium,hypotension,none,Yes,"Item 1: Yes
+"
+4,439781,gemma3:270m,6,idm,hypotension,cid,Yes,"Item 1: Yes
+"
+5,439781,gemma3:270m,6,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+"
+6,439781,gemma3:270m,6,angiotensin,hypotension,none,Yes,"Item 1: Yes
+"
+7,22836123,gemma3:270m,6,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+8,22836123,gemma3:270m,6,tacrolimus,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+9,22836123,gemma3:270m,6,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+10,22836123,gemma3:270m,6,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+Item 2: No"
+11,22836123,gemma3:270m,6,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+12,22836123,gemma3:270m,6,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+"
+13,22836123,gemma3:270m,6,prednisolone,src,none,Yes,"Item 1: Yes
+"
+14,22836123,gemma3:270m,6,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+15,22836123,gemma3:270m,6,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No
+"
+16,22836123,gemma3:270m,6,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+17,22836123,gemma3:270m,6,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+18,22836123,gemma3:270m,6,corticosteroid,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+19,22836123,gemma3:270m,6,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+0,8701013,gemma3:270m,7,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+1,8701013,gemma3:270m,7,famotidine,ulcers,none,Yes,"Item 1: Yes
+Item 2: No"
+2,439781,gemma3:270m,7,indomethacin,hypotension,cid,Parse_Error,"Item 1: Chemical: indomethacin | Disease: hypotension
+"
+3,439781,gemma3:270m,7,sodium,hypotension,none,Parse_Error,
+4,439781,gemma3:270m,7,idm,hypotension,cid,Yes,"Item 1: Yes
+"
+5,439781,gemma3:270m,7,prostaglandin,hypotension,none,Parse_Error,
+6,439781,gemma3:270m,7,angiotensin,hypotension,none,Parse_Error,"Item 1: Chemical: angiotensin | Disease: hypotension
+"
+7,22836123,gemma3:270m,7,tacrolimus,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+8,22836123,gemma3:270m,7,tacrolimus,src,none,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+9,22836123,gemma3:270m,7,tacrolimus,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+10,22836123,gemma3:270m,7,tacrolimus,ssc,cid,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+11,22836123,gemma3:270m,7,tacrolimus,thrombotic microangiopathy,none,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+12,22836123,gemma3:270m,7,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+13,22836123,gemma3:270m,7,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+14,22836123,gemma3:270m,7,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+15,22836123,gemma3:270m,7,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No"
+16,22836123,gemma3:270m,7,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+17,22836123,gemma3:270m,7,corticosteroid,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+18,22836123,gemma3:270m,7,corticosteroid,src,none,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+19,22836123,gemma3:270m,7,corticosteroid,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+0,8701013,gemma3:270m,8,famotidine,delirium,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+1,8701013,gemma3:270m,8,famotidine,ulcers,none,Yes,"Item 1: Yes
+Item 2: No
+"
+2,439781,gemma3:270m,8,indomethacin,hypotension,cid,Parse_Error,"Item 1: Chemical: indomethacin | Disease: hypotension
+"
+3,439781,gemma3:270m,8,sodium,hypotension,none,Yes,"Item 1: Yes
+Item 2: No
+"
+4,439781,gemma3:270m,8,idm,hypotension,cid,Parse_Error,"Item 1: Chemical: idm | Disease: hypotension
+"
+5,439781,gemma3:270m,8,prostaglandin,hypotension,none,Parse_Error,"Item 1: Chemical: prostaglandin | Disease: hypotension
+"
+6,439781,gemma3:270m,8,angiotensin,hypotension,none,Parse_Error,"Item 1: Chemical: angiotensin | Disease: hypotension
+"
+7,22836123,gemma3:270m,8,tacrolimus,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: scleroderma renal crisis
+"
+8,22836123,gemma3:270m,8,tacrolimus,src,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: src
+"
+9,22836123,gemma3:270m,8,tacrolimus,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: systemic sclerosis
+"
+10,22836123,gemma3:270m,8,tacrolimus,ssc,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: ssc
+"
+11,22836123,gemma3:270m,8,tacrolimus,thrombotic microangiopathy,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: thrombotic microangiopathy
+"
+12,22836123,gemma3:270m,8,prednisolone,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical: prednisolone | Disease: scleroderma renal crisis
+"
+13,22836123,gemma3:270m,8,prednisolone,src,none,Parse_Error,"Item 1: Chemical: prednisolone | Disease: src
+"
+14,22836123,gemma3:270m,8,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+15,22836123,gemma3:270m,8,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No
+"
+16,22836123,gemma3:270m,8,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+17,22836123,gemma3:270m,8,corticosteroid,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: scleroderma renal crisis
+"
+18,22836123,gemma3:270m,8,corticosteroid,src,none,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: src
+"
+19,22836123,gemma3:270m,8,corticosteroid,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: systemic sclerosis
+"
+0,8701013,gemma3:270m,9,famotidine,delirium,cid,Yes,"Item 1: Yes
+Item 2: No"
+1,8701013,gemma3:270m,9,famotidine,ulcers,none,Yes,"Item 1: Yes
+Item 2: No"
+2,439781,gemma3:270m,9,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+Item 2: No"
+3,439781,gemma3:270m,9,sodium,hypotension,none,Yes,"Item 1: Yes
+Item 2: No"
+4,439781,gemma3:270m,9,idm,hypotension,cid,Yes,"Item 1: Yes
+Item 2: No"
+5,439781,gemma3:270m,9,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+Item 2: No"
+6,439781,gemma3:270m,9,angiotensin,hypotension,none,Yes,"Item 1: Yes
+Item 2: No"
+7,22836123,gemma3:270m,9,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+8,22836123,gemma3:270m,9,tacrolimus,src,none,Yes,"Item 1: Yes
+Item 2: No"
+9,22836123,gemma3:270m,9,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No"
+10,22836123,gemma3:270m,9,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+Item 2: No"
+11,22836123,gemma3:270m,9,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+12,22836123,gemma3:270m,9,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+13,22836123,gemma3:270m,9,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+14,22836123,gemma3:270m,9,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No"
+15,22836123,gemma3:270m,9,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No"
+16,22836123,gemma3:270m,9,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+17,22836123,gemma3:270m,9,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+18,22836123,gemma3:270m,9,corticosteroid,src,none,Yes,"Item 1: Yes
+Item 2: No"
+19,22836123,gemma3:270m,9,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No"
+0,8701013,gemma3:270m,10,famotidine,delirium,cid,Parse_Error,"Item 1: Chemical: famotidine | Disease: delirium
+"
+1,8701013,gemma3:270m,10,famotidine,ulcers,none,Parse_Error,"Item 1: Chemical: famotidine | Disease: ulcers
+"
+2,439781,gemma3:270m,10,indomethacin,hypotension,cid,Parse_Error,"Okay, I understand. I will rephrase and expand the question, and respond with a clear and concise answer based on the provided text.
+"
+3,439781,gemma3:270m,10,sodium,hypotension,none,Parse_Error,"Okay, I understand. I will rephrase and expand the question, and respond with a clear and concise answer.
+"
+4,439781,gemma3:270m,10,idm,hypotension,cid,Parse_Error,"Okay, I understand. I will rephrase and expand the question and respond with the requested format.
+"
+5,439781,gemma3:270m,10,prostaglandin,hypotension,none,Parse_Error,"Okay, I understand. I will rephrase and expand the question, and respond with the requested format.
+"
+6,439781,gemma3:270m,10,angiotensin,hypotension,none,Parse_Error,"Item 1: Chemical: angiotensin | Disease: hypotension
+"
+7,22836123,gemma3:270m,10,tacrolimus,scleroderma renal crisis,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then provide the rephrased and expanded version.
+"
+8,22836123,gemma3:270m,10,tacrolimus,src,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: src
+"
+9,22836123,gemma3:270m,10,tacrolimus,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: systemic sclerosis
+"
+10,22836123,gemma3:270m,10,tacrolimus,ssc,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: ssc
+"
+11,22836123,gemma3:270m,10,tacrolimus,thrombotic microangiopathy,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: thrombotic microangiopathy
+"
+12,22836123,gemma3:270m,10,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+13,22836123,gemma3:270m,10,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+14,22836123,gemma3:270m,10,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+15,22836123,gemma3:270m,10,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No
+"
+16,22836123,gemma3:270m,10,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+17,22836123,gemma3:270m,10,corticosteroid,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: scleroderma renal crisis
+"
+18,22836123,gemma3:270m,10,corticosteroid,src,none,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: src
+"
+19,22836123,gemma3:270m,10,corticosteroid,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: systemic sclerosis
+"
+0,8701013,gemma3:270m,11,famotidine,delirium,cid,Parse_Error,"Item 1: Chemical: famotidine | Disease: delirium
+"
+1,8701013,gemma3:270m,11,famotidine,ulcers,none,Parse_Error,"Okay, I understand the task. I will rewrite the text into a logical sequence of events describing how famotidine affects [Entity A] and categorize the relationship based on the provided information. I will also adhere to the specified output rules.
+"
+2,439781,gemma3:270m,11,indomethacin,hypotension,cid,Parse_Error,
+3,439781,gemma3:270m,11,sodium,hypotension,none,Parse_Error,
+4,439781,gemma3:270m,11,idm,hypotension,cid,Parse_Error,"Item 1: Indomethacin induces hypotension in sodium and volume depleted rats.
+"
+5,439781,gemma3:270m,11,prostaglandin,hypotension,none,Parse_Error,
+6,439781,gemma3:270m,11,angiotensin,hypotension,none,Parse_Error,
+7,22836123,gemma3:270m,11,tacrolimus,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: scleroderma renal crisis
+"
+8,22836123,gemma3:270m,11,tacrolimus,src,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: src
+"
+9,22836123,gemma3:270m,11,tacrolimus,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: systemic sclerosis
+"
+10,22836123,gemma3:270m,11,tacrolimus,ssc,cid,Parse_Error,
+11,22836123,gemma3:270m,11,tacrolimus,thrombotic microangiopathy,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: thrombotic microangiopathy
+"
+12,22836123,gemma3:270m,11,prednisolone,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical: prednisolone | Disease: scleroderma renal crisis
+"
+13,22836123,gemma3:270m,11,prednisolone,src,none,Parse_Error,"Item 1: Chemical: prednisolone | Disease: src
+"
+14,22836123,gemma3:270m,11,prednisolone,systemic sclerosis,none,Parse_Error,"Item 1: Chemical: prednisolone | Disease: systemic sclerosis
+"
+15,22836123,gemma3:270m,11,prednisolone,ssc,none,Parse_Error,
+16,22836123,gemma3:270m,11,prednisolone,thrombotic microangiopathy,none,Parse_Error,"Item 1: Chemical: prednisolone | Disease: thrombotic microangiopathy
+"
+17,22836123,gemma3:270m,11,corticosteroid,scleroderma renal crisis,none,Parse_Error,
+18,22836123,gemma3:270m,11,corticosteroid,src,none,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: src
+"
+19,22836123,gemma3:270m,11,corticosteroid,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: systemic sclerosis
+"
+0,8701013,gemma3:270m,12,famotidine,delirium,cid,Parse_Error,"Okay, I understand. I will rephrase and expand the text to be more explicit and unambiguous, and then determine the specific biological relationship based on the provided information.
+"
+1,8701013,gemma3:270m,12,famotidine,ulcers,none,Parse_Error,"Okay, I understand. I will rephrase and expand the text to be more explicit and unambiguous, and then determine the specific biological relationship based on the provided information. I will also adhere to the specified output rules.
+"
+2,439781,gemma3:270m,12,indomethacin,hypotension,cid,Parse_Error,"Okay, I understand. I will rephrase and expand the text to be more explicit and unambiguous, and then determine the specific biological relationship based on the provided information.
+"
+3,439781,gemma3:270m,12,sodium,hypotension,none,Parse_Error,"Okay, I understand. I will rephrase and expand the text to be more explicit and unambiguous, and then determine the specific biological relationship based on the provided information.
+"
+4,439781,gemma3:270m,12,idm,hypotension,cid,Parse_Error,"Okay, I'm ready to rephrase and expand the text to make it more explicit and unambiguous. Please provide the text you want me to rephrase and expand.
+"
+5,439781,gemma3:270m,12,prostaglandin,hypotension,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+6,439781,gemma3:270m,12,angiotensin,hypotension,none,Parse_Error,"Okay, I understand. I will rephrase and expand the text to be more explicit and unambiguous, and then determine the specific biological relationship based on the provided task.
+"
+7,22836123,gemma3:270m,12,tacrolimus,scleroderma renal crisis,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+8,22836123,gemma3:270m,12,tacrolimus,src,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+9,22836123,gemma3:270m,12,tacrolimus,systemic sclerosis,cid,Parse_Error,"Okay, I'm ready to rephrase and expand the text to make it more explicit and unambiguous. Please provide the text you want me to rephrase and expand.
+"
+10,22836123,gemma3:270m,12,tacrolimus,ssc,cid,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output based on the provided rules.
+"
+11,22836123,gemma3:270m,12,tacrolimus,thrombotic microangiopathy,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+12,22836123,gemma3:270m,12,prednisolone,scleroderma renal crisis,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+13,22836123,gemma3:270m,12,prednisolone,src,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+14,22836123,gemma3:270m,12,prednisolone,systemic sclerosis,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output based on the provided rules.
+"
+15,22836123,gemma3:270m,12,prednisolone,ssc,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+16,22836123,gemma3:270m,12,prednisolone,thrombotic microangiopathy,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+17,22836123,gemma3:270m,12,corticosteroid,scleroderma renal crisis,none,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+18,22836123,gemma3:270m,12,corticosteroid,src,none,Parse_Error,"Okay, I understand. I will rephrase and expand the text to be more explicit and unambiguous, and then determine the specific biological relationship based on the provided information. I am ready.
+"
+19,22836123,gemma3:270m,12,corticosteroid,systemic sclerosis,cid,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+0,8701013,gemma3:270m,13,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+1,8701013,gemma3:270m,13,famotidine,ulcers,none,Yes,"Item 1: Yes
+"
+2,439781,gemma3:270m,13,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+"
+3,439781,gemma3:270m,13,sodium,hypotension,none,Yes,"Item 1: Yes
+"
+4,439781,gemma3:270m,13,idm,hypotension,cid,Yes,"Item 1: Yes
+"
+5,439781,gemma3:270m,13,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+"
+6,439781,gemma3:270m,13,angiotensin,hypotension,none,Yes,"Item 1: Yes
+"
+7,22836123,gemma3:270m,13,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+8,22836123,gemma3:270m,13,tacrolimus,src,none,Yes,"Item 1: Yes
+"
+9,22836123,gemma3:270m,13,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No"
+10,22836123,gemma3:270m,13,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+"
+11,22836123,gemma3:270m,13,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+12,22836123,gemma3:270m,13,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+13,22836123,gemma3:270m,13,prednisolone,src,none,Yes,"Item 1: Yes
+"
+14,22836123,gemma3:270m,13,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No"
+15,22836123,gemma3:270m,13,prednisolone,ssc,none,Yes,"Item 1: Yes
+"
+16,22836123,gemma3:270m,13,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+17,22836123,gemma3:270m,13,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+18,22836123,gemma3:270m,13,corticosteroid,src,none,Yes,"Item 1: Yes
+"
+19,22836123,gemma3:270m,13,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+"
+0,8701013,gemma3:270m,14,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+1,8701013,gemma3:270m,14,famotidine,ulcers,none,Yes,"Item 1: Yes
+"
+2,439781,gemma3:270m,14,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+"
+3,439781,gemma3:270m,14,sodium,hypotension,none,Yes,"Item 1: Yes
+"
+4,439781,gemma3:270m,14,idm,hypotension,cid,Yes,"Item 1: Yes
+"
+5,439781,gemma3:270m,14,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+"
+6,439781,gemma3:270m,14,angiotensin,hypotension,none,Yes,"Item 1: Yes
+"
+7,22836123,gemma3:270m,14,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+8,22836123,gemma3:270m,14,tacrolimus,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+9,22836123,gemma3:270m,14,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+10,22836123,gemma3:270m,14,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+Item 2: No"
+11,22836123,gemma3:270m,14,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+12,22836123,gemma3:270m,14,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+13,22836123,gemma3:270m,14,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+14,22836123,gemma3:270m,14,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No"
+15,22836123,gemma3:270m,14,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No"
+16,22836123,gemma3:270m,14,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+17,22836123,gemma3:270m,14,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+18,22836123,gemma3:270m,14,corticosteroid,src,none,Yes,"Item 1: Yes
+"
+19,22836123,gemma3:270m,14,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+0,8701013,gemma3:270m,15,famotidine,delirium,cid,Parse_Error,"Item 1: Chemical: famotidine | Disease: delirium
+"
+1,8701013,gemma3:270m,15,famotidine,ulcers,none,Parse_Error,"Item 1: Chemical: famotidine | Disease: ulcers
+"
+2,439781,gemma3:270m,15,indomethacin,hypotension,cid,Parse_Error,"Item 1: Chemical: indomethacin | Disease: hypotension
+"
+3,439781,gemma3:270m,15,sodium,hypotension,none,Parse_Error,"Item 1: Chemical: sodium | Disease: hypotension
+"
+4,439781,gemma3:270m,15,idm,hypotension,cid,Parse_Error,"Item 1: Chemical: idm | Disease: hypotension
+"
+5,439781,gemma3:270m,15,prostaglandin,hypotension,none,Parse_Error,"Item 1: Chemical: prostaglandin | Disease: hypotension
+"
+6,439781,gemma3:270m,15,angiotensin,hypotension,none,Parse_Error,"Item 1: Chemical: angiotensin | Disease: hypotension
+"
+7,22836123,gemma3:270m,15,tacrolimus,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+8,22836123,gemma3:270m,15,tacrolimus,src,none,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+9,22836123,gemma3:270m,15,tacrolimus,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: systemic sclerosis
+"
+10,22836123,gemma3:270m,15,tacrolimus,ssc,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: ssc
+"
+11,22836123,gemma3:270m,15,tacrolimus,thrombotic microangiopathy,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: thrombotic microangiopathy
+"
+12,22836123,gemma3:270m,15,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+13,22836123,gemma3:270m,15,prednisolone,src,none,Parse_Error,"Item 1: Chemical: prednisolone | Disease: src
+"
+14,22836123,gemma3:270m,15,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+15,22836123,gemma3:270m,15,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No
+"
+16,22836123,gemma3:270m,15,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+17,22836123,gemma3:270m,15,corticosteroid,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical
+Item 2: Disease: scleroderma renal crisis
+"
+18,22836123,gemma3:270m,15,corticosteroid,src,none,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+19,22836123,gemma3:270m,15,corticosteroid,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+0,8701013,gemma3:270m,16,famotidine,delirium,cid,Parse_Error,
+1,8701013,gemma3:270m,16,famotidine,ulcers,none,Parse_Error,"Item 1: Chemical: famotidine | Disease: ulcers
+"
+2,439781,gemma3:270m,16,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+Item 2: No"
+3,439781,gemma3:270m,16,sodium,hypotension,none,Yes,"Item 1: Yes
+"
+4,439781,gemma3:270m,16,idm,hypotension,cid,Parse_Error,"Item 1: Chemical: idm | Disease: hypotension
+"
+5,439781,gemma3:270m,16,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+Item 2: No"
+6,439781,gemma3:270m,16,angiotensin,hypotension,none,Parse_Error,"Item 1: Chemical: angiotensin | Disease: hypotension
+"
+7,22836123,gemma3:270m,16,tacrolimus,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: scleroderma renal crisis
+"
+8,22836123,gemma3:270m,16,tacrolimus,src,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: src
+"
+9,22836123,gemma3:270m,16,tacrolimus,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: systemic sclerosis
+"
+10,22836123,gemma3:270m,16,tacrolimus,ssc,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: ssc
+"
+11,22836123,gemma3:270m,16,tacrolimus,thrombotic microangiopathy,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: thrombotic microangiopathy
+"
+12,22836123,gemma3:270m,16,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+13,22836123,gemma3:270m,16,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No"
+14,22836123,gemma3:270m,16,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No"
+15,22836123,gemma3:270m,16,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No"
+16,22836123,gemma3:270m,16,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+17,22836123,gemma3:270m,16,corticosteroid,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: scleroderma renal crisis
+"
+18,22836123,gemma3:270m,16,corticosteroid,src,none,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: src
+"
+19,22836123,gemma3:270m,16,corticosteroid,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: systemic sclerosis
+"
+0,8701013,gemma3:270m,17,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+1,8701013,gemma3:270m,17,famotidine,ulcers,none,Yes,"Item 1: Yes
+"
+2,439781,gemma3:270m,17,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+"
+3,439781,gemma3:270m,17,sodium,hypotension,none,Parse_Error,"Item 1: Chemical
+"
+4,439781,gemma3:270m,17,idm,hypotension,cid,Yes,"Item 1: Yes
+"
+5,439781,gemma3:270m,17,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+"
+6,439781,gemma3:270m,17,angiotensin,hypotension,none,Parse_Error,"Item 1: Chemical: angiotensin | Disease: hypotension
+"
+7,22836123,gemma3:270m,17,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+"
+8,22836123,gemma3:270m,17,tacrolimus,src,none,Yes,"Item 1: Yes
+"
+9,22836123,gemma3:270m,17,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+"
+10,22836123,gemma3:270m,17,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+Item 2: No"
+11,22836123,gemma3:270m,17,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+12,22836123,gemma3:270m,17,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+"
+13,22836123,gemma3:270m,17,prednisolone,src,none,Yes,"Item 1: Yes
+"
+14,22836123,gemma3:270m,17,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+"
+15,22836123,gemma3:270m,17,prednisolone,ssc,none,Yes,"Item 1: Yes
+"
+16,22836123,gemma3:270m,17,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+17,22836123,gemma3:270m,17,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+18,22836123,gemma3:270m,17,corticosteroid,src,none,Yes,"Item 1: Yes
+"
+19,22836123,gemma3:270m,17,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+"
+0,8701013,gemma3:270m,18,famotidine,delirium,cid,Yes,"Item 1: Yes
+Item 2: No"
+1,8701013,gemma3:270m,18,famotidine,ulcers,none,Yes,"Item 1: Yes
+Item 2: No"
+2,439781,gemma3:270m,18,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+Item 2: No"
+3,439781,gemma3:270m,18,sodium,hypotension,none,Yes,"Item 1: Yes
+Item 2: No"
+4,439781,gemma3:270m,18,idm,hypotension,cid,Yes,"Item 1: Yes
+Item 2: No"
+5,439781,gemma3:270m,18,prostaglandin,hypotension,none,Yes,"Item 1: Yes
+Item 2: No"
+6,439781,gemma3:270m,18,angiotensin,hypotension,none,Yes,"Item 1: Yes
+Item 2: No"
+7,22836123,gemma3:270m,18,tacrolimus,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+8,22836123,gemma3:270m,18,tacrolimus,src,none,Yes,"Item 1: Yes
+Item 2: No"
+9,22836123,gemma3:270m,18,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No"
+10,22836123,gemma3:270m,18,tacrolimus,ssc,cid,Yes,"Item 1: Yes
+Item 2: No"
+11,22836123,gemma3:270m,18,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+12,22836123,gemma3:270m,18,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No"
+13,22836123,gemma3:270m,18,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No"
+14,22836123,gemma3:270m,18,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No"
+15,22836123,gemma3:270m,18,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No"
+16,22836123,gemma3:270m,18,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+17,22836123,gemma3:270m,18,corticosteroid,scleroderma renal crisis,none,Yes,"1. Output: Item 1: Yes
+2. Output: Item 2: No
+"
+18,22836123,gemma3:270m,18,corticosteroid,src,none,Yes,"Item 1: Yes
+Item 2: No"
+19,22836123,gemma3:270m,18,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No"
+0,8701013,gemma3:270m,19,famotidine,delirium,cid,Parse_Error,
+1,8701013,gemma3:270m,19,famotidine,ulcers,none,Yes,"Item 1: Yes
+Item 2: No"
+2,439781,gemma3:270m,19,indomethacin,hypotension,cid,Yes,"Item 1: Yes
+Item 2: No"
+3,439781,gemma3:270m,19,sodium,hypotension,none,Parse_Error,
+4,439781,gemma3:270m,19,idm,hypotension,cid,Parse_Error,
+5,439781,gemma3:270m,19,prostaglandin,hypotension,none,Parse_Error,
+6,439781,gemma3:270m,19,angiotensin,hypotension,none,Yes,"Item 1: Yes
+Item 2: No"
+7,22836123,gemma3:270m,19,tacrolimus,scleroderma renal crisis,none,Parse_Error,
+8,22836123,gemma3:270m,19,tacrolimus,src,none,Parse_Error,
+9,22836123,gemma3:270m,19,tacrolimus,systemic sclerosis,cid,Parse_Error,
+10,22836123,gemma3:270m,19,tacrolimus,ssc,cid,Parse_Error,
+11,22836123,gemma3:270m,19,tacrolimus,thrombotic microangiopathy,none,Parse_Error,
+12,22836123,gemma3:270m,19,prednisolone,scleroderma renal crisis,none,Parse_Error,
+13,22836123,gemma3:270m,19,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No"
+14,22836123,gemma3:270m,19,prednisolone,systemic sclerosis,none,Parse_Error,
+15,22836123,gemma3:270m,19,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No"
+16,22836123,gemma3:270m,19,prednisolone,thrombotic microangiopathy,none,Parse_Error,
+17,22836123,gemma3:270m,19,corticosteroid,scleroderma renal crisis,none,Parse_Error,
+18,22836123,gemma3:270m,19,corticosteroid,src,none,Parse_Error,"Item 1: Chemical
+Item 2: Yes
+"
+19,22836123,gemma3:270m,19,corticosteroid,systemic sclerosis,cid,Parse_Error,
+0,8701013,gemma3:270m,20,famotidine,delirium,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+1,8701013,gemma3:270m,20,famotidine,ulcers,none,Parse_Error,
+2,439781,gemma3:270m,20,indomethacin,hypotension,cid,Parse_Error,
+3,439781,gemma3:270m,20,sodium,hypotension,none,Parse_Error,
+4,439781,gemma3:270m,20,idm,hypotension,cid,Parse_Error,
+5,439781,gemma3:270m,20,prostaglandin,hypotension,none,Parse_Error,
+6,439781,gemma3:270m,20,angiotensin,hypotension,none,Parse_Error,
+7,22836123,gemma3:270m,20,tacrolimus,scleroderma renal crisis,none,Parse_Error,
+8,22836123,gemma3:270m,20,tacrolimus,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+9,22836123,gemma3:270m,20,tacrolimus,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+10,22836123,gemma3:270m,20,tacrolimus,ssc,cid,Parse_Error,
+11,22836123,gemma3:270m,20,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+12,22836123,gemma3:270m,20,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+13,22836123,gemma3:270m,20,prednisolone,src,none,Parse_Error,
+14,22836123,gemma3:270m,20,prednisolone,systemic sclerosis,none,Parse_Error,
+15,22836123,gemma3:270m,20,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No
+"
+16,22836123,gemma3:270m,20,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No"
+17,22836123,gemma3:270m,20,corticosteroid,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+18,22836123,gemma3:270m,20,corticosteroid,src,none,Yes,"Item 1: Yes
+Item 2: No"
+19,22836123,gemma3:270m,20,corticosteroid,systemic sclerosis,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+0,8701013,gemma3:270m,21,famotidine,delirium,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+1,8701013,gemma3:270m,21,famotidine,ulcers,none,Yes,"Item 1: Yes
+Item 2: No"
+2,439781,gemma3:270m,21,indomethacin,hypotension,cid,Parse_Error,"Item 1: Chemical: indomethacin | Disease: hypotension
+"
+3,439781,gemma3:270m,21,sodium,hypotension,none,Parse_Error,
+4,439781,gemma3:270m,21,idm,hypotension,cid,Parse_Error,"Item 1: Chemical: idm | Disease: hypotension
+"
+5,439781,gemma3:270m,21,prostaglandin,hypotension,none,Parse_Error,"Item 1: Chemical: prostaglandin | Disease: hypotension
+"
+6,439781,gemma3:270m,21,angiotensin,hypotension,none,Parse_Error,"Item 1: Chemical: angiotensin | Disease: hypotension
+"
+7,22836123,gemma3:270m,21,tacrolimus,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: scleroderma renal crisis
+"
+8,22836123,gemma3:270m,21,tacrolimus,src,none,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: src
+"
+9,22836123,gemma3:270m,21,tacrolimus,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: systemic sclerosis
+"
+10,22836123,gemma3:270m,21,tacrolimus,ssc,cid,Parse_Error,"Item 1: Chemical: tacrolimus | Disease: ssc
+"
+11,22836123,gemma3:270m,21,tacrolimus,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+12,22836123,gemma3:270m,21,prednisolone,scleroderma renal crisis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+13,22836123,gemma3:270m,21,prednisolone,src,none,Yes,"Item 1: Yes
+Item 2: No
+"
+14,22836123,gemma3:270m,21,prednisolone,systemic sclerosis,none,Yes,"Item 1: Yes
+Item 2: No
+"
+15,22836123,gemma3:270m,21,prednisolone,ssc,none,Yes,"Item 1: Yes
+Item 2: No
+"
+16,22836123,gemma3:270m,21,prednisolone,thrombotic microangiopathy,none,Yes,"Item 1: Yes
+Item 2: No
+"
+17,22836123,gemma3:270m,21,corticosteroid,scleroderma renal crisis,none,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: scleroderma renal crisis
+"
+18,22836123,gemma3:270m,21,corticosteroid,src,none,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: src
+"
+19,22836123,gemma3:270m,21,corticosteroid,systemic sclerosis,cid,Parse_Error,"Item 1: Chemical: corticosteroid | Disease: systemic sclerosis
+"
+0,8701013,llama3.2:1b,1,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,1,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,1,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+3,439781,llama3.2:1b,1,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+4,439781,llama3.2:1b,1,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+5,439781,llama3.2:1b,1,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+6,439781,llama3.2:1b,1,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+7,22836123,llama3.2:1b,1,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,1,tacrolimus,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+9,22836123,llama3.2:1b,1,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+10,22836123,llama3.2:1b,1,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+11,22836123,llama3.2:1b,1,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,1,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,1,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,1,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,1,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,1,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,1,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,1,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,1,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,2,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,2,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,2,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+3,439781,llama3.2:1b,2,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+4,439781,llama3.2:1b,2,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+5,439781,llama3.2:1b,2,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+6,439781,llama3.2:1b,2,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+7,22836123,llama3.2:1b,2,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+8,22836123,llama3.2:1b,2,tacrolimus,src,none,No,"1: No
+2: Yes"
+9,22836123,llama3.2:1b,2,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+10,22836123,llama3.2:1b,2,tacrolimus,ssc,cid,No,"1: No
+2: Yes"
+11,22836123,llama3.2:1b,2,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes"
+12,22836123,llama3.2:1b,2,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+13,22836123,llama3.2:1b,2,prednisolone,src,none,No,"1: No
+2: Yes"
+14,22836123,llama3.2:1b,2,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes"
+15,22836123,llama3.2:1b,2,prednisolone,ssc,none,No,"1: No
+2: Yes"
+16,22836123,llama3.2:1b,2,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes"
+17,22836123,llama3.2:1b,2,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+18,22836123,llama3.2:1b,2,corticosteroid,src,none,No,"1: No
+2: Yes"
+19,22836123,llama3.2:1b,2,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes"
+0,8701013,llama3.2:1b,3,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,3,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,3,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+3,439781,llama3.2:1b,3,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+4,439781,llama3.2:1b,3,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+5,439781,llama3.2:1b,3,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+6,439781,llama3.2:1b,3,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+7,22836123,llama3.2:1b,3,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,3,tacrolimus,src,none,No,"1: No
+2: Yes"
+9,22836123,llama3.2:1b,3,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes"
+10,22836123,llama3.2:1b,3,tacrolimus,ssc,cid,No,"1: No
+2: Yes"
+11,22836123,llama3.2:1b,3,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes"
+12,22836123,llama3.2:1b,3,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+13,22836123,llama3.2:1b,3,prednisolone,src,none,No,"1: No
+2: Yes"
+14,22836123,llama3.2:1b,3,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes"
+15,22836123,llama3.2:1b,3,prednisolone,ssc,none,No,"1: No
+2: Yes"
+16,22836123,llama3.2:1b,3,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes"
+17,22836123,llama3.2:1b,3,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+18,22836123,llama3.2:1b,3,corticosteroid,src,none,No,"1: No
+2: Yes"
+19,22836123,llama3.2:1b,3,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,4,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,4,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,4,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+3,439781,llama3.2:1b,4,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+4,439781,llama3.2:1b,4,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+5,439781,llama3.2:1b,4,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+6,439781,llama3.2:1b,4,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+7,22836123,llama3.2:1b,4,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,4,tacrolimus,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+9,22836123,llama3.2:1b,4,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+10,22836123,llama3.2:1b,4,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+11,22836123,llama3.2:1b,4,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,4,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,4,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,4,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,4,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,4,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,4,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,4,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,4,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,5,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,5,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,5,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+3,439781,llama3.2:1b,5,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+4,439781,llama3.2:1b,5,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+5,439781,llama3.2:1b,5,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+6,439781,llama3.2:1b,5,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+7,22836123,llama3.2:1b,5,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,5,tacrolimus,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+9,22836123,llama3.2:1b,5,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+10,22836123,llama3.2:1b,5,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+11,22836123,llama3.2:1b,5,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,5,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,5,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,5,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,5,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,5,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,5,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,5,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,5,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,6,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,6,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,6,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+3,439781,llama3.2:1b,6,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+4,439781,llama3.2:1b,6,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+5,439781,llama3.2:1b,6,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+6,439781,llama3.2:1b,6,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+7,22836123,llama3.2:1b,6,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,6,tacrolimus,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+9,22836123,llama3.2:1b,6,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+10,22836123,llama3.2:1b,6,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+11,22836123,llama3.2:1b,6,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,6,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,6,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,6,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,6,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,6,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,6,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,6,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,6,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,7,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,7,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,7,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+3,439781,llama3.2:1b,7,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+4,439781,llama3.2:1b,7,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+5,439781,llama3.2:1b,7,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+6,439781,llama3.2:1b,7,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+7,22836123,llama3.2:1b,7,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No"
+8,22836123,llama3.2:1b,7,tacrolimus,src,none,No,"1: No
+2: No"
+9,22836123,llama3.2:1b,7,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+10,22836123,llama3.2:1b,7,tacrolimus,ssc,cid,No,"1: No
+2: Yes"
+11,22836123,llama3.2:1b,7,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: No"
+12,22836123,llama3.2:1b,7,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+13,22836123,llama3.2:1b,7,prednisolone,src,none,No,"1: No
+2: No"
+14,22836123,llama3.2:1b,7,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,7,prednisolone,ssc,none,No,"1: No
+2: Yes"
+16,22836123,llama3.2:1b,7,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: No"
+17,22836123,llama3.2:1b,7,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,7,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,7,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,8,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,8,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,8,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+3,439781,llama3.2:1b,8,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+4,439781,llama3.2:1b,8,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+5,439781,llama3.2:1b,8,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+6,439781,llama3.2:1b,8,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+7,22836123,llama3.2:1b,8,tacrolimus,scleroderma renal crisis,none,Yes,"1: Yes
+2: No"
+8,22836123,llama3.2:1b,8,tacrolimus,src,none,Yes,"1: Yes
+2: No"
+9,22836123,llama3.2:1b,8,tacrolimus,systemic sclerosis,cid,Yes,"1: Yes
+2: No"
+10,22836123,llama3.2:1b,8,tacrolimus,ssc,cid,Yes,"1: Yes
+2: No"
+11,22836123,llama3.2:1b,8,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,8,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,8,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,8,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,8,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,8,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,8,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,8,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,8,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,9,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,9,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,9,indomethacin,hypotension,cid,Yes,"1: Yes
+2: No
+3: Yes
+4: No
+5: Yes
+6: No
+7: Yes
+8: No"
+3,439781,llama3.2:1b,9,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+4,439781,llama3.2:1b,9,idm,hypotension,cid,Yes,"1: Yes
+2: No
+3: Yes
+4: No
+5: Yes
+6: No"
+5,439781,llama3.2:1b,9,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+6,439781,llama3.2:1b,9,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+7,22836123,llama3.2:1b,9,tacrolimus,scleroderma renal crisis,none,Yes,"1: Yes
+2: No"
+8,22836123,llama3.2:1b,9,tacrolimus,src,none,Yes,"1: Yes
+2: No"
+9,22836123,llama3.2:1b,9,tacrolimus,systemic sclerosis,cid,Yes,"1: Yes
+2: No"
+10,22836123,llama3.2:1b,9,tacrolimus,ssc,cid,Yes,"1: Yes
+2: No"
+11,22836123,llama3.2:1b,9,tacrolimus,thrombotic microangiopathy,none,Yes,"1: Yes
+2: No"
+12,22836123,llama3.2:1b,9,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,9,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,9,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,9,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,9,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,9,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,9,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,9,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,10,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,10,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,10,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+3,439781,llama3.2:1b,10,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+4,439781,llama3.2:1b,10,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+5,439781,llama3.2:1b,10,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+6,439781,llama3.2:1b,10,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+7,22836123,llama3.2:1b,10,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,10,tacrolimus,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+9,22836123,llama3.2:1b,10,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+10,22836123,llama3.2:1b,10,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+11,22836123,llama3.2:1b,10,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,10,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,10,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,10,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,10,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,10,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,10,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,10,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,10,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,11,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,11,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,11,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+3,439781,llama3.2:1b,11,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+4,439781,llama3.2:1b,11,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+5,439781,llama3.2:1b,11,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+6,439781,llama3.2:1b,11,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+7,22836123,llama3.2:1b,11,tacrolimus,scleroderma renal crisis,none,Yes,"1: Yes
+2: No"
+8,22836123,llama3.2:1b,11,tacrolimus,src,none,Yes,"1: Yes
+2: No"
+9,22836123,llama3.2:1b,11,tacrolimus,systemic sclerosis,cid,Yes,"1: Yes
+2: No"
+10,22836123,llama3.2:1b,11,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+11,22836123,llama3.2:1b,11,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,11,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,11,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,11,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,11,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,11,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,11,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,11,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,11,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,12,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,12,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,12,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+3,439781,llama3.2:1b,12,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+4,439781,llama3.2:1b,12,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+5,439781,llama3.2:1b,12,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+6,439781,llama3.2:1b,12,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+7,22836123,llama3.2:1b,12,tacrolimus,scleroderma renal crisis,none,Yes,"1: Yes
+2: No"
+8,22836123,llama3.2:1b,12,tacrolimus,src,none,Yes,"1: Yes
+2: No"
+9,22836123,llama3.2:1b,12,tacrolimus,systemic sclerosis,cid,Yes,"1: Yes
+2: No"
+10,22836123,llama3.2:1b,12,tacrolimus,ssc,cid,Yes,"1: Yes
+2: No"
+11,22836123,llama3.2:1b,12,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,12,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,12,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,12,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,12,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,12,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,12,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,12,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,12,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,13,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,13,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,13,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+3,439781,llama3.2:1b,13,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+4,439781,llama3.2:1b,13,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+5,439781,llama3.2:1b,13,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+6,439781,llama3.2:1b,13,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+7,22836123,llama3.2:1b,13,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,13,tacrolimus,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+9,22836123,llama3.2:1b,13,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+10,22836123,llama3.2:1b,13,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+11,22836123,llama3.2:1b,13,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,13,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,13,prednisolone,src,none,No,"1: No
+2: No"
+14,22836123,llama3.2:1b,13,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,13,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,13,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: No"
+17,22836123,llama3.2:1b,13,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,13,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,13,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,14,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,14,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,14,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+3,439781,llama3.2:1b,14,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+4,439781,llama3.2:1b,14,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+5,439781,llama3.2:1b,14,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+6,439781,llama3.2:1b,14,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+7,22836123,llama3.2:1b,14,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,14,tacrolimus,src,none,No,"1: No
+2: Yes"
+9,22836123,llama3.2:1b,14,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+10,22836123,llama3.2:1b,14,tacrolimus,ssc,cid,No,"1: No
+2: Yes"
+11,22836123,llama3.2:1b,14,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,14,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+13,22836123,llama3.2:1b,14,prednisolone,src,none,No,"1: No
+2: Yes"
+14,22836123,llama3.2:1b,14,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes"
+15,22836123,llama3.2:1b,14,prednisolone,ssc,none,No,"1: No
+2: Yes"
+16,22836123,llama3.2:1b,14,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,14,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,14,corticosteroid,src,none,No,"1: No
+2: Yes"
+19,22836123,llama3.2:1b,14,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,15,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,15,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,15,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+3,439781,llama3.2:1b,15,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+4,439781,llama3.2:1b,15,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+5,439781,llama3.2:1b,15,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+6,439781,llama3.2:1b,15,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+7,22836123,llama3.2:1b,15,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,15,tacrolimus,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+9,22836123,llama3.2:1b,15,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+10,22836123,llama3.2:1b,15,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+11,22836123,llama3.2:1b,15,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,15,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,15,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,15,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,15,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,15,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+17,22836123,llama3.2:1b,15,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,15,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,15,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,16,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,16,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,16,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+3,439781,llama3.2:1b,16,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No
+8: Yes"
+4,439781,llama3.2:1b,16,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+5,439781,llama3.2:1b,16,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+6,439781,llama3.2:1b,16,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+7,22836123,llama3.2:1b,16,tacrolimus,scleroderma renal crisis,none,Yes,"1: Yes
+2: No"
+8,22836123,llama3.2:1b,16,tacrolimus,src,none,Yes,"1: Yes
+2: No"
+9,22836123,llama3.2:1b,16,tacrolimus,systemic sclerosis,cid,Yes,"1: Yes
+2: No
+3: Yes
+4: No
+5: Yes
+6: No"
+10,22836123,llama3.2:1b,16,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+11,22836123,llama3.2:1b,16,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,16,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,16,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,16,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,16,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,16,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,16,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,16,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,16,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,17,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,17,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,17,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+3,439781,llama3.2:1b,17,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+4,439781,llama3.2:1b,17,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+5,439781,llama3.2:1b,17,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+6,439781,llama3.2:1b,17,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+7,22836123,llama3.2:1b,17,tacrolimus,scleroderma renal crisis,none,Yes,"1: Yes
+2: No"
+8,22836123,llama3.2:1b,17,tacrolimus,src,none,Yes,"1: Yes
+2: No"
+9,22836123,llama3.2:1b,17,tacrolimus,systemic sclerosis,cid,Yes,"1: Yes
+2: No"
+10,22836123,llama3.2:1b,17,tacrolimus,ssc,cid,Yes,"1: Yes
+2: No"
+11,22836123,llama3.2:1b,17,tacrolimus,thrombotic microangiopathy,none,Yes,"1: Yes
+2: No"
+12,22836123,llama3.2:1b,17,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,17,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,17,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,17,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,17,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,17,corticosteroid,scleroderma renal crisis,none,Yes,"1: Yes
+2: No"
+18,22836123,llama3.2:1b,17,corticosteroid,src,none,Yes,"1: Yes
+2: No"
+19,22836123,llama3.2:1b,17,corticosteroid,systemic sclerosis,cid,Yes,"1: Yes
+2: No"
+0,8701013,llama3.2:1b,18,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,18,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,18,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+3,439781,llama3.2:1b,18,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+4,439781,llama3.2:1b,18,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+5,439781,llama3.2:1b,18,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+6,439781,llama3.2:1b,18,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+7,22836123,llama3.2:1b,18,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,18,tacrolimus,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+9,22836123,llama3.2:1b,18,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+10,22836123,llama3.2:1b,18,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+11,22836123,llama3.2:1b,18,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,18,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+13,22836123,llama3.2:1b,18,prednisolone,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+14,22836123,llama3.2:1b,18,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,18,prednisolone,ssc,none,No,"1: No
+2: Yes"
+16,22836123,llama3.2:1b,18,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+17,22836123,llama3.2:1b,18,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,18,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+19,22836123,llama3.2:1b,18,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,19,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,19,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,19,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+3,439781,llama3.2:1b,19,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+4,439781,llama3.2:1b,19,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+5,439781,llama3.2:1b,19,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+6,439781,llama3.2:1b,19,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+7,22836123,llama3.2:1b,19,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+8,22836123,llama3.2:1b,19,tacrolimus,src,none,No,"1: No
+2: Yes
+3: No"
+9,22836123,llama3.2:1b,19,tacrolimus,systemic sclerosis,cid,Yes,"1: Yes
+2: No
+3: Yes
+4: No
+5: Yes
+6: No"
+10,22836123,llama3.2:1b,19,tacrolimus,ssc,cid,No,"1: No
+2: Yes
+3: No"
+11,22836123,llama3.2:1b,19,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+12,22836123,llama3.2:1b,19,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No"
+13,22836123,llama3.2:1b,19,prednisolone,src,none,No,"1: No
+2: Yes
+3: No"
+14,22836123,llama3.2:1b,19,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No"
+15,22836123,llama3.2:1b,19,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No"
+16,22836123,llama3.2:1b,19,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes
+3: No"
+17,22836123,llama3.2:1b,19,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No"
+18,22836123,llama3.2:1b,19,corticosteroid,src,none,No,"1: No
+2: Yes
+3: No"
+19,22836123,llama3.2:1b,19,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No"
+0,8701013,llama3.2:1b,20,famotidine,delirium,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+1,8701013,llama3.2:1b,20,famotidine,ulcers,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+2,439781,llama3.2:1b,20,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+3,439781,llama3.2:1b,20,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes
+7: No"
+4,439781,llama3.2:1b,20,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+5,439781,llama3.2:1b,20,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+6,439781,llama3.2:1b,20,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+7,22836123,llama3.2:1b,20,tacrolimus,scleroderma renal crisis,none,Yes,"1: Yes
+2: No"
+8,22836123,llama3.2:1b,20,tacrolimus,src,none,Yes,"1: Yes
+2: No"
+9,22836123,llama3.2:1b,20,tacrolimus,systemic sclerosis,cid,Yes,"1: Yes
+2: No"
+10,22836123,llama3.2:1b,20,tacrolimus,ssc,cid,Yes,"1: Yes
+2: No"
+11,22836123,llama3.2:1b,20,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes"
+12,22836123,llama3.2:1b,20,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+13,22836123,llama3.2:1b,20,prednisolone,src,none,No,"1: No
+2: Yes"
+14,22836123,llama3.2:1b,20,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+15,22836123,llama3.2:1b,20,prednisolone,ssc,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+16,22836123,llama3.2:1b,20,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes"
+17,22836123,llama3.2:1b,20,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+18,22836123,llama3.2:1b,20,corticosteroid,src,none,No,"1: No
+2: Yes"
+19,22836123,llama3.2:1b,20,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+0,8701013,llama3.2:1b,21,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,21,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,21,indomethacin,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+3,439781,llama3.2:1b,21,sodium,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+4,439781,llama3.2:1b,21,idm,hypotension,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+5,439781,llama3.2:1b,21,prostaglandin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+6,439781,llama3.2:1b,21,angiotensin,hypotension,none,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No"
+7,22836123,llama3.2:1b,21,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+8,22836123,llama3.2:1b,21,tacrolimus,src,none,No,"1: No
+2: Yes"
+9,22836123,llama3.2:1b,21,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: Yes"
+10,22836123,llama3.2:1b,21,tacrolimus,ssc,cid,No,"1: No
+2: Yes"
+11,22836123,llama3.2:1b,21,tacrolimus,thrombotic microangiopathy,none,No,"1: No
+2: Yes"
+12,22836123,llama3.2:1b,21,prednisolone,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+13,22836123,llama3.2:1b,21,prednisolone,src,none,No,"1: No
+2: Yes"
+14,22836123,llama3.2:1b,21,prednisolone,systemic sclerosis,none,No,"1: No
+2: Yes"
+15,22836123,llama3.2:1b,21,prednisolone,ssc,none,No,"1: No
+2: Yes"
+16,22836123,llama3.2:1b,21,prednisolone,thrombotic microangiopathy,none,No,"1: No
+2: Yes"
+17,22836123,llama3.2:1b,21,corticosteroid,scleroderma renal crisis,none,No,"1: No
+2: Yes"
+18,22836123,llama3.2:1b,21,corticosteroid,src,none,No,"1: No
+2: Yes"
+19,22836123,llama3.2:1b,21,corticosteroid,systemic sclerosis,cid,No,"1: No
+2: Yes"

@@ -1,0 +1,85 @@
+prompts:
+#============EMO================================
+  EMO:
+    1: |
+      This is very important to my career
+    2: |
+      If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+    3: |
+      If you make a mistake, I will lose my job.
+#============Role================================
+  Role:
+    4: |
+      You are an expert Biocurator for a major biomedical knowledge graph
+    5: |
+      Act as a Senior Clinical Pharmacologist
+    6: |
+      You are a Rigorous Scientific Peer Reviewer
+#============S2A=================================
+  S2A:
+    7: |
+      Distill the "objective and non-personal" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+    8: |
+      Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+      Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+    9: |
+      Your task is to identify the interaction between [Entity A] and [Entity B].
+      The text below may contain distracting information .
+      First, extract and list only the specific text spans that provide evidence for the interaction.
+      Second, ignore the rest of the text as noise.
+      Finally, classify the relationship using only the extracted evidence
+#============RAR=================================
+  RAR:
+    10: |
+      Rephrase and expand the question, and respond
+    11: |
+      Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+    12: |
+      Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+  #============RE2=================================
+  RE2:
+    13: |
+      Read the question again
+    14: |
+      Re-read the text a second time to verify if there is direct evidence supporting your hypothesis
+    15: |
+      First, read the sentence to identify all biological entities mentioned.
+      Now, re-read the sentence again, but this time, ignore all other entities and focus strictly on the syntactic path connecting [Entity A] and [Entity B].
+  #============Self_ASK================================
+  Self_ASK:
+    16: |
+      Are follow up questions needed here?  if yes then generate questions answer them and answer the final answer
+    17: |
+      Before classifying the relationship, ask yourself:
+      'Where exactly in the text is the evidence for this relationship?'
+      'Is there any negation word that flips the meaning?'
+      'Is the relationship stated as a fact or just a hypothesis?'
+      If you cannot find a specific sentence to answer 'yes' to the evidence question, classify as 'No Relation'. Otherwise, provide the specific relation type
+    18: |
+      To determine the relationship between [Entity A] and [Entity B], ask yourself the following sub-questions:
+      Does the text explicitly state that [Entity A] acts upon [Entity B]?
+      Is the action direct or indirect?
+      Is the outcome positive (activation/treatment) or negative (inhibition/adverse event)?
+      Answer each sub-question first, then use these answers to determine the final relationship category
+  #============Analogical Prompting================================
+  AP:
+    19: |
+      Instruction: Before analyzing the text, recall and list 3 distinct examples from biomedical literature that describe a 'Treatment' relationship and 3 examples that describe an 'Adverse Effect' relationship.
+    20: |
+      Step 1: Recall a standard, high-quality sentence from a medical journal that establishes a clear 'Drug-Drug Interaction'.
+      Step 2: Map the grammatical roles (Subject, Verb, Object) of the input sentence to your recalled example.
+      Step 3: If the structural mapping aligns, extract the relationship. If the structure indicates speculation , classify as 'No Relation'
+  #============Contrastive================================
+  Contrastive:
+    21: |
+      Contrastive Learning Examples:
+      Incorrect Approach (Superficial): "Chemical X is found in patients with Disease Y, therefore it causes the disease."
+      Critique: This ignores confounding variables and lacks molecular mechanism.
+      Correct Approach (Deep Causal): "Chemical X binds to receptor Z, triggering oxidative stress that leads to cell death in tissue Y, as demonstrated in [Study]."
+      Strength: This identifies a specific biological pathway and cites evidence.
+      Instructions:
+      Please follow the Correct Approach logic. Avoid the Incorrect Approach pitfalls. Analyze the target chemical-disease pair by focusing on direct mechanistic causation rather than mere co-occurrence.
+  Few_shot:
+    
+
+    

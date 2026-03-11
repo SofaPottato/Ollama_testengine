@@ -1,0 +1,169 @@
+﻿Data_ID,PMID,Model,Prompt_ID,E1,E2,True_Label,Pred_Label,Raw_Output
+0,8701013,gemma3:270m,1,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+0,8701013,gemma3:270m,2,famotidine,delirium,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+0,8701013,gemma3:270m,3,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+0,8701013,gemma3:270m,4,famotidine,delirium,cid,Parse_Error,
+0,8701013,gemma3:270m,5,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+0,8701013,gemma3:270m,6,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+0,8701013,gemma3:270m,7,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+0,8701013,gemma3:270m,8,famotidine,delirium,cid,Parse_Error,"Item 1: Chemical: famotidine | Disease: delirium
+"
+0,8701013,gemma3:270m,9,famotidine,delirium,cid,Yes,"Item 1: Yes
+Item 2: No"
+0,8701013,gemma3:270m,10,famotidine,delirium,cid,Parse_Error,"Item 1: Chemical: famotidine | Disease: delirium
+"
+0,8701013,gemma3:270m,11,famotidine,delirium,cid,Parse_Error,"Item 1: Chemical: famotidine | Disease: delirium
+"
+0,8701013,gemma3:270m,12,famotidine,delirium,cid,Parse_Error,"Okay, I'm ready. Please provide the text you want me to rephrase and expand. I will then analyze it and provide the requested output.
+"
+0,8701013,gemma3:270m,13,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+0,8701013,gemma3:270m,14,famotidine,delirium,cid,Yes,"Item 1: Yes
+Item 2: No
+"
+0,8701013,gemma3:270m,15,famotidine,delirium,cid,Parse_Error,"Item 1: Chemical: famotidine | Disease: delirium
+"
+0,8701013,gemma3:270m,16,famotidine,delirium,cid,Parse_Error,"Item 1: Chemical: famotidine | Disease: delirium
+"
+0,8701013,gemma3:270m,17,famotidine,delirium,cid,Yes,"Item 1: Yes
+"
+0,8701013,gemma3:270m,18,famotidine,delirium,cid,Yes,"1. Output: Item 1: Yes
+2. Output: Item 2: No
+"
+0,8701013,gemma3:270m,19,famotidine,delirium,cid,Parse_Error,
+0,8701013,gemma3:270m,20,famotidine,delirium,cid,Parse_Error,
+0,8701013,gemma3:270m,21,famotidine,delirium,cid,Parse_Error,"Item 1: Chemical: famotidine | Disease: delirium
+"
+0,8701013,llama3.2:1b,1,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,2,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,3,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,4,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,5,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,6,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,7,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,8,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,9,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,10,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,11,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,12,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,13,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,14,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,15,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,16,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,17,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,18,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,19,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+0,8701013,llama3.2:1b,20,famotidine,delirium,cid,No,"1: No
+2: Yes
+3: No
+4: Yes
+5: No
+6: Yes"
+0,8701013,llama3.2:1b,21,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"

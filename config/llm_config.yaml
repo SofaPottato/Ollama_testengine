@@ -1,0 +1,81 @@
+# ================= 檔案路徑 =================
+data_path: "data/bcvcdr_raw/BCVCDR_Processed.csv"
+output_dir: "data/llm_output"
+
+# ================= 測試範圍 =================
+# 數字:跑前 n 筆資料測試
+# null 跑全部資料
+test_limit: 2000
+
+# ================= LLM 模型選擇 =================
+# 要測試的模型 (需先在 Ollama pull 下載過)
+selected_models:
+  #- "llama3.1:8b"
+  #- "mistral:7b"
+  #- "deepseek-r1:8b"  
+  - "llama3.2:1b"
+  #- "gemma3:270m"
+  #- "phi3:latest"
+
+  # =================Prompt設定=================
+#   'auto'   -> 使用數學排列組合 (C n 取 k)
+#   'manual' -> 使用下方自定義的組合列表
+
+prompt_mode: "auto" 
+# --- Auto (全部排列) ---
+auto_settings: {
+
+  'methods': ['EMO', 'Role', 'S2A', 'RAR'],
+  'max_size': 2 #單一排列組合的數量上限
+
+  }
+# --- Manual (手動指定Prompt) ---
+manual_keys:
+  - [1]
+
+# ================= 批量輸入配對設定 =================
+pair_settings:
+  enabled: true       
+  pair_number: 10 #一次輸入多少配對(單一文章底下)      
+  save_every_n_batches: 100  #每處理n批就存檔一次
+
+# ================= 執行設定 =================
+execution_settings:
+  parallel: true
+  max_workers: 2 #一次最多幾個模型同時運行
+
+# ================= Ollama 連線設定 =================
+ollama_server:
+  url: "http://localhost:11434/api/chat"
+  timeout: 1800            #超時設定 (秒)
+
+# ================= LLM 參數設定 =================
+llm_hyperparameters:
+  temperature: 0      
+  num_predict: -1     
+  num_ctx: 8192
+  num_gpu: 99
+  #top_k:              
+  #top_p:        
+  repeat_penalty: 1.1   
+
+# ================= User Prompt 改為可修改 =================
+
+task_template: |
+    Title: {title}
+    Abstract: {abstract}
+
+    Task: Determine if the Chemical induces the Disease for the following items based strictly on the text.
+
+    Items to analyze:
+    {items_content}
+
+    IMPORTANT OUTPUT RULES:
+    1. Output ONLY a numbered list.
+    2. Format: "Item X: Yes" or "Item X: No".
+    3. Do NOT provide explanations.
+    4. Do NOT use Markdown formatting.
+  
+    Expected Output Example:
+    Item 1: Yes
+    Item 2: No

@@ -1,0 +1,14 @@
+2026-03-03 14:58:57 [INFO] 📝 Logger initialized. Writing to ./logs\experiment20260303_1458.log
+2026-03-03 14:58:57 [INFO] Random seed set to 42
+2026-03-03 14:58:57 [INFO] ========================================
+2026-03-03 14:58:57 [INFO]       LLM Experiment Framework v2.0     
+2026-03-03 14:58:57 [INFO] ========================================
+2026-03-03 14:58:57 [INFO] 🚀 Pipeline Started
+2026-03-03 14:58:57 [INFO] --- [Step 1] Loading Data from: data/bcvcdr_raw/BCVCDR_Processed.csv ---
+2026-03-03 14:58:57 [WARNING] ⚠️ Test Mode: Using only first 2000 rows.
+2026-03-03 14:58:57 [INFO] ✅ Data loaded. Shape: (2000, 12)
+2026-03-03 14:58:57 [INFO] --- [Step 2] Generating Prompts ---
+2026-03-03 14:58:57 [INFO] --- [Step 3] Running Inference Engine ---
+2026-03-03 16:56:53 [INFO] --- [Step 4] Processing Results ---
+2026-03-03 16:56:53 [INFO] --- [Step 5] Evaluating Performance ---
+2026-03-03 16:56:56 [INFO] Pipeline Completed Successfully! Results at: data\llm_output\eval_results

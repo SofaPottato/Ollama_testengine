@@ -1,0 +1,459 @@
+﻿Data_ID,PMID,Model,Prompt_ID,E1,E2,True_Label,Pred_Label,Raw_Output
+1881,35781,llama3.2:1b,1,fentanyl,cataleptic,cid,No,"Item 1: No
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: No
+Item 8: No
+Item 9: Yes
+Item 10: Yes"
+1882,35781,llama3.2:1b,1,fentanyl,catalepsy,cid,No,"Item 1: No
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: No
+Item 8: No
+Item 9: Yes
+Item 10: Yes"
+1883,35781,llama3.2:1b,1,pentazocine,cataleptic,none,No,"Item 1: No
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: No
+Item 8: No
+Item 9: Yes
+Item 10: Yes"
+1884,35781,llama3.2:1b,1,pentazocine,catalepsy,none,No,"Item 1: No
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: No
+Item 8: No
+Item 9: Yes
+Item 10: Yes"
+1885,35781,llama3.2:1b,1,codine,cataleptic,cid,No,"Item 1: No
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: No
+Item 8: No
+Item 9: Yes
+Item 10: Yes"
+1886,35781,llama3.2:1b,1,codine,catalepsy,cid,No,"Item 1: No
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: No
+Item 8: No
+Item 9: Yes
+Item 10: Yes"
+1887,35781,llama3.2:1b,1,noradrenaline,cataleptic,none,No,"Item 1: No
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: No
+Item 8: No
+Item 9: Yes
+Item 10: Yes"
+1888,35781,llama3.2:1b,1,noradrenaline,catalepsy,none,No,"Item 1: No
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: No
+Item 8: No
+Item 9: Yes
+Item 10: Yes"
+1889,35781,llama3.2:1b,1,na,cataleptic,none,Yes,"Item 1: No
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: No
+Item 8: No
+Item 9: Yes
+Item 10: Yes"
+1890,35781,llama3.2:1b,1,na,catalepsy,none,Yes,"Item 1: No
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: No
+Item 8: No
+Item 9: Yes
+Item 10: Yes"
+1871,35781,llama3.2:1b,1,clonidine,cataleptic,cid,Yes,"Item 1: Yes
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: Yes
+Item 8: Yes
+Item 9: Yes
+Item 10: Yes"
+1872,35781,llama3.2:1b,1,clonidine,catalepsy,cid,No,"Item 1: Yes
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: Yes
+Item 8: Yes
+Item 9: Yes
+Item 10: Yes"
+1873,35781,llama3.2:1b,1,naphazoline,cataleptic,cid,No,"Item 1: Yes
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: Yes
+Item 8: Yes
+Item 9: Yes
+Item 10: Yes"
+1874,35781,llama3.2:1b,1,naphazoline,catalepsy,cid,No,"Item 1: Yes
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: Yes
+Item 8: Yes
+Item 9: Yes
+Item 10: Yes"
+1875,35781,llama3.2:1b,1,xylometazoline,cataleptic,cid,No,"Item 1: Yes
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: Yes
+Item 8: Yes
+Item 9: Yes
+Item 10: Yes"
+1876,35781,llama3.2:1b,1,xylometazoline,catalepsy,cid,No,"Item 1: Yes
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: Yes
+Item 8: Yes
+Item 9: Yes
+Item 10: Yes"
+1877,35781,llama3.2:1b,1,morphine,cataleptic,cid,Yes,"Item 1: Yes
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: Yes
+Item 8: Yes
+Item 9: Yes
+Item 10: Yes"
+1878,35781,llama3.2:1b,1,morphine,catalepsy,cid,Yes,"Item 1: Yes
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: Yes
+Item 8: Yes
+Item 9: Yes
+Item 10: Yes"
+1879,35781,llama3.2:1b,1,codeine,cataleptic,cid,Yes,"Item 1: Yes
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: Yes
+Item 8: Yes
+Item 9: Yes
+Item 10: Yes"
+1880,35781,llama3.2:1b,1,codeine,catalepsy,cid,Yes,"Item 1: Yes
+Item 2: No
+Item 3: No
+Item 4: No
+Item 5: No
+Item 6: No
+Item 7: Yes
+Item 8: Yes
+Item 9: Yes
+Item 10: Yes"
+1891,35781,llama3.2:1b,1,monoamines,cataleptic,none,No,"1: No
+2: No"
+1892,35781,llama3.2:1b,1,monoamines,catalepsy,none,No,"1: No
+2: No"
+1556,44072,llama3.2:1b,1,piperazine,arrhythmia,none,No,"1: No
+2: No
+3: Yes
+4: Yes
+5: No
+6: No
+7: Yes
+8: No
+9: No"
+1557,44072,llama3.2:1b,1,"trans-2-amino-3-hydroxy-1, 2, 3, 4-tetrahydroanaphthalene",arrhythmia,none,No,"1: No
+2: No
+3: Yes
+4: Yes
+5: No
+6: No
+7: Yes
+8: No
+9: No"
+1558,44072,llama3.2:1b,1,"n-(trans-3-hydroxy-1,2,3,4-tetrahydro-2-naphthyl)-n-(3-oxo-3-phenyl-2-methylpropyl)-piperazine hydrochloride",arrhythmia,none,Yes,"1: No
+2: No
+3: Yes
+4: Yes
+5: No
+6: No
+7: Yes
+8: No
+9: No"
+1559,44072,llama3.2:1b,1,p11,arrhythmia,none,Yes,"1: No
+2: No
+3: Yes
+4: Yes
+5: No
+6: No
+7: Yes
+8: No
+9: No"
+1560,44072,llama3.2:1b,1,bacl2,arrhythmia,cid,No,"1: No
+2: No
+3: Yes
+4: Yes
+5: No
+6: No
+7: Yes
+8: No
+9: No"
+1561,44072,llama3.2:1b,1,chloroform,arrhythmia,cid,No,"1: No
+2: No
+3: Yes
+4: Yes
+5: No
+6: No
+7: Yes
+8: No
+9: No"
+1562,44072,llama3.2:1b,1,adrenaline,arrhythmia,cid,Yes,"1: No
+2: No
+3: Yes
+4: Yes
+5: No
+6: No
+7: Yes
+8: No
+9: No"
+1563,44072,llama3.2:1b,1,strophantine g,arrhythmia,cid,No,"1: No
+2: No
+3: Yes
+4: Yes
+5: No
+6: No
+7: Yes
+8: No
+9: No"
+1564,44072,llama3.2:1b,1,aconitine,arrhythmia,cid,No,"1: No
+2: No
+3: Yes
+4: Yes
+5: No
+6: No
+7: Yes
+8: No
+9: No"
+1893,48835,llama3.2:1b,1,propranolol,hypoglycaemia,none,No,"1: No
+2: No
+3: No"
+1894,48835,llama3.2:1b,1,propranolol,hypertension,cid,No,"1: No
+2: No
+3: No"
+1895,48835,llama3.2:1b,1,propranolol,diabetics,none,No,"1: No
+2: No
+3: No"
+1896,89511,llama3.2:1b,1,oestrogen,endometrial disease,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No
+9: No
+10: No"
+1897,89511,llama3.2:1b,1,oestrogen,hyperplasia,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No
+9: No
+10: No"
+1898,89511,llama3.2:1b,1,oestrogen,endometrial carcinoma,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No
+9: No
+10: No"
+1899,89511,llama3.2:1b,1,oestrogen,malignancy,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No
+9: No
+10: No"
+1900,89511,llama3.2:1b,1,oestrogen,endometrial hyperplasia,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No
+9: No
+10: No"
+1901,89511,llama3.2:1b,1,oestrogen,carcinoma,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No
+9: No
+10: No"
+1902,89511,llama3.2:1b,1,progestagen,endometrial disease,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No
+9: No
+10: No"
+1903,89511,llama3.2:1b,1,progestagen,hyperplasia,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No
+9: No
+10: No"
+1904,89511,llama3.2:1b,1,progestagen,endometrial carcinoma,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No
+9: No
+10: No"
+1905,89511,llama3.2:1b,1,progestagen,malignancy,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No
+7: No
+8: No
+9: No
+10: No"
+1906,89511,llama3.2:1b,1,progestagen,endometrial hyperplasia,none,No,"Item 1: No
+Item 2: Yes
+Item 3: Yes
+Item 4: Yes
+Item 5: Yes
+Item 6: Yes
+Item 7: Yes
+Item 8: Yes"
+1907,89511,llama3.2:1b,1,progestagen,carcinoma,none,Yes,"Item 1: No
+Item 2: Yes
+Item 3: Yes
+Item 4: Yes
+Item 5: Yes
+Item 6: Yes
+Item 7: Yes
+Item 8: Yes"
+1908,89511,llama3.2:1b,1,norethisterone,endometrial disease,none,Yes,"Item 1: No
+Item 2: Yes
+Item 3: Yes
+Item 4: Yes
+Item 5: Yes
+Item 6: Yes
+Item 7: Yes
+Item 8: Yes"
+1909,89511,llama3.2:1b,1,norethisterone,hyperplasia,none,Yes,"Item 1: No
+Item 2: Yes
+Item 3: Yes
+Item 4: Yes
+Item 5: Yes
+Item 6: Yes
+Item 7: Yes
+Item 8: Yes"
+1910,89511,llama3.2:1b,1,norethisterone,endometrial carcinoma,none,Yes,"Item 1: No
+Item 2: Yes
+Item 3: Yes
+Item 4: Yes
+Item 5: Yes
+Item 6: Yes
+Item 7: Yes
+Item 8: Yes"
+1911,89511,llama3.2:1b,1,norethisterone,malignancy,none,Yes,"Item 1: No
+Item 2: Yes
+Item 3: Yes
+Item 4: Yes
+Item 5: Yes
+Item 6: Yes
+Item 7: Yes
+Item 8: Yes"
+1912,89511,llama3.2:1b,1,norethisterone,endometrial hyperplasia,none,Yes,"Item 1: No
+Item 2: Yes
+Item 3: Yes
+Item 4: Yes
+Item 5: Yes
+Item 6: Yes
+Item 7: Yes
+Item 8: Yes"
+1913,89511,llama3.2:1b,1,norethisterone,carcinoma,none,Yes,"Item 1: No
+Item 2: Yes
+Item 3: Yes
+Item 4: Yes
+Item 5: Yes
+Item 6: Yes
+Item 7: Yes
+Item 8: Yes"

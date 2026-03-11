@@ -1,0 +1,26 @@
+﻿Data_ID,PMID,E1,E2,True_Numeric,gemma3:270m_1,llama3.2:1b_1
+0,8701013,famotidine,delirium,1,1,0
+1,8701013,famotidine,ulcers,0,1,0
+2,439781,indomethacin,hypotension,1,1,0
+3,439781,sodium,hypotension,0,1,0
+4,439781,idm,hypotension,1,1,0
+5,439781,prostaglandin,hypotension,0,1,0
+6,439781,angiotensin,hypotension,0,1,0
+7,22836123,tacrolimus,scleroderma renal crisis,0,1,0
+8,22836123,tacrolimus,src,0,1,0
+9,22836123,tacrolimus,systemic sclerosis,1,1,0
+10,22836123,tacrolimus,ssc,1,1,0
+11,22836123,tacrolimus,thrombotic microangiopathy,0,1,0
+12,22836123,prednisolone,scleroderma renal crisis,0,1,0
+13,22836123,prednisolone,src,0,1,0
+14,22836123,prednisolone,systemic sclerosis,0,1,0
+15,22836123,prednisolone,ssc,0,1,0
+16,22836123,prednisolone,thrombotic microangiopathy,0,1,0
+17,22836123,corticosteroid,scleroderma renal crisis,0,1,0
+18,22836123,corticosteroid,src,0,1,0
+19,22836123,corticosteroid,systemic sclerosis,1,1,0
+20,22836123,corticosteroid,ssc,1,1,0
+21,22836123,corticosteroid,thrombotic microangiopathy,0,1,0
+22,22836123,cyclosporine,scleroderma renal crisis,0,1,0
+23,22836123,cyclosporine,src,0,1,0
+24,22836123,cyclosporine,systemic sclerosis,0,1,0

@@ -1,0 +1,111 @@
+2026-02-25 14:51:12 [INFO] 📝 Logger initialized. Writing to ./logs\experiment.log
+2026-02-25 14:51:12 [INFO] 🌱 Random seed set to 42
+2026-02-25 14:51:12 [INFO] ========================================
+2026-02-25 14:51:12 [INFO]       LLM Experiment Framework v2.0     
+2026-02-25 14:51:12 [INFO] ========================================
+2026-02-25 14:51:12 [CRITICAL] ❌ Unhandled Exception in Pipeline: 'ExperimentPipeline' object has no attribute 'run'
+Traceback (most recent call last):
+  File "c:\Users\s0810\Desktop\test\main_LLM.py", line 26, in main
+    pipeline.run()
+    ^^^^^^^^^^^^
+AttributeError: 'ExperimentPipeline' object has no attribute 'run'
+2026-02-25 14:52:09 [INFO] 📝 Logger initialized. Writing to ./logs\experiment.log
+2026-02-25 14:52:09 [INFO] 🌱 Random seed set to 42
+2026-02-25 14:52:09 [INFO] ========================================
+2026-02-25 14:52:09 [INFO]       LLM Experiment Framework v2.0     
+2026-02-25 14:52:09 [INFO] ========================================
+2026-02-25 14:52:09 [CRITICAL] ❌ Unhandled Exception in Pipeline: 'NoneType' object has no attribute 'groupby'
+Traceback (most recent call last):
+  File "c:\Users\s0810\Desktop\test\main_LLM.py", line 26, in main
+    pipeline.start()
+  File "c:\Users\s0810\Desktop\test\modules\pipeline.py", line 25, in start
+    raw_csv_path = engine.run(df, prompts)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\s0810\Desktop\test\modules\llm_engine.py", line 62, in run
+    tasks = self._prepare_tasks(data_df, prompt_configs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\s0810\Desktop\test\modules\llm_engine.py", line 100, in _prepare_tasks
+    grouped = df.groupby('PMID')
+              ^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'groupby'
+2026-02-25 14:53:52 [INFO] 📝 Logger initialized. Writing to ./logs\experiment.log
+2026-02-25 14:53:52 [INFO] 🌱 Random seed set to 42
+2026-02-25 14:53:52 [INFO] ========================================
+2026-02-25 14:53:52 [INFO]       LLM Experiment Framework v2.0     
+2026-02-25 14:53:52 [INFO] ========================================
+2026-02-25 14:53:52 [INFO] 🚀 Pipeline Started
+2026-02-25 14:53:52 [INFO] --- [Step 1] Loading Data from: data/bcvcdr_raw/BCVCDR_Processed.csv ---
+2026-02-25 14:53:52 [WARNING] ⚠️ Test Mode: Using only first 25 rows.
+2026-02-25 14:53:52 [INFO] ✅ Data loaded. Shape: (25, 12)
+2026-02-25 14:53:52 [INFO] --- [Step 2] Generating Prompts ---
+2026-02-25 14:53:52 [INFO] --- [Step 3] Running Inference Engine ---
+2026-02-25 14:54:57 [INFO] --- [Step 4] Processing Results ---
+2026-02-25 14:54:57 [INFO] --- [Step 5] Evaluating Performance ---
+2026-02-25 14:54:57 [INFO] 🎉 Pipeline Completed Successfully! Check results at: data\llm_output\eval_results
+2026-02-25 15:00:45 [INFO] 📝 Logger initialized. Writing to ./logs\experiment.log
+2026-02-25 15:00:45 [INFO] 🌱 Random seed set to 42
+2026-02-25 15:00:45 [INFO] ========================================
+2026-02-25 15:00:45 [INFO]       LLM Experiment Framework v2.0     
+2026-02-25 15:00:45 [INFO] ========================================
+2026-02-25 15:00:45 [INFO] 🚀 Pipeline Started
+2026-02-25 15:00:45 [INFO] --- [Step 1] Loading Data from: data/bcvcdr_raw/BCVCDR_Processed.csv ---
+2026-02-25 15:00:45 [WARNING] ⚠️ Test Mode: Using only first 25 rows.
+2026-02-25 15:00:45 [INFO] ✅ Data loaded. Shape: (25, 12)
+2026-02-25 15:00:45 [INFO] --- [Step 2] Generating Prompts ---
+2026-02-25 15:00:45 [INFO] --- [Step 3] Running Inference Engine ---
+2026-02-25 15:01:51 [INFO] --- [Step 4] Processing Results ---
+2026-02-25 15:01:51 [INFO] --- [Step 5] Evaluating Performance ---
+2026-02-25 15:01:51 [INFO] 🎉 Pipeline Completed Successfully! Check results at: data\llm_output\eval_results
+2026-02-25 15:04:43 [INFO] 📝 Logger initialized. Writing to ./logs\experiment.log
+2026-02-25 15:04:43 [INFO] 🌱 Random seed set to 42
+2026-02-25 15:04:43 [INFO] ========================================
+2026-02-25 15:04:43 [INFO]       LLM Experiment Framework v2.0     
+2026-02-25 15:04:43 [INFO] ========================================
+2026-02-25 15:04:43 [INFO] 🚀 Pipeline Started
+2026-02-25 15:04:43 [INFO] --- [Step 1] Loading Data from: data/bcvcdr_raw/BCVCDR_Processed.csv ---
+2026-02-25 15:04:44 [WARNING] ⚠️ Test Mode: Using only first 25 rows.
+2026-02-25 15:04:44 [INFO] ✅ Data loaded. Shape: (25, 12)
+2026-02-25 15:04:44 [INFO] --- [Step 2] Generating Prompts ---
+2026-02-25 15:04:44 [INFO] --- [Step 3] Running Inference Engine ---
+2026-02-25 15:05:49 [INFO] --- [Step 4] Processing Results ---
+2026-02-25 15:05:49 [INFO] --- [Step 5] Evaluating Performance ---
+2026-02-25 15:05:50 [INFO] 🎉 Pipeline Completed Successfully! Check results at: data\llm_output\eval_results
+2026-02-25 15:07:53 [INFO] 📝 Logger initialized. Writing to ./logs\experiment.log
+2026-02-25 15:07:53 [INFO] Random seed set to 42
+2026-02-25 15:07:53 [INFO] ========================================
+2026-02-25 15:07:53 [INFO]       LLM Experiment Framework v2.0     
+2026-02-25 15:07:53 [INFO] ========================================
+2026-02-25 15:07:53 [INFO] 🚀 Pipeline Started
+2026-02-25 15:07:53 [INFO] --- [Step 1] Loading Data from: data/bcvcdr_raw/BCVCDR_Processed.csv ---
+2026-02-25 15:07:53 [WARNING] ⚠️ Test Mode: Using only first 25 rows.
+2026-02-25 15:07:53 [INFO] ✅ Data loaded. Shape: (25, 12)
+2026-02-25 15:07:53 [INFO] --- [Step 2] Generating Prompts ---
+2026-02-25 15:07:53 [INFO] --- [Step 3] Running Inference Engine ---
+2026-02-25 15:08:22 [INFO] 📝 Logger initialized. Writing to ./logs\experiment.log
+2026-02-25 15:08:22 [INFO] Random seed set to 42
+2026-02-25 15:08:22 [INFO] ========================================
+2026-02-25 15:08:22 [INFO]       LLM Experiment Framework v2.0     
+2026-02-25 15:08:22 [INFO] ========================================
+2026-02-25 15:08:22 [INFO] 🚀 Pipeline Started
+2026-02-25 15:08:22 [INFO] --- [Step 1] Loading Data from: data/bcvcdr_raw/BCVCDR_Processed.csv ---
+2026-02-25 15:08:22 [WARNING] ⚠️ Test Mode: Using only first 25 rows.
+2026-02-25 15:08:22 [INFO] ✅ Data loaded. Shape: (25, 12)
+2026-02-25 15:08:22 [INFO] --- [Step 2] Generating Prompts ---
+2026-02-25 15:08:22 [INFO] --- [Step 3] Running Inference Engine ---
+2026-02-25 15:14:55 [INFO] --- [Step 4] Processing Results ---
+2026-02-25 15:14:55 [INFO] --- [Step 5] Evaluating Performance ---
+2026-02-25 15:14:57 [INFO] 🎉 Pipeline Completed Successfully! Check results at: data\llm_output\eval_results
+2026-02-25 16:05:46 [INFO] 📝 Logger initialized. Writing to ./logs\experiment.log
+2026-02-25 16:05:46 [INFO] Random seed set to 42
+2026-02-25 16:05:46 [INFO] ========================================
+2026-02-25 16:05:46 [INFO]       LLM Experiment Framework v2.0     
+2026-02-25 16:05:46 [INFO] ========================================
+2026-02-25 16:05:46 [INFO] 🚀 Pipeline Started
+2026-02-25 16:05:46 [INFO] --- [Step 1] Loading Data from: data/bcvcdr_raw/BCVCDR_Processed.csv ---
+2026-02-25 16:05:46 [WARNING] ⚠️ Test Mode: Using only first 20 rows.
+2026-02-25 16:05:46 [INFO] ✅ Data loaded. Shape: (20, 12)
+2026-02-25 16:05:46 [INFO] --- [Step 2] Generating Prompts ---
+2026-02-25 16:05:46 [INFO] --- [Step 3] Running Inference Engine ---
+2026-02-25 16:24:17 [INFO] --- [Step 4] Processing Results ---
+2026-02-25 16:24:17 [INFO] --- [Step 5] Evaluating Performance ---
+2026-02-25 16:24:23 [INFO] 🎉 Pipeline Completed Successfully! Check results at: data\llm_output\eval_results
