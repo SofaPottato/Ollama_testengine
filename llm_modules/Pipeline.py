@@ -17,6 +17,7 @@ class ExperimentPipeline:
         """
         logging.info("Initializing ExperimentPipeline()")
         self.cfg = config
+        self.data_path = Path(config["data_path"])
         self.output_dir = Path(config['output_dir'])
         self.output_dir.mkdir(parents=True, exist_ok=True)
         logging.info(f"ExperimentPipeline(config_keys={list(config.keys())}, output_dir='{self.output_dir}')")
@@ -24,7 +25,7 @@ class ExperimentPipeline:
     def run(self):  
         """執行實驗流程"""
                
-        logging.info(f"==== [Step 1] Loading Data from: {data_path} ====")
+        logging.info(f"==== [Step 1] Loading Data from: {self.data_path} ====")
         df = self._load_data()
         if df is None:
             logging.critical("❌ Data loading failed. Pipeline aborted.")
