@@ -42,33 +42,7 @@ class LLMConfigManager:
     def get_models(self) -> List[str]:
         """取得模型清單 (回傳 List[str])"""
         return self.config.get('selected_models', [])
-def llm_logger(func):#todo
-    @functools.wraps(func)
-    def wrapper(self, *args, **kwargs):
-        func_name = func.__name__
-        
-        safe_args = []
-        for a in args:
-            if hasattr(a, 'shape'): 
-                safe_args.append(f"DataFrame{a.shape}")
-            elif isinstance(a, dict) and len(a) > 5:
-                safe_args.append(f"LargeConfig(keys={list(a.keys())[:5]}...)")
-            else:
-                safe_args.append(a)
-                
-        logging.info(f"Running {self.__class__.__name__}.{func_name}")
-        if safe_args or kwargs:
-            logging.info(f"Params: {safe_args} {kwargs if kwargs else ''}")
-
-        try:
-            result = func(self, *args, **kwargs)
-            logging.info(f"{func_name}() successfully completed")
-            return result
-        except Exception as e:
-            logging.error(f"❌ Error in {func_name}: {e}", exc_info=True)
-            raise e
-    return wrapper
-
+    
 def load_config(path):
     """
     讀取 YAML 設定檔

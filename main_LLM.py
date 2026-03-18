@@ -23,7 +23,7 @@ def main():
         config_manager = LLMConfigManager(args.config)
         
         # 2. 將 ConfigManager 傳給 Pipeline
-        pipeline = ExperimentPipeline(config_manager)
+        pipeline = ExperimentPipeline(config_manager.config)
         
         # 3. 執行！
         pipeline.run()

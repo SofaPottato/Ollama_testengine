@@ -10,8 +10,7 @@
 paths:
   # --- 輸入路徑 (Inputs) ---
   dataPath: "data/bcvcdr_raw/BCVCDR_Processed.csv"
-  promptsPath: "data/prompt_output/generatedPromptList.csv" # 從 Prompt 模組讀取組合好的清單
-  
+  promptsPath: "data/prompt_output/test_manual_prompts.csv" # 從 Prompt 模組讀取組合好的清單
   # --- 輸出路徑 (Outputs)(可自訂) ---
   mainOutputDir: "data/llm_output/"        
   rawOutputPath: ""         #生的                
@@ -22,8 +21,10 @@ paths:
 
 # ================= 2. LLM 模型與連線設定 =================
 selected_models:
-  - "gemma3:270m"
-  #- "llama3.1:8b"
+  #- "gemma3:270m"
+  - "llama3.2:1b"
+
+test_limit: 20
 
 ollama_server:
   url: "http://localhost:11434/api/chat"
@@ -38,9 +39,8 @@ llm_hyperparameters:
 
 # ================= 3. 執行與批量設定 =================
 execution_settings:
-  test_limit: 2
-  parallel: true
-  max_workers: 2 
+
+ # max_workers: 2 
   model_concurrent_requests: 12
 
 pair_settings:

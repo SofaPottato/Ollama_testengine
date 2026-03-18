@@ -1,4 +1,5 @@
 ﻿Prompt_ID,Prompt_Text
-EMO01,This is very important to my career
+EMO01 + RAR02,"This is very important to my career
+Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship"
 S2A01 + RE201,"Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
 Read the question again"
