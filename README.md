@@ -1,10 +1,13 @@
-# Ollama_testengine
-An engine for ollama 
-#LLM部分斷續
+#標題不之下啥
+#LLM部分斷點接續
 #ML部分路徑自訂boruta
 #與LLM分開(prompt_generate->call LLM API->->main_feature->main_ML
-##TODO:用戶自訂路徑，放所有東西 1.每個PROMPT 輸出一個檔案2.把輸出/結果併成DATA FRAME 路徑可自訂 3.EVAL清單 4.sampledata
-
+##TODO:
+用戶自訂路徑，放所有東西(done) 
+1.每個PROMPT 輸出一個檔案(done)
+2.把輸出/結果併成DATA FRAME(done) 
+3.EVAL清單
+4.sampledata
 ##工作日志3/13:
 
 分離Prompt_generate 部分為main_prompt_generate
