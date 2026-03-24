@@ -84,7 +84,7 @@ class ExperimentPipeline:
         if tasksList:
             logging.info(f"==== [Step 3] Running LLM Inference ({len(tasksList)} tasks remaining) ====")
             engine = InferenceManager(
-                rawOutputPath=self.pathsConfig.rawCsvOutputPath, 
+                rawOutputPath=self.pathsConfig.rawOutputPath, 
                 apiUrl=self.config.apiUrl,
                 timeout=self.config.timeout,
                 llmOptions=self.config.llmOptions,

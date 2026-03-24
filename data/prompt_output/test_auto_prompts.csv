@@ -1,0 +1,271 @@
+﻿promptID,promptText
+EMO01,"This is very important to my career
+"
+EMO02,"If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+"
+EMO03,"If you make a mistake, I will lose my job.
+"
+RAR01,"Rephrase and expand the question, anwd respond
+"
+RAR02,"Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+"
+RAR03,"Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+"
+Role01,"You are an expert Biocurator for a major biomedical knowledge graph
+"
+Role02,"Act as a Senior Clinical Pharmacologist
+"
+Role03,"You are a Rigorous Scientific Peer Reviewer
+"
+S2A01,"Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+"
+S2A02,"Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+"
+S2A03,"First, extract and list only the specific text spans that provide evidence for the interaction.
+Second, ignore the rest of the text as noise.
+Finally, classify the relationship using only the extracted evidence
+"
+EMO01 + RAR01,"This is very important to my career
+
+Rephrase and expand the question, anwd respond
+"
+EMO01 + RAR02,"This is very important to my career
+
+Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+"
+EMO01 + RAR03,"This is very important to my career
+
+Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+"
+EMO01 + Role01,"This is very important to my career
+
+You are an expert Biocurator for a major biomedical knowledge graph
+"
+EMO01 + Role02,"This is very important to my career
+
+Act as a Senior Clinical Pharmacologist
+"
+EMO01 + Role03,"This is very important to my career
+
+You are a Rigorous Scientific Peer Reviewer
+"
+EMO01 + S2A01,"This is very important to my career
+
+Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+"
+EMO01 + S2A02,"This is very important to my career
+
+Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+"
+EMO01 + S2A03,"This is very important to my career
+
+First, extract and list only the specific text spans that provide evidence for the interaction.
+Second, ignore the rest of the text as noise.
+Finally, classify the relationship using only the extracted evidence
+"
+EMO02 + RAR01,"If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+
+Rephrase and expand the question, anwd respond
+"
+EMO02 + RAR02,"If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+
+Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+"
+EMO02 + RAR03,"If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+
+Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+"
+EMO02 + Role01,"If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+
+You are an expert Biocurator for a major biomedical knowledge graph
+"
+EMO02 + Role02,"If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+
+Act as a Senior Clinical Pharmacologist
+"
+EMO02 + Role03,"If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+
+You are a Rigorous Scientific Peer Reviewer
+"
+EMO02 + S2A01,"If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+
+Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+"
+EMO02 + S2A02,"If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+
+Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+"
+EMO02 + S2A03,"If you misclassify a relationship here, it could lead to severe medical errors or endanger lives.
+
+First, extract and list only the specific text spans that provide evidence for the interaction.
+Second, ignore the rest of the text as noise.
+Finally, classify the relationship using only the extracted evidence
+"
+EMO03 + RAR01,"If you make a mistake, I will lose my job.
+
+Rephrase and expand the question, anwd respond
+"
+EMO03 + RAR02,"If you make a mistake, I will lose my job.
+
+Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+"
+EMO03 + RAR03,"If you make a mistake, I will lose my job.
+
+Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+"
+EMO03 + Role01,"If you make a mistake, I will lose my job.
+
+You are an expert Biocurator for a major biomedical knowledge graph
+"
+EMO03 + Role02,"If you make a mistake, I will lose my job.
+
+Act as a Senior Clinical Pharmacologist
+"
+EMO03 + Role03,"If you make a mistake, I will lose my job.
+
+You are a Rigorous Scientific Peer Reviewer
+"
+EMO03 + S2A01,"If you make a mistake, I will lose my job.
+
+Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+"
+EMO03 + S2A02,"If you make a mistake, I will lose my job.
+
+Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+"
+EMO03 + S2A03,"If you make a mistake, I will lose my job.
+
+First, extract and list only the specific text spans that provide evidence for the interaction.
+Second, ignore the rest of the text as noise.
+Finally, classify the relationship using only the extracted evidence
+"
+Role01 + RAR01,"You are an expert Biocurator for a major biomedical knowledge graph
+
+Rephrase and expand the question, anwd respond
+"
+Role01 + RAR02,"You are an expert Biocurator for a major biomedical knowledge graph
+
+Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+"
+Role01 + RAR03,"You are an expert Biocurator for a major biomedical knowledge graph
+
+Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+"
+Role01 + S2A01,"You are an expert Biocurator for a major biomedical knowledge graph
+
+Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+"
+Role01 + S2A02,"You are an expert Biocurator for a major biomedical knowledge graph
+
+Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+"
+Role01 + S2A03,"You are an expert Biocurator for a major biomedical knowledge graph
+
+First, extract and list only the specific text spans that provide evidence for the interaction.
+Second, ignore the rest of the text as noise.
+Finally, classify the relationship using only the extracted evidence
+"
+Role02 + RAR01,"Act as a Senior Clinical Pharmacologist
+
+Rephrase and expand the question, anwd respond
+"
+Role02 + RAR02,"Act as a Senior Clinical Pharmacologist
+
+Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+"
+Role02 + RAR03,"Act as a Senior Clinical Pharmacologist
+
+Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+"
+Role02 + S2A01,"Act as a Senior Clinical Pharmacologist
+
+Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+"
+Role02 + S2A02,"Act as a Senior Clinical Pharmacologist
+
+Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+"
+Role02 + S2A03,"Act as a Senior Clinical Pharmacologist
+
+First, extract and list only the specific text spans that provide evidence for the interaction.
+Second, ignore the rest of the text as noise.
+Finally, classify the relationship using only the extracted evidence
+"
+Role03 + RAR01,"You are a Rigorous Scientific Peer Reviewer
+
+Rephrase and expand the question, anwd respond
+"
+Role03 + RAR02,"You are a Rigorous Scientific Peer Reviewer
+
+Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+"
+Role03 + RAR03,"You are a Rigorous Scientific Peer Reviewer
+
+Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+"
+Role03 + S2A01,"You are a Rigorous Scientific Peer Reviewer
+
+Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+"
+Role03 + S2A02,"You are a Rigorous Scientific Peer Reviewer
+
+Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+"
+Role03 + S2A03,"You are a Rigorous Scientific Peer Reviewer
+
+First, extract and list only the specific text spans that provide evidence for the interaction.
+Second, ignore the rest of the text as noise.
+Finally, classify the relationship using only the extracted evidence
+"
+S2A01 + RAR01,"Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+
+Rephrase and expand the question, anwd respond
+"
+S2A01 + RAR02,"Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+
+Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+"
+S2A01 + RAR03,"Distill the ""objective and non-personal"" information from the text. Filter out any subjective opinions, market popularity, cost considerations, or irrelevant background information. Extract only objective clinical facts, experimental data, and statistical evidence.Then Determined the Task only by the filterd facts
+
+Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+"
+S2A02 + RAR01,"Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+
+Rephrase and expand the question, anwd respond
+"
+S2A02 + RAR02,"Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+
+Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+"
+S2A02 + RAR03,"Step 1: Rewrite the text to include only the sentences or clauses that directly describe the relationship between [Entity A] and [Entity B]. Remove all background context, citations, and information about other unrelated entities.
+Step 2: Based strictly on your rewritten text, determine the specific relationship between them (e.g., Treatment, Adverse Effect, or No Relation)
+
+Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+"
+S2A03 + RAR01,"First, extract and list only the specific text spans that provide evidence for the interaction.
+Second, ignore the rest of the text as noise.
+Finally, classify the relationship using only the extracted evidence
+
+Rephrase and expand the question, anwd respond
+"
+S2A03 + RAR02,"First, extract and list only the specific text spans that provide evidence for the interaction.
+Second, ignore the rest of the text as noise.
+Finally, classify the relationship using only the extracted evidence
+
+Rewrite the provided text into a logical sequence of events describing how [Entity A] affects [Entity B]. Ensure the temporal and causal links are clearly stated in your rewritten version. Finally, use this logical sequence to categorize the relationship
+"
+S2A03 + RAR03,"First, extract and list only the specific text spans that provide evidence for the interaction.
+Second, ignore the rest of the text as noise.
+Finally, classify the relationship using only the extracted evidence
+
+Rephrase and expand the following text to make the relationship between [Entity A] and [Entity B] more explicit and unambiguous. Then, based on your rephrased version, determine the specific biological relationship
+"

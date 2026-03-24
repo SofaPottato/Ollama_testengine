@@ -10,6 +10,7 @@ from typing import Dict, List, Any, Union
 from pathlib import Path  
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from tqdm.asyncio import tqdm
+from tqdm.contrib.logging import logging_redirect_tqdm
 
 class AsyncOllamaClient:
     """
@@ -112,9 +113,6 @@ class MultiModelAsyncEngine:
                 "batchData": batchDataStr 
             }
 
-
-            fileExists = os.path.isfile(self.outputFile)
-
             async with self.fileLock:
                 fileExists = os.path.isfile(self.outputFile)
                 with open(self.outputFile, 'a', encoding='utf-8-sig', newline='') as f:
@@ -136,11 +134,19 @@ class MultiModelAsyncEngine:
         logging.info(f"⚙️ 偵測到 {len(uniqueModels)} 種模型: {', '.join(uniqueModels)}")
         logging.info(f"⚙️ 每個模型最大併發限制: {self.concurrencyPerModel}")
 
-
         coroutines = [self.processSingleTask(task) for task in tasks]
         
-        results = await tqdm.gather(*coroutines, desc="總推論進度", unit="batch")
+
+        with logging_redirect_tqdm():
+            results = await tqdm.gather(
+                *coroutines, 
+                desc="總推論進度", 
+                unit="batch",
+                mininterval=2.0,      
+                dynamic_ncols=True,   
+                ascii=True            
+            )
         
         await self.client.close()
-        logging.info(f"✅ 所有任務執行完畢！原始 JSONL 備份已儲存至 {self.outputFile}")
+        logging.info(f"✅ 所有任務執行完畢！原始 CSV 備份已儲存至 {self.outputFile}")
         return results

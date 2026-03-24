@@ -1,0 +1,609 @@
+2026-03-24 15:14:15,490:INFO:📝 Logger initialized. Writing to ./logs\test_v5_log.log
+2026-03-24 15:14:15,490:INFO:Random seed set to 42
+2026-03-24 15:14:15,490:INFO:========================================
+2026-03-24 15:14:15,490:INFO:        Ollama            
+2026-03-24 15:14:15,490:INFO:========================================
+2026-03-24 15:14:15,490:INFO:Initializing ExperimentPipeline()
+2026-03-24 15:14:15,490:INFO:ExperimentPipeline initialized.
+2026-03-24 15:14:15,490:INFO:==== [Step 1] Loading Data & Prompts ====
+2026-03-24 15:14:15,750:WARNING:⚠️test: Using only first 10 pairs.
+2026-03-24 15:14:15,755:INFO:==== [Step 2] Building Tasks ====
+2026-03-24 15:14:15,755:INFO:TaskBuilder Initialized.
+2026-03-24 15:14:15,755:INFO:==== [TaskBuilder] Preparing Batched Tasks ====
+2026-03-24 15:14:15,755:INFO:✅ 成功建構 198 筆需要執行的新任務批次！
+2026-03-24 15:14:15,755:INFO:==== [Step 3] Running LLM Inference (198 tasks remaining) ====
+2026-03-24 15:14:15,755:CRITICAL:❌ 發生未預期的錯誤: 'pathsConfig' object has no attribute 'rawCsvOutputPath'
+Traceback (most recent call last):
+  File "c:\Users\s0810\Desktop\Main_LLM\call_LLM.py", line 26, in executeLLMInferencePipeline
+    pipeline.run()
+  File "c:\Users\s0810\Desktop\Main_LLM\llm_modules\Pipeline.py", line 87, in run
+    rawOutputPath=self.pathsConfig.rawCsvOutputPath,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\s0810\.conda\envs\ml_env\Lib\site-packages\pydantic\main.py", line 1026, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'pathsConfig' object has no attribute 'rawCsvOutputPath'
+2026-03-24 15:16:26,307:INFO:📝 Logger initialized. Writing to ./logs\test_v5_log.log
+2026-03-24 15:16:26,307:INFO:Random seed set to 42
+2026-03-24 15:16:26,307:INFO:========================================
+2026-03-24 15:16:26,307:INFO:        Ollama            
+2026-03-24 15:16:26,307:INFO:========================================
+2026-03-24 15:16:26,307:INFO:Initializing ExperimentPipeline()
+2026-03-24 15:16:26,307:INFO:ExperimentPipeline initialized.
+2026-03-24 15:16:26,307:INFO:==== [Step 1] Loading Data & Prompts ====
+2026-03-24 15:16:26,573:WARNING:⚠️test: Using only first 10 pairs.
+2026-03-24 15:16:26,573:INFO:==== [Step 2] Building Tasks ====
+2026-03-24 15:16:26,573:INFO:TaskBuilder Initialized.
+2026-03-24 15:16:26,573:INFO:==== [TaskBuilder] Preparing Batched Tasks ====
+2026-03-24 15:16:26,582:INFO:✅ 成功建構 198 筆需要執行的新任務批次！
+2026-03-24 15:16:26,582:INFO:==== [Step 3] Running LLM Inference (198 tasks remaining) ====
+2026-03-24 15:16:26,582:INFO:Initializing Pure InferenceManager()...
+2026-03-24 15:16:26,670:INFO:==== [LLMEngine] Starting Async Inference ====
+2026-03-24 15:16:26,670:INFO:📄 建立全新暫存檔: data\test_V5\raw.csv
+2026-03-24 15:16:26,670:INFO:🚀 交接給非同步引擎執行 (總任務批次數: 198)...
+2026-03-24 15:16:26,687:INFO:🚀 開始非同步推論！共 198 筆任務批次。
+2026-03-24 15:16:26,687:INFO:⚙️ 偵測到 1 種模型: llama3.2:1b
+2026-03-24 15:16:26,687:INFO:⚙️ 每個模型最大併發限制: 8
+2026-03-24 15:16:26,691:INFO:
+📢 [Debug] Model 'llama3.2:1b' 已啟動專屬排程，最大併發限制: 8
+2026-03-24 15:16:29,402:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:29,577:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:29,676:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:29,748:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:29,898:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:30,076:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:30,226:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:30,402:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:30,501:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:30,599:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:30,698:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:30,799:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:30,949:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:31,102:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:31,256:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:31,410:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:31,562:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:31,738:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:31,917:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:32,095:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:32,273:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:32,502:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:32,601:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:32,699:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:32,800:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:32,900:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:32,999:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:33,147:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:33,304:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:33,456:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:33,609:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:33,759:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:33,933:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:34,109:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:34,288:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:34,466:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:34,642:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:34,740:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:34,838:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:34,939:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:35,039:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:35,139:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:35,287:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:35,437:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:35,590:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:35,741:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:35,894:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:36,068:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:36,243:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:36,421:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:36,600:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:36,778:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:36,875:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:36,974:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:37,075:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:37,175:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:37,274:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:37,425:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:37,575:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:37,728:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:37,879:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:38,032:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:38,213:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:38,390:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:38,569:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:38,746:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:38,925:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:39,024:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:39,123:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:39,223:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:39,324:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:39,424:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:39,576:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:39,727:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:39,885:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:40,039:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:40,193:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:40,371:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:40,547:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:40,727:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:40,905:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:41,084:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:41,183:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:41,282:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:41,389:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:41,490:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:41,592:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:41,746:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:41,897:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:42,056:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:42,208:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:42,361:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:42,538:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:42,714:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:42,892:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:42,965:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:43,145:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:43,244:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:43,345:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:43,451:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:43,604:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:43,701:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:43,804:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:43,907:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:44,060:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:44,214:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:44,366:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:44,542:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:44,693:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:44,843:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:45,019:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:45,198:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:45,271:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:45,449:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:45,638:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:45,749:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:45,858:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:45,961:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:46,062:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:46,166:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:46,321:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:46,477:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:46,631:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:46,784:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:46,937:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:47,115:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:47,293:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:47,473:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:47,651:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:47,837:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:47,940:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:48,042:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:48,144:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:48,245:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:48,348:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:48,507:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:48,660:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:48,815:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:48,966:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:49,122:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:49,303:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:49,482:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:49,559:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:49,662:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:49,846:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:50,029:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:50,133:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:50,233:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:50,338:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:50,515:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:50,612:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:50,714:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:50,865:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:51,017:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:51,168:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:51,319:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:51,471:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:51,650:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:51,827:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:52,003:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:52,181:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:52,280:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:52,381:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:52,533:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:52,635:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:52,735:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:52,886:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:53,036:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:53,192:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:53,346:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:53,500:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:53,673:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:53,850:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:54,024:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:54,201:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:54,378:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:54,477:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:54,578:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:54,676:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:54,777:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:54,879:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:55,032:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:55,185:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:55,339:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:55,489:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:55,642:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:55,796:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:55,971:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:56,148:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:56,324:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:56,396:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:56,576:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:56,675:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:56,777:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:56,875:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:56,977:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:57,080:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:57,232:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:16:57,235:INFO:✅ 所有任務執行完畢！原始 JSONL 備份已儲存至 data\test_V5\raw.csv
+2026-03-24 15:16:57,236:INFO:✅ 推論完成！原始回應 (Raw Output) 已儲存至: data\test_V5\raw.csv
+2026-03-24 15:16:57,237:INFO:==== [Step 4] Parsing LLM Outputs ====
+2026-03-24 15:16:57,237:INFO:RegexOutputParser Initialized.
+2026-03-24 15:16:57,237:INFO:==== [OutputParser] Parsing LLM Outputs & Building CSV ====
+2026-03-24 15:16:57,237:ERROR:❌ 找不到暫存結果檔案: data\test_V3\temp\temp_v1.csv
+2026-03-24 15:16:57,237:CRITICAL:❌ 發生未預期的錯誤: 解析失敗：沒有產生解析後的 CSV 檔案。
+Traceback (most recent call last):
+  File "c:\Users\s0810\Desktop\Main_LLM\call_LLM.py", line 26, in executeLLMInferencePipeline
+    pipeline.run()
+  File "c:\Users\s0810\Desktop\Main_LLM\llm_modules\Pipeline.py", line 109, in run
+    raise ParsingError("解析失敗：沒有產生解析後的 CSV 檔案。")
+llm_modules.schemas.ParsingError: 解析失敗：沒有產生解析後的 CSV 檔案。
+2026-03-24 15:17:57,356:INFO:📝 Logger initialized. Writing to ./logs\test_v5_log.log
+2026-03-24 15:17:57,356:INFO:Random seed set to 42
+2026-03-24 15:17:57,356:INFO:========================================
+2026-03-24 15:17:57,356:INFO:        Ollama            
+2026-03-24 15:17:57,356:INFO:========================================
+2026-03-24 15:17:57,358:INFO:Initializing ExperimentPipeline()
+2026-03-24 15:17:57,358:INFO:ExperimentPipeline initialized.
+2026-03-24 15:17:57,358:INFO:==== [Step 1] Loading Data & Prompts ====
+2026-03-24 15:17:57,628:WARNING:⚠️test: Using only first 10 pairs.
+2026-03-24 15:17:57,634:INFO:==== [Step 2] Building Tasks ====
+2026-03-24 15:17:57,644:INFO:♻️ 發現斷點紀錄！已載入 198 筆完成的任務。
+2026-03-24 15:17:57,645:INFO:TaskBuilder Initialized.
+2026-03-24 15:17:57,645:INFO:==== [TaskBuilder] Preparing Batched Tasks ====
+2026-03-24 15:17:57,647:INFO:⏭️ 智慧過濾：已跳過 198 筆先前已完成的任務。
+2026-03-24 15:17:57,648:INFO:✅ 成功建構 0 筆需要執行的新任務批次！
+2026-03-24 15:17:57,648:INFO:==== [Step 3] All tasks already completed! Skipping Inference. ====
+2026-03-24 15:17:57,648:INFO:==== [Step 4] Parsing LLM Outputs ====
+2026-03-24 15:17:57,648:INFO:RegexOutputParser Initialized.
+2026-03-24 15:17:57,648:INFO:==== [OutputParser] Parsing LLM Outputs & Building CSV ====
+2026-03-24 15:17:57,717:INFO:✅ 額外儲存完成！單獨 Prompt 結果已放入: data\test_V5\single\output
+2026-03-24 15:17:57,717:INFO:✅ 解析完成！格式化資料已儲存至: data\test_V5\raw.csv
+2026-03-24 15:17:57,717:INFO:==== [Step 5] Processing Results ====
+2026-03-24 15:17:57,717:INFO:LLMResultProcessor(inputCsvPath='data\test_V5\raw.csv', outputCsvPath='data\test_V5\result.csv')
+2026-03-24 15:17:57,717:INFO:process(self=<llm_modules.LLMResultProcessor.LLMResultProcessor object at 0x262b9c29690>)
+2026-03-24 15:17:57,717:INFO:Processing data: data\test_V5\raw.csv
+2026-03-24 15:17:57,717:INFO:Loading Raw CSV Data...
+2026-03-24 15:17:57,718:INFO:Data loaded successfully. Shape: (660, 9)
+2026-03-24 15:17:57,718:INFO:Processing True Labels
+2026-03-24 15:17:57,718:INFO:Creating Feature Names
+2026-03-24 15:17:57,718:INFO:Pivoting table (Long to Wide)
+2026-03-24 15:17:57,727:INFO:Pivot completed. New Shape: (10, 71)
+2026-03-24 15:17:57,728:INFO:Generating rich merged table for human review...
+2026-03-24 15:17:57,731:INFO:   -資訊總成已儲存至: data\test_V5\test_merge.csv
+2026-03-24 15:17:57,732:INFO:✅ Data processed successfully!
+2026-03-24 15:17:57,732:INFO:   - Clean Shape: (10, 71)
+2026-03-24 15:17:57,732:INFO:   - Parse Success Rate: 660/660 (100.0%)
+2026-03-24 15:17:57,732:INFO:   - Clean Pipeline Data Saved to: data\test_V5\result.csv
+2026-03-24 15:17:57,733:INFO:==== [Step 6] Evaluating ====
+2026-03-24 15:17:57,735:INFO:LLMEvaluationSystem(inputCsvPath='data\test_V5\result.csv', df_shape=(10, 71), pred_cols_count=66)
+2026-03-24 15:17:57,735:INFO:🚀 System Initialized. Output directory: data\test_V5
+2026-03-24 15:17:58,009:INFO:Difficulty Analysis Complete. Upper Bound: 80.00% (Found 2 hard samples)
+2026-03-24 15:17:58,009:INFO:============Generating Confusion Matrices============
+2026-03-24 15:18:05,795:INFO:============Generating Correctness Heatmap============
+2026-03-24 15:18:06,332:INFO:✅ All results saved to: data\test_V5
+2026-03-24 15:18:06,332:INFO:實驗全部執行完畢！(Pipeline Completed Successfully!)
+2026-03-24 15:20:57,735:INFO:📝 Logger initialized. Writing to ./logs\test_v5_log.log
+2026-03-24 15:20:57,736:INFO:Random seed set to 42
+2026-03-24 15:20:57,736:INFO:========================================
+2026-03-24 15:20:57,736:INFO:        Ollama            
+2026-03-24 15:20:57,736:INFO:========================================
+2026-03-24 15:20:57,739:INFO:Initializing ExperimentPipeline()
+2026-03-24 15:20:57,740:INFO:ExperimentPipeline initialized.
+2026-03-24 15:20:57,740:INFO:==== [Step 1] Loading Data & Prompts ====
+2026-03-24 15:20:58,016:WARNING:⚠️test: Using only first 10 pairs.
+2026-03-24 15:20:58,018:INFO:==== [Step 2] Building Tasks ====
+2026-03-24 15:20:58,018:INFO:TaskBuilder Initialized.
+2026-03-24 15:20:58,018:INFO:==== [TaskBuilder] Preparing Batched Tasks ====
+2026-03-24 15:20:58,021:INFO:✅ 成功建構 198 筆需要執行的新任務批次！
+2026-03-24 15:20:58,021:INFO:==== [Step 3] Running LLM Inference (198 tasks remaining) ====
+2026-03-24 15:20:58,021:INFO:Initializing Pure InferenceManager()...
+2026-03-24 15:20:58,084:INFO:==== [LLMEngine] Starting Async Inference ====
+2026-03-24 15:20:58,085:INFO:📄 建立全新暫存檔: data\test_V5\raw.csv
+2026-03-24 15:20:58,085:INFO:🚀 交接給非同步引擎執行 (總任務批次數: 198)...
+2026-03-24 15:20:58,093:INFO:🚀 開始非同步推論！共 198 筆任務批次。
+2026-03-24 15:20:58,093:INFO:⚙️ 偵測到 1 種模型: llama3.2:1b
+2026-03-24 15:20:58,093:INFO:⚙️ 每個模型最大併發限制: 8
+2026-03-24 15:20:58,095:INFO:
+📢 [Debug] Model 'llama3.2:1b' 已啟動專屬排程，最大併發限制: 8
+2026-03-24 15:20:59,233:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:20:59,408:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:20:59,585:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:20:59,765:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:20:59,939:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:00,036:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:00,109:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:00,261:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:00,359:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:00,462:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:00,560:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:00,661:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:00,812:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:00,962:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:01,114:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:01,268:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:01,421:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:01,596:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:01,772:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:01,844:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:02,022:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:02,203:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:02,303:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:02,402:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:02,500:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:02,599:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:02,700:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:02,850:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:03,003:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:03,155:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:03,308:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:03,461:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:03,638:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:03,815:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:03,992:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:04,169:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:04,398:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:04,496:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:04,594:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:04,695:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:04,847:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:04,947:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:05,046:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:05,195:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:05,348:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:05,505:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:05,660:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:05,811:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:05,985:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:06,161:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:06,339:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:06,516:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:06,692:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:06,847:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:06,944:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:07,044:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:07,145:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:07,246:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:07,345:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:07,494:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:07,644:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:07,796:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:07,949:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:08,101:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:08,276:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:08,451:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:08,629:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:08,807:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:08,985:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:09,081:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:09,179:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:09,281:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:09,381:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:09,479:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:09,630:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:09,781:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:09,934:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:10,085:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:10,237:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:10,411:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:10,586:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:10,763:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:10,939:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:11,115:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:11,211:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:11,309:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:11,410:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:11,508:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:11,608:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:11,760:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:11,913:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:12,071:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:12,223:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:12,379:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:12,559:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:12,735:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:12,915:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:13,092:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:13,269:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:13,369:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:13,469:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:13,576:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:13,678:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:13,780:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:13,933:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:14,085:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:14,244:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:14,397:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:14,550:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:14,727:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:14,904:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:15,082:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:15,156:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:15,333:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:15,434:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:15,535:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:15,641:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:15,738:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:15,887:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:15,987:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:16,089:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:16,239:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:16,392:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:16,544:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:16,720:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:16,870:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:17,022:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:17,200:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:17,380:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:17,453:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:17,629:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:17,808:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:17,907:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:18,007:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:18,106:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:18,205:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:18,306:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:18,455:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:18,608:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:18,761:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:18,910:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:19,060:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:19,235:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:19,411:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:19,589:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:19,763:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:19,938:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:20,036:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:20,135:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:20,236:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:20,335:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:20,433:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:20,586:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:20,736:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:20,890:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:21,041:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:21,193:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:21,369:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:21,544:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:21,619:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:21,718:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:21,892:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:22,070:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:22,168:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:22,267:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:22,367:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:22,543:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:22,639:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:22,738:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:22,890:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:23,042:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:23,193:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:23,350:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:23,503:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:23,682:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:23,860:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:24,037:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:24,214:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:24,313:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:24,414:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:24,566:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:24,667:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:24,766:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:24,916:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:25,069:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:25,223:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:25,374:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:25,551:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:25,728:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:25,902:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:26,080:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:26,256:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:26,354:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:26,454:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:26,557:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:26,656:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:26,758:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:26,913:INFO:HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-03-24 15:21:26,918:INFO:✅ 所有任務執行完畢！原始 CSV 備份已儲存至 data\test_V5\raw.csv
+2026-03-24 15:21:26,919:INFO:✅ 推論完成！原始回應 (Raw Output) 已儲存至: data\test_V5\raw.csv
+2026-03-24 15:21:26,919:INFO:==== [Step 4] Parsing LLM Outputs ====
+2026-03-24 15:21:26,921:INFO:RegexOutputParser Initialized.
+2026-03-24 15:21:26,921:INFO:==== [OutputParser] Parsing LLM Outputs & Building CSV ====
+2026-03-24 15:21:27,049:INFO:✅ 額外儲存完成！單獨 Prompt 結果已放入: data\test_V5\singleOutput
+2026-03-24 15:21:27,049:INFO:✅ 解析完成！格式化資料已儲存至: data\test_V5\raw.csv
+2026-03-24 15:21:27,049:INFO:==== [Step 5] Processing Results ====
+2026-03-24 15:21:27,050:INFO:LLMResultProcessor(inputCsvPath='data\test_V5\raw.csv', outputCsvPath='data\test_V5\result.csv')
+2026-03-24 15:21:27,050:INFO:process(self=<llm_modules.LLMResultProcessor.LLMResultProcessor object at 0x1c40479d390>)
+2026-03-24 15:21:27,050:INFO:Processing data: data\test_V5\raw.csv
+2026-03-24 15:21:27,050:INFO:Loading Raw CSV Data...
+2026-03-24 15:21:27,054:INFO:Data loaded successfully. Shape: (660, 9)
+2026-03-24 15:21:27,055:INFO:Processing True Labels
+2026-03-24 15:21:27,056:INFO:Creating Feature Names
+2026-03-24 15:21:27,056:INFO:Pivoting table (Long to Wide)
+2026-03-24 15:21:27,067:INFO:Pivot completed. New Shape: (10, 71)
+2026-03-24 15:21:27,070:INFO:Generating rich merged table for human review...
+2026-03-24 15:21:27,076:INFO:   -資訊總成已儲存至: data\test_V5\test_merge.csv
+2026-03-24 15:21:27,077:INFO:✅ Data processed successfully!
+2026-03-24 15:21:27,077:INFO:   - Clean Shape: (10, 71)
+2026-03-24 15:21:27,077:INFO:   - Parse Success Rate: 660/660 (100.0%)
+2026-03-24 15:21:27,077:INFO:   - Clean Pipeline Data Saved to: data\test_V5\result.csv
+2026-03-24 15:21:27,077:INFO:==== [Step 6] Evaluating ====
+2026-03-24 15:21:27,080:INFO:LLMEvaluationSystem(inputCsvPath='data\test_V5\result.csv', df_shape=(10, 71), pred_cols_count=66)
+2026-03-24 15:21:27,080:INFO:🚀 System Initialized. Output directory: data\test_V5
+2026-03-24 15:21:27,765:INFO:Difficulty Analysis Complete. Upper Bound: 80.00% (Found 2 hard samples)
+2026-03-24 15:21:27,765:INFO:============Generating Confusion Matrices============
+2026-03-24 15:21:35,847:INFO:============Generating Correctness Heatmap============
+2026-03-24 15:21:36,550:INFO:✅ All results saved to: data\test_V5
+2026-03-24 15:21:36,550:INFO:實驗全部執行完畢！(Pipeline Completed Successfully!)
+2026-03-24 15:22:36,292:INFO:📝 Logger initialized. Writing to ./logs\test_v5_log.log
+2026-03-24 15:22:36,292:INFO:Random seed set to 42
+2026-03-24 15:22:36,292:INFO:========================================
+2026-03-24 15:22:36,292:INFO:        Ollama            
+2026-03-24 15:22:36,293:INFO:========================================
+2026-03-24 15:22:36,295:INFO:Initializing ExperimentPipeline()
+2026-03-24 15:22:36,296:INFO:ExperimentPipeline initialized.
+2026-03-24 15:22:36,296:INFO:==== [Step 1] Loading Data & Prompts ====
+2026-03-24 15:22:36,553:WARNING:⚠️test: Using only first 10 pairs.
+2026-03-24 15:22:36,556:INFO:==== [Step 2] Building Tasks ====
+2026-03-24 15:22:36,556:INFO:TaskBuilder Initialized.
+2026-03-24 15:22:36,556:INFO:==== [TaskBuilder] Preparing Batched Tasks ====
+2026-03-24 15:22:36,559:INFO:✅ 成功建構 198 筆需要執行的新任務批次！
+2026-03-24 15:22:36,559:INFO:==== [Step 3] Running LLM Inference (198 tasks remaining) ====
+2026-03-24 15:22:36,559:INFO:Initializing Pure InferenceManager()...
+2026-03-24 15:22:36,628:INFO:==== [LLMEngine] Starting Async Inference ====
+2026-03-24 15:22:36,628:INFO:📄 建立全新暫存檔: data\test_V5\raw.csv
+2026-03-24 15:22:36,628:INFO:🚀 交接給非同步引擎執行 (總任務批次數: 198)...
+2026-03-24 15:22:36,636:INFO:🚀 開始非同步推論！共 198 筆任務批次。
+2026-03-24 15:22:36,636:INFO:⚙️ 偵測到 1 種模型: llama3.2:1b
+2026-03-24 15:22:36,636:INFO:⚙️ 每個模型最大併發限制: 8
+2026-03-24 15:22:36,638:INFO:
+📢 [Debug] Model 'llama3.2:1b' 已啟動專屬排程，最大併發限制: 8
+2026-03-24 15:23:05,137:INFO:✅ 所有任務執行完畢！原始 CSV 備份已儲存至 data\test_V5\raw.csv
+2026-03-24 15:23:05,138:INFO:✅ 推論完成！原始回應 (Raw Output) 已儲存至: data\test_V5\raw.csv
+2026-03-24 15:23:05,138:INFO:==== [Step 4] Parsing LLM Outputs ====
+2026-03-24 15:23:05,138:INFO:RegexOutputParser Initialized.
+2026-03-24 15:23:05,138:INFO:==== [OutputParser] Parsing LLM Outputs & Building CSV ====
+2026-03-24 15:23:05,205:INFO:✅ 額外儲存完成！單獨 Prompt 結果已放入: data\test_V5\singleOutput
+2026-03-24 15:23:05,205:INFO:✅ 解析完成！格式化資料已儲存至: data\test_V5\raw.csv
+2026-03-24 15:23:05,205:INFO:==== [Step 5] Processing Results ====
+2026-03-24 15:23:05,205:INFO:LLMResultProcessor(inputCsvPath='data\test_V5\raw.csv', outputCsvPath='data\test_V5\result.csv')
+2026-03-24 15:23:05,205:INFO:process(self=<llm_modules.LLMResultProcessor.LLMResultProcessor object at 0x20598bfb510>)
+2026-03-24 15:23:05,205:INFO:Processing data: data\test_V5\raw.csv
+2026-03-24 15:23:05,205:INFO:Loading Raw CSV Data...
+2026-03-24 15:23:05,205:INFO:Data loaded successfully. Shape: (660, 9)
+2026-03-24 15:23:05,205:INFO:Processing True Labels
+2026-03-24 15:23:05,205:INFO:Creating Feature Names
+2026-03-24 15:23:05,205:INFO:Pivoting table (Long to Wide)
+2026-03-24 15:23:05,222:INFO:Pivot completed. New Shape: (10, 71)
+2026-03-24 15:23:05,223:INFO:Generating rich merged table for human review...
+2026-03-24 15:23:05,226:INFO:   -資訊總成已儲存至: data\test_V5\test_merge.csv
+2026-03-24 15:23:05,226:INFO:✅ Data processed successfully!
+2026-03-24 15:23:05,226:INFO:   - Clean Shape: (10, 71)
+2026-03-24 15:23:05,226:INFO:   - Parse Success Rate: 660/660 (100.0%)
+2026-03-24 15:23:05,226:INFO:   - Clean Pipeline Data Saved to: data\test_V5\result.csv
+2026-03-24 15:23:05,228:INFO:==== [Step 6] Evaluating ====
+2026-03-24 15:23:05,230:INFO:LLMEvaluationSystem(inputCsvPath='data\test_V5\result.csv', df_shape=(10, 71), pred_cols_count=66)
+2026-03-24 15:23:05,230:INFO:🚀 System Initialized. Output directory: data\test_V5
+2026-03-24 15:23:05,497:INFO:Difficulty Analysis Complete. Upper Bound: 80.00% (Found 2 hard samples)
+2026-03-24 15:23:05,497:INFO:============Generating Confusion Matrices============
+2026-03-24 15:23:12,396:INFO:============Generating Correctness Heatmap============
+2026-03-24 15:23:12,703:INFO:✅ All results saved to: data\test_V5
+2026-03-24 15:23:12,703:INFO:實驗全部執行完畢！(Pipeline Completed Successfully!)

@@ -38,6 +38,7 @@ def initializeGlobalLogger(logDir="./logs", logName="experiment.log"):
             logging.StreamHandler(sys.stdout)               
         ]
     )
+    logging.getLogger("httpx").setLevel(logging.WARNING)
     logging.info(f"📝 Logger initialized. Writing to {logPath}")
 
 def setupSeed(seed=42):

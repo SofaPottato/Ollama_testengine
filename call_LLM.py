@@ -8,7 +8,7 @@ def executeLLMInferencePipeline():
     parser = argparse.ArgumentParser(description="LLM Inference Runner")
     parser.add_argument('--config', type=str, default='configs/llm_config.yaml', help='Path to YAML configDict file')
     args = parser.parse_args()
-    initializeGlobalLogger(logDir="./logs", logName=f"log.log")
+    initializeGlobalLogger(logDir="./logs", logName=f"test_v5_log.log")
     setupSeed(42)
     
     logging.info("========================================")

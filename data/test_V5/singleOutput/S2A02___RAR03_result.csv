@@ -1,0 +1,47 @@
+﻿Data_ID,PMID,Model,promptID,E1,E2,True_Label,Pred_Label,Raw_Output
+0,8701013,llama3.2:1b,S2A02 + RAR03,famotidine,delirium,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+1,8701013,llama3.2:1b,S2A02 + RAR03,famotidine,ulcers,none,No,"1: No
+2: No
+3: No
+4: No
+5: No
+6: No"
+2,439781,llama3.2:1b,S2A02 + RAR03,indomethacin,hypotension,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No"
+3,439781,llama3.2:1b,S2A02 + RAR03,sodium,hypotension,none,No,"1: No
+2: No
+3: No
+4: No
+5: No"
+4,439781,llama3.2:1b,S2A02 + RAR03,idm,hypotension,cid,No,"1: No
+2: No
+3: No
+4: No
+5: No"
+5,439781,llama3.2:1b,S2A02 + RAR03,prostaglandin,hypotension,none,No,"1: No
+2: No
+3: No
+4: No
+5: No"
+6,439781,llama3.2:1b,S2A02 + RAR03,angiotensin,hypotension,none,No,"1: No
+2: No
+3: No
+4: No
+5: No"
+7,22836123,llama3.2:1b,S2A02 + RAR03,tacrolimus,scleroderma renal crisis,none,No,"1: No
+2: No
+3: No"
+8,22836123,llama3.2:1b,S2A02 + RAR03,tacrolimus,src,none,No,"1: No
+2: No
+3: No"
+9,22836123,llama3.2:1b,S2A02 + RAR03,tacrolimus,systemic sclerosis,cid,No,"1: No
+2: No
+3: No"
