@@ -12,12 +12,13 @@ paths:
   dataPath: "data/bcvcdr_raw/BCVCDR_Processed.csv"
   promptsPath: "data/prompt_output/test_manual_prompts.csv" # 從 Prompt 模組讀取組合好的清單
   # --- 輸出路徑 (Outputs)(可自訂) ---
-  mainOutputDir: "data/test_V2/"
-  singlePromptOutputDir: "data/test_V2/single/output" #裡面放單獨prompt的結果
-  evalDataDir: "data/test_V2/plots"       #放圖表
-  rawOutputPath: "data/test_V2/raw.csv"         #生的                
-  resultOutputPath: "data/test_V2/result.csv"      #放處理過的
-  mergedLlmOutputPath: "data/test_V2/test_merge.csv"     #所有欄位總成(ID/titlr/abstract/entity/relation/processed/relation) 
+  rawTempOutputPath: "data/test_V3/temp/temp_v1.csv"
+  mainOutputDir: "data/test_V4/"
+  singlePromptOutputDir: "data/test_V4/single/output" #裡面放單獨prompt的結果
+  evalDataDir: "data/test_V4/plots"       #放圖表
+  rawOutputPath: "data/test_V4/raw.csv"         #生的                
+  resultOutputPath: "data/test_V4/result.csv"      #放處理過的
+  mergedLlmOutputPath: "data/test_V4/test_merge.csv"     #所有欄位總成(ID/titlr/abstract/entity/relation/processed/relation) 
 
 
 # ================= 2. LLM 模型與連線設定 =================
@@ -55,7 +56,7 @@ taskTemplate: |
   Task: Determine if the Chemical induces the Disease for the following items based strictly on the text.
 
   Items to analyze:
-  {items_content}
+  {itemsContent}
 
   IMPORTANT OUTPUT RULES:
   1. Output ONLY a numbered list.

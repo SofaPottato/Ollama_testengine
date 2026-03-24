@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b1c131e8-9ce6-42f7-8e53-2f12989c6684" name="Changes" comment="">
+    <list default="true" id="b1c131e8-9ce6-42f7-8e53-2f12989c6684" name="Changes" comment="3_23change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/call_LLM.py" beforeDir="false" afterPath="$PROJECT_DIR$/call_LLM.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/configs/llm_config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/configs/llm_config.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/prompt_output/test_manual_prompts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/prompt_output/test_manual_prompts.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/llm_modules/Evaluate.py" beforeDir="false" afterPath="$PROJECT_DIR$/llm_modules/Evaluate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/llm_modules/LLMEngine.py" beforeDir="false" afterPath="$PROJECT_DIR$/llm_modules/LLMEngine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/llm_modules/LLMResultProcessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/llm_modules/LLMResultProcessor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/llm_modules/LLM_Engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/llm_modules/LLMEngine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/llm_modules/Pipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/llm_modules/Pipeline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/llm_modules/async_ollama_engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/llm_modules/asyncOllamaEngine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/llm_modules/asyncOllamaEngine.py" beforeDir="false" afterPath="$PROJECT_DIR$/llm_modules/asyncOllamaEngine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/llm_modules/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/llm_modules/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/llm_inference_20260318_2313.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_LLM.py" beforeDir="false" afterPath="$PROJECT_DIR$/call_LLM.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +39,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;SofaPottato&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/SofaPottato/Ollama_testengine.git&quot;,
+    &quot;accountId&quot;: &quot;08e7664a-04bd-4205-acf3-f3632709f70e&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -53,6 +64,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.call_LLM.executor": "Run",
     "Python.main_LLM.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -62,7 +74,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.completion",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -94,14 +106,32 @@
       <workItem from="1773370663671" duration="26000" />
       <workItem from="1773370698730" duration="3101000" />
       <workItem from="1774239509973" duration="1185000" />
-      <workItem from="1774240833530" duration="1036000" />
+      <workItem from="1774240833530" duration="4235000" />
+      <workItem from="1774245398946" duration="237000" />
+      <workItem from="1774252217088" duration="833000" />
+      <workItem from="1774255031854" duration="318000" />
+      <workItem from="1774331617234" duration="874000" />
     </task>
+    <task id="LOCAL-00001" summary="3_23change">
+      <option name="closed" value="true" />
+      <created>1774241949011</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1774241949011</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="3_23change" />
+    <option name="LAST_COMMIT_MESSAGE" value="3_23change" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Main_LLM$call_LLM.coverage" NAME="call_LLM Coverage Results" MODIFIED="1774332430940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Main_LLM$main_LLM.coverage" NAME="main_LLM Coverage Results" MODIFIED="1773372239266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

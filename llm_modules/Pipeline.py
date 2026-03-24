@@ -3,132 +3,153 @@ import os
 import sys
 from pathlib import Path
 import pandas as pd
-
+from .TaskBuilder import TaskBuilder
 from .LLMEngine import InferenceManager
+from .OutputParser import RegexOutputParser
 from .LLMResultProcessor import LLMResultProcessor
 from .Evaluate import LLMEvaluationSystem
+from .schemas import DataLoadError, TaskBuildError, InferenceError, ParsingError, LLMAppConfig 
+
 
 class ExperimentPipeline:
-
-    def __init__(self, config):
+    def __init__(self, config: LLMAppConfig):
         """
-        初始化實驗流程
-        :param config: 從 yaml 讀入的完整設定字典
+        初始化實驗流程 (大腦統籌中心)
         """
         logging.info("Initializing ExperimentPipeline()")
-        self.cfg = config
-        pathsConfig = config.get("paths", {})
-        # 從 pathsConfig 中提取所有需要的路徑
-        self.dataPath = Path(pathsConfig.get("dataPath", "data/bcvcdr_raw/BCVCDR_Processed.csv"))
-        self.resultOutputPath = Path(pathsConfig.get("resultOutputPath", "data/llm_output/"))
-        self.evalDataDir = Path(pathsConfig.get("evalDataDir", "data/llm_output/"))
+        self.config = config
+        self.pathsConfig = self.config.paths
+        # =================放路徑的地方=================
+        self.dataPath = self.pathsConfig.dataPath
+        self.promptsPath = self.pathsConfig.promptsPath
+        self.mainOutputDir = self.pathsConfig.mainOutputDir
+        self.singlePromptOutputDir = self.pathsConfig.singlePromptOutputDir
+        self.evalDataDir = self.pathsConfig.evalDataDir
+        self.rawTempPath = self.pathsConfig.rawTempOutputPath    
+        self.parsedCsvPath = self.pathsConfig.rawOutputPath             
+        self.resultOutputPath = self.pathsConfig.resultOutputPath       
+        self.mergedOutputPath = self.pathsConfig.mergedLlmOutputPath    
+        
+        # =================建立所有必要的輸出資料夾=================
+        self.rawTempPath.parent.mkdir(parents=True, exist_ok=True)  
+        self.mainOutputDir.mkdir(parents=True, exist_ok=True)
+        self.singlePromptOutputDir.mkdir(parents=True, exist_ok=True)
         self.evalDataDir.mkdir(parents=True, exist_ok=True)
-        self.promptsPath = Path(pathsConfig.get("promptsPath", "data/prompt_output/generatedPromptList.csv"))
-        self.mergedOutputPath = Path(pathsConfig.get("mergedLlmOutputPath", "data/llm_output/merged_result.csv"))
         self.mergedOutputPath.parent.mkdir(parents=True, exist_ok=True)
-        logging.info(f"ExperimentPipeline initialized, resultOutputPath='{self.resultOutputPath}'")
-
+        
+        logging.info(f"ExperimentPipeline initialized.")
+        
+    def getCompletedTasks(self) -> set:
+        """
+        讀取暫存檔，取得已完成的任務指紋 (Model, PromptID, UserPrompt)
+        """
+        completed = set()
+        if not self.rawTempPath.exists():
+            return completed
+            
+        try:
+            tempDf = pd.read_csv(str(self.rawTempPath), encoding='utf-8-sig')
+            
+            # 確保檔案沒有壞掉且具備需要的欄位
+            if all(col in tempDf.columns for col in ['model', 'promptID', 'userPrompt']):
+                for _, row in tempDf.iterrows():
+                    onlyID = (str(row['model']), str(row['promptID']), str(row['userPrompt']))
+                    completed.add(onlyID)
+                    
+            logging.info(f"♻️ 發現斷點紀錄！已載入 {len(completed)} 筆完成的任務。")
+        except Exception as e:
+            logging.warning(f"⚠️ 讀取斷點紀錄失敗，將忽略舊紀錄重新開始: {e}")
+            
+        return completed
+    
     def run(self):
-        """執行實驗流程"""
+        """執行實驗流程：嚴格把關，發生錯誤即 Crash"""
 
-        logging.info(f"==== [Step 1] Loading Data from: {self.dataPath} ====")
-        df = self.loadData()
-        if df is None:
-            logging.critical("❌ Data loading failed. Pipeline aborted.")
-            raise RuntimeError("Data loading failed")
-
-        # ---------------------------------------------------------
-        # 修改區塊：[Step 2] 改為直接從 CSV 讀取 Prompts
-        # ---------------------------------------------------------
-        logging.info(f"==== [Step 2] Loading Prompts from: {self.promptsPath} ====")
-        prompts = self.loadPrompts(self.promptsPath)
-
-        if not prompts:
-            logging.error("❌ No prompts loaded. Aborting.")
-            return
-
-        logging.info("==== [Step 3] Running LLM ====")
-        engine = InferenceManager(self.cfg)
-        # 這裡傳入的 prompts 已經是 [{'Prompt_ID': '...', 'Prompt_Text': '...'}, ...] 的格式
-        rawCsvPath = engine.run(df, prompts)
-
-        if not rawCsvPath:
-            logging.error("❌ Inference failed or produced no output.")
-            return
-
-        logging.info("==== [Step 4] Processing Results ====")
-        processedDir = self.resultOutputPath
-        processor = LLMResultProcessor(
-            input_csv_path=rawCsvPath,
-            output_dir=str(processedDir),
-            extra_merged_path=str(self.mergedOutputPath),
-            original_df=df  # <-- 把原始資料傳進去！
+        logging.info(f"==== [Step 1] Loading Data & Prompts ====")
+        df = self.loadDataSet()
+        prompts = self.loadPromptTemplate(self.promptsPath)
+        logging.info("==== [Step 2] Building Tasks ====")
+        completedTasks = self.getCompletedTasks()
+        builder = TaskBuilder(
+            models=self.config.selectedModels,
+            pairNumber=self.config.pairSettings.pairNumbers,
+            taskTemplate=self.config.taskTemplate
         )
-        processedCsvPath = processor.process()
+        
+        tasksList = builder.buildLLMInferenceTasks(df, prompts, completedTasks=completedTasks)
 
+        if not tasksList and not completedTasks: 
+            raise TaskBuildError("無效的任務建構：無法生成任何新任務，且沒有找到歷史斷點紀錄。")
+
+        if tasksList:
+            logging.info(f"==== [Step 3] Running LLM Inference ({len(tasksList)} tasks remaining) ====")
+            engine = InferenceManager(
+                rawOutputPath=self.pathsConfig.rawCsvOutputPath, 
+                apiUrl=self.config.apiUrl,
+                timeout=self.config.timeout,
+                llmOptions=self.config.llmOptions,
+                concurrencyPerModel=self.config.concurrencyPerModel
+            )
+            rawOutputStrPath = engine.dispatchTasksToAsyncEngine(tasksList)
+            
+            if not rawOutputStrPath or not os.path.exists(rawOutputStrPath):
+                raise InferenceError("推論失敗：沒有產生暫存檔案。")
+        else:
+            logging.info("==== [Step 3] All tasks already completed! Skipping Inference. ====")
+
+        logging.info("==== [Step 4] Parsing LLM Outputs ====")
+        parser = RegexOutputParser(
+            rawCsvPath=self.rawTempPath,
+            csvOutputPath=self.parsedCsvPath,
+            singlePromptDir=self.singlePromptOutputDir
+        )
+        parsedOutputStrPath = parser.parse()
+        
+        if not parsedOutputStrPath or not os.path.exists(parsedOutputStrPath):
+            raise ParsingError("解析失敗：沒有產生解析後的 CSV 檔案。")
+
+        logging.info("==== [Step 5] Processing Results ====")
+        processor = LLMResultProcessor(
+            inputCsvPath=parsedOutputStrPath,
+            outputCsvPath=str(self.resultOutputPath),
+            mergedPath=str(self.mergedOutputPath),
+            originalDf=df 
+        )
+        processedCsvPath = processor.cleanAndMergeOriginalData()
         if not processedCsvPath:
-            logging.error("❌ Data processing failed.")
-            return
+            raise PipelineError("資料後處理失敗，無法產出最終 CSV。")
 
-        logging.info("==== [Step 5] Evaluate ====")
-        eval_dir = self.evalDataDir
-        evaluator = LLMEvaluationSystem(processedCsvPath, str(eval_dir))
+        logging.info("==== [Step 6] Evaluating ====")
+        evaluator = LLMEvaluationSystem(
+            inputCsvPath=processedCsvPath, 
+            outputBaseDir=str(self.evalDataDir)
+        )
 
         evaluator.runEvaluation()
         evaluator.analyzeDifficulty()
         evaluator.plotConfusionMatrices()
         evaluator.plotHeatmap()
         evaluator.saveResults()
+        
+        logging.info("實驗全部執行完畢！(Pipeline Completed Successfully!)")
 
-    def loadData(self):
-        """讀取原始資料"""
+    def loadDataSet(self):
         if not self.dataPath or not os.path.exists(self.dataPath):
-            logging.error(f"❌ Data file not found: {self.dataPath}")
-            return None
+            raise DataLoadError(f"找不到指定的資料集檔案: {self.dataPath}")
+        
+        df = pd.read_csv(self.dataPath)
+        if self.config.testLimits is not None:
+            limit = self.config.testLimits
+            df = df.head(limit)
+            logging.warning(f"⚠️test: Using only first {limit} pairs.")
+        return df
 
-        try:
-            df = pd.read_csv(self.dataPath)
-
-            if self.cfg.get('testLimits'):
-                limit = self.cfg['testLimits']
-                df = df.head(limit)
-                logging.warning(f"⚠️test:Using only first {limit} pairs.")
-
-            logging.info(f"✅ Data loaded. Shape: {df.shape}")
-            return df
-
-        except Exception as e:
-            logging.error(f"❌ Failed to load data: {e}")
-            return None
-
-    # ---------------------------------------------------------
-    # 新增區塊：專屬的 Prompt 讀取模組
-    # ---------------------------------------------------------
-    def loadPrompts(self, path: Path) -> list:
-        """
-        讀取 Prompt CSV 檔案並轉換為字典列表。
-        這樣做可以確保 Pipeline 與特定的 Prompt 生成邏輯解耦。
-        """
+    def loadPromptTemplate(self, path: Path) -> list:
         if not path.exists():
-            logging.error(f"❌ Prompt CSV file not found: {path}")
-            return []
-
-        try:
-            # 讀取您提供的 test_manual_prompts.csv
-            promptsDf = pd.read_csv(path)
-
-            # 檢查是否包含預期的欄位，避免後續 LLM Engine 抓不到資料
-            if 'Prompt_ID' not in promptsDf.columns or 'Prompt_Text' not in promptsDf.columns:
-                logging.error("❌ CSV missing required columns: 'Prompt_ID' or 'Prompt_Text'")
-                return []
-
-            # 將 DataFrame 轉換為 list of dictionaries
-            # 格式範例：[{'Prompt_ID': 'EMO01 + RAR02', 'Prompt_Text': 'This is very important...'}, ...]
-            promptsList = promptsDf.to_dict(orient='records')
-            logging.info(f"✅ Successfully loaded {len(promptsList)} prompts.")
-
-            return promptsList
-
-        except Exception as e:
-            logging.error(f"❌ Failed to load prompt CSV: {e}")
-            return []
+            raise DataLoadError(f"找不到 Prompt CSV 檔案: {path}")
+            
+        promptsDf = pd.read_csv(path)
+        if 'promptID' not in promptsDf.columns or 'promptText' not in promptsDf.columns:
+            raise DataLoadError("Prompt CSV 遺失必要的 'promptID' 或 'promptText' 欄位。")
+            
+        return promptsDf.to_dict(orient='records')

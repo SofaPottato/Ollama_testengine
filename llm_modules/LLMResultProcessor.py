@@ -5,64 +5,67 @@ import re
 import logging 
 
 class LLMResultProcessor:
-    def __init__(self, input_csv_path, output_dir,extra_merged_path,original_df ):
+    def __init__(self, inputCsvPath: str, outputCsvPath: str, mergedPath: str, originalDf: pd.DataFrame):
         """
         初始化資料處理器
-        :param input_csv_path: 原始 LLM 輸出結果 (Raw Output)
-        :param output_dir: 處理後檔案的儲存目錄
+        :param inputCsvPath: 原始 LLM 輸出結果的檔案路徑 (Raw Output)
+        :param outputCsvPath: 處理後乾淨檔案的儲存【檔案路徑】(包含檔名，解決原本 outputDir 的命名混淆)
+        :param mergedPath: 包含完整資訊的合併檔案儲存【檔案路徑】
+        :param originalDf: 原始的 DataFrame
         """
-        self.input_csv_path = input_csv_path
-        self.output_dir = output_dir
-        self.extra_merged_path = extra_merged_path
-        self.original_df = original_df # 🌟 把它存起來
-        self.required_cols = ['Model', 'Prompt_ID', 'Pred_Label', 'True_Label']
-        self.index_cols = ['Data_ID', 'PMID', 'E1', 'E2']
-        self.raw_df = None
-        self.pivot_df = None
+        self.inputCsvPath = inputCsvPath
+        self.outputCsvPath = outputCsvPath 
+        self.mergedPath = mergedPath
+        self.originalDf = originalDf 
         
-        logging.info(f"LLMResultProcessor(input_csv_path='{self.input_csv_path}', outputDir='{self.output_dir}')")
+        # 保留原有的領域邏輯與欄位設定
+        self.requiredCols = ['Model', 'promptID', 'Pred_Label', 'True_Label']
+        self.index_cols = ['Data_ID', 'PMID', 'E1', 'E2']
+        self.rawDf = None
+        self.pivotDf = None
+        
+        logging.info(f"LLMResultProcessor(inputCsvPath='{self.inputCsvPath}', outputCsvPath='{self.outputCsvPath}')")
 
-    def process(self):
+    def cleanAndMergeOriginalData(self):
         """
         [Public] 執行完整的處理流程：讀取 -> 解析 -> 轉置 -> 存檔
         :return: 處理後的檔案路徑 (str) 或 None
         """
         logging.info(f"process(self=<{self.__module__}.{self.__class__.__name__} object at {hex(id(self))}>)")
         
-        logging.info(f"Processing data: {self.input_csv_path}")
+        logging.info(f"Processing data: {self.inputCsvPath}")
         
-        if not self._load_data():
+        if not self.loadData():
             return None
  
-        self.raw_df['Pred_Label'] = self.raw_df['Pred_Label'].apply(self._parse_response)
+        self.rawDf['Pred_Label'] = self.rawDf['Pred_Label'].apply(self.parseResponse)
         
         logging.info("Processing True Labels")
-        self.raw_df['True_Label'] = self.raw_df['True_Label'].apply(
+        self.rawDf['True_Label'] = self.rawDf['True_Label'].apply(
             lambda x: 1 if str(x).strip().lower() == 'cid' else 0
         )
 
         logging.info("Creating Feature Names")
-        self.raw_df['Feature_Name'] = self.raw_df['Model'].astype(str) + "_" + self.raw_df['Prompt_ID'].astype(str)
+        self.rawDf['Feature_Name'] = self.rawDf['Model'].astype(str) + "_" + self.rawDf['promptID'].astype(str)
         
-
-        if not self._pivot_data():
+        if not self.pivotData():
             return None
             
-        result_path = self._save_data()  
+        result_path = self.saveData()
         return result_path
 
-    def _load_data(self):
+    def loadData(self):
         """[Private] 讀取並驗證 CSV"""
         logging.info("Loading Raw CSV Data...")
-        if not os.path.exists(self.input_csv_path):
-            logging.error(f"❌ Error: File not found: {self.input_csv_path}")
+        if not os.path.exists(self.inputCsvPath):
+            logging.error(f"❌ Error: File not found: {self.inputCsvPath}")
             return False
             
         try:
-            self.raw_df = pd.read_csv(self.input_csv_path)
-            logging.info(f"Data loaded successfully. Shape: {self.raw_df.shape}")
+            self.rawDf = pd.read_csv(self.inputCsvPath)
+            logging.info(f"Data loaded successfully. Shape: {self.rawDf.shape}")
             
-            missing = [c for c in self.required_cols + self.index_cols if c not in self.raw_df.columns]
+            missing = [c for c in self.requiredCols + self.index_cols if c not in self.rawDf.columns]
             if missing:
                 logging.error(f"❌ Error: Missing columns: {missing}")
                 return False
@@ -72,7 +75,7 @@ class LLMResultProcessor:
             logging.error(f"❌ Error reading CSV: {e}")
             return False
 
-    def _parse_response(self, text):
+    def parseResponse(self, text):
         """
         [Private] 解析單一回應字串
         :return: 1 (Yes), 0 (No), -1 (Unknown)
@@ -96,11 +99,11 @@ class LLMResultProcessor:
 
         return -1 # 解析失敗
 
-    def _pivot_data(self):
+    def pivotData(self):
         """[Private] 將長表格轉為寬表格"""
         logging.info("Pivoting table (Long to Wide)")
         try:
-            self.pivot_df = self.raw_df.pivot_table(
+            self.pivotDf = self.rawDf.pivot_table(
                 index=self.index_cols + ['True_Label'], 
                 columns='Feature_Name', 
                 values='Pred_Label',
@@ -108,63 +111,61 @@ class LLMResultProcessor:
             )
             
             # 整理表格
-            self.pivot_df = self.pivot_df.reset_index()
-            self.pivot_df = self.pivot_df.fillna(-1) 
-            logging.info(f"Pivot completed. New Shape: {self.pivot_df.shape}")
+            self.pivotDf = self.pivotDf.reset_index()
+            self.pivotDf = self.pivotDf.fillna(-1)
+            logging.info(f"Pivot completed. New Shape: {self.pivotDf.shape}")
             return True
             
         except Exception as e:
             logging.error(f"❌ Pivot failed: {e}")
             return False
 
-    def _save_data(self):
-            """[Private] 儲存結果 (分流：一份簡單乾淨，一份豐富資訊)"""
-            try:   
-                save_path = os.path.join(str(self.output_dir), "processed_clean_results.csv")                # 1. 儲存給 Evaluate.py 用的「乾淨版本」
-                self.pivot_df.to_csv(save_path, index=False, encoding='utf-8-sig')
+    def saveData(self):
+        """[Private] 儲存結果 (分流：一份簡單乾淨，一份豐富資訊)"""
+        try:   
+            savePath = str(self.outputCsvPath)
+            
+            saveDir = os.path.dirname(savePath)
+            if saveDir:
+                os.makedirs(saveDir, exist_ok=True)
                 
-                # ==========================================
-                # 2. 獨立產生並儲存「人類閱讀用的豐富大表」
-                # ==========================================
-                if self.extra_merged_path and self.original_df is not None:
-                    logging.info("Generating rich merged table for human review...")
-                    
-                    # 定義你想從原始資料抓過來的欄位
-                    cols_to_add = ['Title', 'Abstract', 'Full_Text', 'E1_Type', 'E1_MeSH', 'E2_Type', 'E2_MeSH']
-                    valid_cols = [c for c in cols_to_add if c in self.original_df.columns]
-                    
-                    # 複製需要的欄位，並把索引 (Index) 設為 Data_ID
-                    orig_subset = self.original_df[valid_cols].copy()
-                    orig_subset['Data_ID'] = orig_subset.index
-                    
-                    # 🌟 建立一個全新的 DataFrame 來合併，不污染原本的 self.pivot_df
-                    rich_df = pd.merge(self.pivot_df, orig_subset, on='Data_ID', how='left')
-                    
-                    # 整理一下欄位順序
-                    front_cols = ['Data_ID', 'PMID', 
-                                'E1', 'E1_Type', 'E2', 'E2_Type',
-                                'True_Label', 'Title', 'Abstract']
-                    front_cols = [c for c in front_cols if c in rich_df.columns]
-                    pred_cols = [c for c in rich_df.columns if c not in front_cols]
-                    
-                    rich_df = rich_df[front_cols + pred_cols]
-                    
-                    # 將豐富大表存到你額外指定的路徑
-                    rich_df.to_csv(self.extra_merged_path, index=False, encoding='utf-8-sig')
-                    logging.info(f"   - 🌟 [額外備份] 豐富資訊總成已儲存至: {self.extra_merged_path}")
-                # ==========================================
-
-                # 統計解析成功率
-                valid_count = (self.raw_df['Pred_Label'] != -1).sum()
-                total_count = len(self.raw_df)
+            self.pivotDf.to_csv(savePath, index=False, encoding='utf-8-sig')
+            
+            if self.mergedPath and self.originalDf is not None:
+                logging.info("Generating rich merged table for human review...")
                 
-                logging.info("✅ Data processed successfully!")
-                logging.info(f"   - Clean Shape: {self.pivot_df.shape}")
-                logging.info(f"   - Parse Success Rate: {valid_count}/{total_count} ({valid_count/total_count:.1%})")
-                logging.info(f"   - Clean Pipeline Data Saved to: {save_path}")
+                mergedDfDir = os.path.dirname(str(self.mergedPath))
+                if mergedDfDir: 
+                    os.makedirs(mergedDfDir, exist_ok=True)
+                    
+                columnsToAdd = ['Title', 'Abstract', 'Full_Text', 'E1_Type', 'E1_MeSH', 'E2_Type', 'E2_MeSH']
+                validCols = [c for c in columnsToAdd if c in self.originalDf.columns]
                 
-                return save_path # 回傳的依然是給 Eval 用的乾淨路徑
+                origSubset = self.originalDf[validCols].copy()
+                origSubset['Data_ID'] = origSubset.index
                 
-            except Exception as e:
-                logging.error(f"❌ Error saving file: {e}")
-                return None
+                mergeDf = pd.merge(self.pivotDf, origSubset, on='Data_ID', how='left')
+                frontCols = ['Data_ID', 'PMID',
+                            'E1', 'E1_Type', 'E2', 'E2_Type',
+                            'True_Label', 'Title', 'Abstract']
+                frontCols = [c for c in frontCols if c in mergeDf.columns]
+                predCols = [c for c in mergeDf.columns if c not in frontCols]
+                mergeDf = mergeDf[frontCols + predCols]
+                
+                mergeDf.to_csv(self.mergedPath, index=False, encoding='utf-8-sig')
+                logging.info(f"   -資訊總成已儲存至: {self.mergedPath}")
+            # ==========================================
+            
+            validCount = (self.rawDf['Pred_Label'] != -1).sum()
+            totalCount = len(self.rawDf)
+            
+            logging.info("✅ Data processed successfully!")
+            logging.info(f"   - Clean Shape: {self.pivotDf.shape}")
+            logging.info(f"   - Parse Success Rate: {validCount}/{totalCount} ({validCount/totalCount:.1%})")
+            logging.info(f"   - Clean Pipeline Data Saved to: {savePath}")
+            
+            return savePath
+            
+        except Exception as e:
+            logging.error(f"❌ Error saving file: {e}")
+            return None

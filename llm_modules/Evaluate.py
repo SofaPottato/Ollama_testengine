@@ -4,21 +4,25 @@ import matplotlib.pyplot as plt
 import os
 import numpy as np
 import time
-import logging # 加入 logging 模組
+import logging 
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score, matthews_corrcoef
+
 class LLMEvaluationSystem:
-    def __init__(self, input_csv_path, output_base_dir="./output"):
+    def __init__(self, inputCsvPath: str, outputBaseDir: str = "./output", indexCols: list = None):
         """
         初始化評估系統
-        :param input_csv_path: 包含預測結果的 CSV 路徑
-        :param output_base_dir: 輸出結果的根目錄
+        :param inputCsvPath: 包含預測結果的 CSV 路徑
+        :param outputBaseDir: 輸出結果的根目錄
+        :param indexCols: 識別資料的固定欄位清單 (解耦用)
         """
-
+        self.input_csv_path = inputCsvPath
+        self.df = pd.read_csv(self.input_csv_path)
         
-        self.input_csv_path = input_csv_path
-        self.df = pd.read_csv(input_csv_path)
+        default_index_cols = ['Data_ID', 'PMID', 'E1', 'E2']
+        self.index_cols = indexCols if indexCols else default_index_cols
         
-        self.fixed_cols = ['Data_ID', 'PMID', 'E1', 'E2', 'True_Label']
+        self.fixed_cols = self.index_cols + ['True_Label']
+        
         self.pred_cols = [c for c in self.df.columns if c not in self.fixed_cols]
         self.y_true = self.df['True_Label']
         
@@ -28,16 +32,16 @@ class LLMEvaluationSystem:
         self.hard_samples = None
         self.upper_bound = 0.0
         
-        self.output_dir = output_base_dir
+        self.output_dir = outputBaseDir
         self.plots_dir = os.path.join(self.output_dir, "plots")
         os.makedirs(self.plots_dir, exist_ok=True)
         
-        logging.info(f"LLMEvaluationSystem(input_csv_path='{self.input_csv_path}', df_shape={self.df.shape}, pred_cols_count={len(self.pred_cols)})")
+        logging.info(f"LLMEvaluationSystem(inputCsvPath='{self.input_csv_path}', df_shape={self.df.shape}, pred_cols_count={len(self.pred_cols)})")
         logging.info(f"🚀 System Initialized. Output directory: {self.output_dir}")
 
     def _calculate_single_metric(self, y_true_subset, y_pred_subset):
         """
-        [Private Method] 計算單一模型的指標 (封裝原本的 calculate_metrics 邏輯)
+        [Private Method] 計算單一模型的指標
         """
         if len(y_true_subset) == 0:
             return None
@@ -49,8 +53,7 @@ class LLMEvaluationSystem:
             "F1_Score": f1_score(y_true_subset, y_pred_subset, zero_division=0),
             "MCC": matthews_corrcoef(y_true_subset, y_pred_subset)
         }
-        return {k: round(v, 2) for k, v in metrics.items()}#到小數兩位
-    
+        return {k: round(v, 2) for k, v in metrics.items()}
     
     def runEvaluation(self):
         """
@@ -83,18 +86,20 @@ class LLMEvaluationSystem:
         else:
             logging.error("❌ No valid results generated.")
         
-    def analyze_difficulty(self):
+    def analyzeDifficulty(self):
         """
         計算難題 (Hard Samples) 與 理論上限 (Upper Bound)
         """
-        
         if self.correctness_matrix.empty:
             logging.warning("Correctness matrix is empty. Skipping difficulty analysis.")
             return
 
         correct_counts = self.correctness_matrix.sum(axis=1)
         hard_indices = correct_counts[correct_counts == 0].index
-        self.hard_samples = self.df.loc[hard_indices, ['Data_ID', 'PMID', 'True_Label']]
+        
+        review_cols = self.index_cols + ['True_Label']
+        available_review_cols = [c for c in review_cols if c in self.df.columns]
+        self.hard_samples = self.df.loc[hard_indices, available_review_cols]
 
         total_samples = len(self.df)
         solvable_samples = total_samples - len(self.hard_samples)
@@ -127,12 +132,12 @@ class LLMEvaluationSystem:
             plt.xlabel('Predicted')
             plt.tight_layout()
             
-            safe_name = col.replace(":", "_").replace("+", "_").replace(" ", "_").replace("/", "_")
+            safe_name = str(col).replace(":", "_").replace("+", "_").replace(" ", "_").replace("/", "_")
             save_path = os.path.join(self.plots_dir, f"CM_{safe_name}.png")
-            plt.savefig(save_path)
+
+            plt.savefig(save_path, bbox_inches='tight')
             plt.close()
             
-
     def plotHeatmap(self):
         """
         繪製模型對錯分佈熱圖 (Heatmap)
@@ -149,7 +154,8 @@ class LLMEvaluationSystem:
         plt.ylabel("Models")
         plt.tight_layout()
         save_path = os.path.join(self.output_dir, "correctness_heatmap.png")
-        plt.savefig(save_path)
+
+        plt.savefig(save_path, bbox_inches='tight')
         plt.close()
 
     def saveResults(self):
@@ -160,6 +166,6 @@ class LLMEvaluationSystem:
             self.report_df.to_csv(os.path.join(self.output_dir, "eval_summary.csv"), index=False, encoding='utf-8-sig')
             
         if self.hard_samples is not None:
-            self.hard_samples.to_csv(os.path.join(self.output_dir, "samples_to_review.csv"), index=False)
+            self.hard_samples.to_csv(os.path.join(self.output_dir, "samples_to_review.csv"), index=False, encoding='utf-8-sig')
             
         logging.info(f"✅ All results saved to: {self.output_dir}")
