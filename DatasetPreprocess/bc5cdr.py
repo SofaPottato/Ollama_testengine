@@ -9,7 +9,7 @@ BC5CDR 資料集前處理腳本。
   - items:     JSON array，包含該 PMID 下所有 entity pair（sentID/label/e1/e2）
 
 使用方式：
-  python preprocess/bc5cdr.py
+  python Preprocess/bc5cdr.py
 """
 
 import json

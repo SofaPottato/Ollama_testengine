@@ -72,7 +72,7 @@ class PathsConfig(BaseModel):
 
 
 class OllamaServerConfig(BaseModel):
-    """Ollama 伺服器連線設定。預設指向本機 11434 port 的 chat 端點。"""
+    """Ollama 伺服器連線設定。預設指向本機 port 的 chat 端點。"""
     url: str = Field(default="http://localhost:11434/api/chat", description="Ollama API 端點")
     timeout: int = Field(default=1800, description="API 請求超時時間(秒)")
 

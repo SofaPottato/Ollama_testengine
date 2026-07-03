@@ -11,7 +11,7 @@ LLL 原始欄位：
   - label:   true label 字串（對應 config.labelColumn，由 Pipeline 自動包成 items）
 
 使用方式：
-  python preprocess/lll.py
+  python Preprocess/lll.py
 """
 
 import logging
