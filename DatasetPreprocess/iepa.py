@@ -1,25 +1,19 @@
-"""
-LLL 資料集前處理腳本。
-將 LLL-test.csv 轉為標準 Task CSV 格式（PPI），供 Pipeline 使用。
+"""IEPA 資料集前處理：把 IEPA-test.csv 轉成標準 Dataset CSV（PPI 格式）供 Pipeline 使用。
 
-LLL 原始欄位：
-  - docid, isValid, passage, passageid
-
-標準 Task CSV 欄位（輸出，PPI 格式）：
-  - taskID:  唯一識別碼，使用 passageid + row index
+IEPA 原始欄位：docid, isValid, passage, passageid
+輸出 Dataset CSV（PPI 格式）：
+  - taskID : 唯一識別碼（passageid + row index）
   - passage: 單句文本（對應 taskTemplate 的 {passage} 佔位符）
-  - label:   true label 字串（對應 config.labelColumn，由 Pipeline 自動包成 items）
+  - label  : true label 字串（對應 Main 的 labelColumn，由 Pipeline 自動包成 items）
 
-使用方式：
-  python Preprocess/lll.py
+使用方式：python DatasetPreprocess/iepa.py
 """
-
 import logging
 import pandas as pd
 from pathlib import Path
 
-INPUT_PATH  = "data\PPI\IEPA-test.csv"
-OUTPUT_PATH = "data\PPI\IEPA\IEPA_test.csv"
+INPUT_PATH  = "data/PPI/IEPA-test.csv"
+OUTPUT_PATH = "data/PPI/IEPA/IEPA_test.csv"
 
 
 def preprocess():
@@ -32,7 +26,7 @@ def preprocess():
 
     tasks = []
     for i, row in df.iterrows():
-        # gold label 須與 config.labelSet.classes (["no", "yes"]) 完全對齊
+        # gold label 須與 labelSet.classes (['no','yes']) 對齊：isValid==TRUE → yes。
         label = "yes" if str(row['isValid']).strip().upper() == "TRUE" else "no"
         tasks.append({
             "taskID":  str(row['passageid']) + f"_{i}",

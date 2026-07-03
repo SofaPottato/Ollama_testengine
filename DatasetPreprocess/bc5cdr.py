@@ -1,24 +1,20 @@
+"""BC5CDR 資料集前處理：把原始 CSV 轉成標準 Dataset CSV（BC5CDR 格式）供 Pipeline 使用。
+
+輸出 Dataset CSV 欄位（依 PMID 分組，每組一筆 task）：
+  - taskID  : 批次層級識別碼（PMID）
+  - title   : 文章標題（對應 taskTemplate 的 {title} 佔位符）
+  - abstract: 文章摘要（對應 taskTemplate 的 {abstract} 佔位符）
+  - items   : JSON array，含該 PMID 下所有 entity pair（sentID/label/e1/e2）
+
+使用方式：python DatasetPreprocess/bc5cdr.py
 """
-BC5CDR 資料集前處理腳本。
-將原始 CSV 轉為標準 Task CSV 格式，供 Pipeline 使用。
-
-標準 Task CSV 欄位：
-  - taskID:    批次層級識別碼，格式為 PMID（依 PMID 分組，每組一筆 task）
-  - title:     文章標題（對應 taskTemplate 的 {title} 佔位符）
-  - abstract:  文章摘要（對應 taskTemplate 的 {abstract} 佔位符）
-  - items:     JSON array，包含該 PMID 下所有 entity pair（sentID/label/e1/e2）
-
-使用方式：
-  python Preprocess/bc5cdr.py
-"""
-
 import json
 import logging
 import pandas as pd
 from pathlib import Path
 
-INPUT_PATH  = "data\\bcvcdrRaw\\BCVCDR_Processed.csv"
-OUTPUT_PATH = "data\\test\\sample_tasks.csv"
+INPUT_PATH  = "data/bcvcdrRaw/BCVCDR_Processed.csv"
+OUTPUT_PATH = "data/test/sample_tasks.csv"
 
 
 def preprocess():
@@ -31,7 +27,7 @@ def preprocess():
 
     tasks = []
     for pmid, group in df.groupby('PMID', sort=False):
-        # gold label 須與 config.labelSet.classes (["no", "yes"]) 完全對齊：CID → yes
+        # gold label 須與 labelSet.classes (['no','yes']) 對齊：Relation_Type==CID → yes。
         items = [
             {
                 'sentID': str(row['ID']),

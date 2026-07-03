@@ -14,7 +14,7 @@ docs/
 catboost_info/
 
 # 執行 log
-logs/
+data/logs/
 
 # 暫時檔案
 tmp_test/

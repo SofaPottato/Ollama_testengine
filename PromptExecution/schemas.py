@@ -1,7 +1,10 @@
 """Pydantic schema、自定義例外、資料模型的單一事實來源。"""
-from pathlib import Path
-from pydantic import BaseModel, Field, PrivateAttr, field_validator, model_validator
-from typing import Dict, Any, List, Optional, ClassVar, FrozenSet, TypeAlias
+import json
+from pydantic import BaseModel, Field, PrivateAttr, model_validator
+from typing import Dict, Any, List, FrozenSet, TypeAlias
+
+import pandas as pd
+from pathvalidate import sanitize_filename
 
 
 # 任何處理 item 的模組都應引用此常數，避免 'sentID'/'label' 硬編碼散落多處
@@ -9,74 +12,52 @@ from typing import Dict, Any, List, Optional, ClassVar, FrozenSet, TypeAlias
 RESERVED_ITEM_FIELDS: FrozenSet[str] = frozenset({'sentID', 'label'})
 
 
+# ── 跨模組共用工具（去重：JSON 欄解析、檔名清洗）──────────────────────────
+def isBlankCell(value: Any) -> bool:
+    """CSV 空欄判斷：None 或 pandas NaN。"""
+    return value is None or (isinstance(value, float) and pd.isna(value))
+
+
+def parseJsonCell(value: Any) -> Any:
+    """解析 CSV 讀進來的 JSON 欄位（items / sentence）：
+    str → json.loads（失敗往上拋）；已是 list/dict 等 → 原樣回傳；空欄(None/NaN) → None。
+    寫檔端一律用 json.dumps，故此處採嚴格解析，壞資料就 fail-fast。"""
+    if isinstance(value, str):
+        return json.loads(value)
+    if isBlankCell(value):
+        return None
+    return value
+
+
+def safeFileStem(name: Any) -> str:
+    """把 promptCmbID / runKey 等轉成跨平台安全的檔名片段（'+' 與空白一律換底線）。"""
+    return sanitize_filename(str(name), replacement_text='_').replace('+', '_').replace(' ', '_')
+
+
 # ── 語意化型別別名：純為提升可讀性與 IDE 提示，型別檢查器仍視為 str ──────────
-ModelName: TypeAlias = str   # Ollama 模型名稱，如 "llama3.2:1b"
-PromptID:  TypeAlias = str   # Prompt 策略識別碼
-TaskID:    TypeAlias = str   # Task 批次層級識別碼
-RawOutput: TypeAlias = str   # LLM 原始文字回應（未解析）
+ModelName:   TypeAlias = str   # Ollama 模型名稱，如 "llama3.2:1b"
+PromptCmbID: TypeAlias = str   # Prompt 組合識別碼
+TaskID:      TypeAlias = str   # Task 批次層級識別碼
+ResponseAns: TypeAlias = str   # LLM 原始文字回應（未解析）
 
 
-# ── Config schema（依組合關係排序）───────────────────────────────
-class PathsConfig(BaseModel):
+# ── runKey：把一次「模型 × Prompt 組合」壓成單一識別字串（格式的唯一來源）──────
+RUN_KEY_SEPARATOR = '|'   # 用 '|' 而非 '_'，因模型名常含 '_'/':'
+RunKey: TypeAlias = str   # 形如 "llama3.2:1b|EMO01 + Role01"
+
+
+def makeRunKey(model: ModelName, promptCmbID: PromptCmbID) -> RunKey:
+    """model + promptCmbID → runKey：把一次「模型 × Prompt 組合」壓成單一識別字串（格式唯一來源）。
+
+    形如 "llama3.2:1b|EMO01 + Role01"。長表(result.csv)不存此欄，只在下列輸出出現：
+      - mlTable / fullResultInfo 的欄名（再加 __pred / __raw / __sysPrompt 後綴）。
+      - evalSummary 的 modelPromptCmbID 欄值。
+      - 混淆矩陣 PNG 檔名（經 safeFileStem 清洗成跨平台安全字串）。
     """
-    路徑設定。輸出路徑未填時依 _DEFAULT_OUTPUT_NAMES 衍生到 outputRoot；
-    相對路徑視為相對 outputRoot；絕對路徑原樣使用。
-    """
-    taskCsvPath:   Path = Field(..., description="前處理產出的標準 Task CSV 路徑")
-    promptCmbPath: Path = Field(..., description="Prompt 組合 CSV 的路徑")
-    outputRoot:    Path = Field(..., description="輸出檔案的根目錄")
-
-    rawOutputPath:            Optional[Path] = Field(default=None, description="LLM 推論原始暫存 CSV 路徑")
-    resultPath:               Optional[Path] = Field(default=None, description="OutputParser 解析後的結構化 CSV 路徑")
-    singlePromptCmbOutputDir: Optional[Path] = Field(default=None, description="每個 promptID 獨立存檔的目錄")
-    partialInfoPath:          Optional[Path] = Field(default=None, description="Pivot 後的寬格式 CSV 路徑")
-    fullInfoPath:             Optional[Path] = Field(default=None, description="合併原始欄位的完整版 CSV 路徑")
-    evalDir:                  Optional[Path] = Field(default=None, description="評估圖表與報表的輸出目錄")
-    promptPreviewPath:        Optional[Path] = Field(default=None, description="渲染後的 userPrompt 預覽 CSV 路徑")
-
-    # 各輸出路徑留 None 時的預設檔名
-    _DEFAULT_OUTPUT_NAMES: ClassVar[Dict[str, str]] = {
-        'rawOutputPath':            'raw.csv',
-        'resultPath':               'result.csv',
-        'singlePromptCmbOutputDir': 'singleOutput',
-        'partialInfoPath':          'partialInfo.csv',
-        'fullInfoPath':             'fullInfo.csv',
-        'evalDir':                  'eval',
-        'promptPreviewPath':        'promptPreview.csv',
-    }
-
-    @model_validator(mode='after')
-    def checkAndMakeDir(self):
-        """依 outputRoot 解析所有輸出路徑（None/相對/絕對三種情形），並統一 mkdir。"""
-        # 三種情形統一解析：None → 套預設檔名；相對路徑 → 接到 outputRoot 下；絕對路徑 → 原樣。
-        # 在 config 載入時就 resolve 完，下游拿到的路徑一律是絕對且可直接用。
-        for name, default in self._DEFAULT_OUTPUT_NAMES.items():
-            current: Optional[Path] = getattr(self, name)
-            if current is None:
-                resolved = self.outputRoot / default
-            elif not current.is_absolute():
-                resolved = self.outputRoot / current
-            else:
-                resolved = current
-            setattr(self, name, resolved)
-
-        # 統一在這裡把所有父目錄建好，下游各階段就「只管寫檔」，不必各自 mkdir。
-        # 'Dir' 結尾或 outputRoot 本身當目錄建；其餘是檔案路徑，建它的 parent。
-        for fieldName in self.model_fields:
-            value = getattr(self, fieldName)
-            if isinstance(value, Path):
-                target = value if 'Dir' in fieldName or fieldName == 'outputRoot' else value.parent
-                target.mkdir(parents=True, exist_ok=True)
-
-        return self
+    return f"{model}{RUN_KEY_SEPARATOR}{promptCmbID}"
 
 
-class OllamaServerConfig(BaseModel):
-    """Ollama 伺服器連線設定。預設指向本機 port 的 chat 端點。"""
-    url: str = Field(default="http://localhost:11434/api/chat", description="Ollama API 端點")
-    timeout: int = Field(default=1800, description="API 請求超時時間(秒)")
-
-
+# ── 標籤集合 ──────────────────────────────────────────────────────────────
 class LabelSet(BaseModel):
     """
     標籤集合設定。classes 在清單中的索引即為整數標籤 labelCode（0..N-1），未命中一律 -1。
@@ -123,7 +104,7 @@ class LabelSet(BaseModel):
         taskType="PPI"：單筆預測 {"label": <enum>}；其餘（BC5CDR）：{"answers": [{"id": int, "label": <enum>}]}。
         """
         # 用 enum 把 label 限定成 classes 之一：Ollama 端就會強制模型只輸出這些字串，
-        # 大幅減少 OutputParser 要處理的雜訊（少數不遵守的仍由 labelToLabelCode 兜底回 -1）。
+        # 大幅減少 ResponseParser 要處理的雜訊（少數不遵守的仍由 labelToLabelCode 兜底回 -1）。
         labelProp = {"type": "string", "enum": self.classes}
         if taskType == "PPI":
             return {
@@ -131,7 +112,7 @@ class LabelSet(BaseModel):
                 "properties": {"label": labelProp},
                 "required": ["label"],
             }
-        # batch：要求每筆帶 id（1-based 序號），讓 OutputParser 能把答案對回正確的 pair。
+        # batch：要求每筆帶 id（1-based 序號），讓 ResponseParser 能把答案對回正確的 pair。
         return {
             "type": "object",
             "properties": {
@@ -148,97 +129,11 @@ class LabelSet(BaseModel):
         }
 
 
-class PipelineConfig(BaseModel):
-    """
-    Pipeline 設定 Schema。
-    taskType="PPI"：每個 task 一個預測標的，需設 labelColumn。
-    taskType="BC5CDR"：每個 task 多個預測標的，需設 itemTemplate。
-    """
-    paths: PathsConfig
-    taskType: str = Field(..., description="資料集類型，決定推論模式：'PPI' 或 'BC5CDR'")
-    selectedModels: List[str] = Field(default_factory=list, description="要進行測試的 LLM 模型清單")
-    contextColumns: List[str] = Field(default_factory=list, description="Task CSV 中作為 context 的欄位名稱")
-    itemColumns: List[str] = Field(default_factory=list, description="items JSON 中對應 itemTemplate 佔位符的欄位名稱")
-    labelColumn: Optional[str] = Field(default=None, description="PPI 模式下攜帶 true label 的欄位名")
-    ollamaServer: OllamaServerConfig = Field(default_factory=OllamaServerConfig)
-    llmOptions: Dict[str, Any] = Field(default_factory=lambda: {"temperature": 0}, description="LLM 推論參數")
-    labelSet: LabelSet = Field(default_factory=LabelSet, description="分類類別清單（字串陣列，如 ['no','yes']）；索引即整數 labelCode")
-    maxItemsPerBatch: int = Field(default=1, ge=1, description="每個 LLM task 包含的 item 數；>1 為批次模式")
-    concurrencyPerModel: int = Field(default=8, description="每個模型的最大非同步併發數")
-    maxConcurrentModels: int = Field(default=1, description="最大同時運行的模型數量")
-    taskTemplate: str = Field(..., description="組裝 userPrompt 的文字模板；{key} 對應 context 欄位，{items} 對應批次展開")
-    itemTemplate: Optional[str] = Field(default=None, description="單筆 item 的格式化模板；不設定代表單筆模式")
-
-    @field_validator('labelSet', mode='before')
-    @classmethod
-    def _normalizeLabelSet(cls, v):
-        """labelSet 寫成字串清單（如 ['no','yes']），於此包成 LabelSet。"""
-        # ergonomic helper：讓 YAML 直接寫 labelSet: ["no","yes"]（而非 labelSet: {classes: [...]}）。
-        # mode='before' 表示在 Pydantic 驗 LabelSet 之前先攔截、把 list 包成 {'classes': list}。
-        if isinstance(v, LabelSet):
-            return v
-        if not isinstance(v, list):
-            raise ValueError(
-                f"labelSet 必須是字串清單（如 ['no','yes']），收到 {type(v).__name__}。"
-            )
-        return {'classes': v}
-
-    @model_validator(mode='after')
-    def validateTaskMode(self):
-        """taskType 一致性檢查：必填欄位、禁用欄位、maxItemsPerBatch 限制。"""
-        # 這裡是 taskType 的合法值把關點：通過後，下游（loadTaskData / _buildTaskBatches）就能信任
-        # taskType ∈ {PPI, BC5CDR}，PPI 以外一律當 BC5CDR，不必再寫不可達的第三分支。
-        if self.taskType not in ("PPI", "BC5CDR"):
-            raise ValueError(
-                f"taskType 必須為 'PPI' 或 'BC5CDR'，收到 '{self.taskType}'。"
-            )
-        if self.taskType == "PPI":
-            # PPI 三條硬規則：
-            #  - 必須有 labelColumn（true label 的來源欄）。
-            #  - 不該有 itemTemplate（PPI 沒有 item 概念，設了代表用錯模式）。
-            #  - maxItemsPerBatch 必為 1（強加 batch 概念只會讓下游邏輯複雜化卻無收益）。
-            if not self.labelColumn:
-                raise ValueError(
-                    "PPI 模式必須設定 labelColumn，"
-                    "用於指定 Task CSV 中攜帶 true label 的欄位名。"
-                )
-            if self.itemTemplate is not None:
-                raise ValueError(
-                    "PPI 模式不應設定 itemTemplate。"
-                    "若資料集為一篇多 item，請將 taskType 改為 'BC5CDR' 並設定 itemColumns。"
-                )
-            if self.maxItemsPerBatch != 1:
-                raise ValueError(
-                    f"PPI 模式下 maxItemsPerBatch 必須為 1，目前為 {self.maxItemsPerBatch}。"
-                )
-        else:
-            # BC5CDR：一定要有 itemTemplate，否則 item 無法渲染進 userPrompt。
-            if not self.itemTemplate:
-                raise ValueError(
-                    "BC5CDR 模式必須提供 itemTemplate，"
-                    "否則無法將 item 渲染進 userPrompt。"
-                )
-            # taskTemplate 必須含 {items} 佔位符：渲染好的 item 內容是當成 {items} 值塞進去的，
-            # 少了它 format_map 會把整段 items 默默丟掉、模型完全看不到 item → fail-fast。
-            if "{items}" not in self.taskTemplate:
-                raise ValueError(
-                    "BC5CDR 模式的 taskTemplate 必須包含 {items} 佔位符，"
-                    "否則展開後的 item 內容無法填入 userPrompt。"
-                )
-        return self
-
-    def buildResponseFormat(self) -> Dict[str, Any]:
-        """回傳 Ollama `format` JSON schema（PPI → {label}；BC5CDR → {answers:[{id,label}]}）。"""
-        # facade：把「模式判定」與「schema 產生」綁在一起，LLMEngine 直接拿結果丟給 Ollama。
-        # 直接把 taskType 字串傳下去，由 LabelSet 端做字串比對，與下游各處分支一致。
-        return self.labelSet.buildOllamaOutputFormat(taskType=self.taskType)
-
-
 # ── Pipeline 例外體系 ─────────────────────────────────────────────────────
-# 階層化例外：上層（Main_PromptCmb）可「捕 PipelineError 一網打盡」也可分別處理；
-# 各階段內部明確 raise 對應子類，讓 traceback 一眼看出失敗在哪一步。
+# 階層化例外：各階段內部明確 raise 對應子類，讓 traceback 一眼看出失敗在哪一步。
+# Main 目前不攔（直接讓它 traceback，實驗情境足夠）；需要時上層可捕 PipelineError 一網打盡。
 class PipelineError(Exception):
-    """所有 Pipeline 錯誤的基底類別，Main_PromptCmb.py 統一捕捉。"""
+    """所有 Pipeline 錯誤的基底類別。"""
     pass
 
 class DataLoadError(PipelineError):
@@ -249,27 +144,10 @@ class TaskBuildError(PipelineError):
     """任務建構失敗：模型/prompt 清單為空、JSON 欄位無法解析等。"""
     pass
 
-class InferenceError(PipelineError):
-    """LLM 推論階段失敗。"""
-    pass
-
 class ParsingError(PipelineError):
-    """解析輸出失敗：找不到 raw.csv、解析後無有效資料等。"""
+    """解析輸出失敗：找不到 response.csv、解析後無有效資料等。"""
     pass
 
 
-# ── 任務執行單位 ──────────────────────────────────────────────────────────
-class LLMTask(BaseModel):
-    """
-    一次 LLM API 呼叫的輸入結構。
-    唯一性由 composite key (model, promptID, taskID) 保證，不用字串拼接以避免特殊字元歧義。
-    """
-    # min_length=1：三個 ID 與 userPrompt 不可空（空字串會讓 checkpoint 比對與渲染出問題）。
-    # sysPrompt 可空（允許「全部塞 user」的 prompt 設計）。
-    taskID:    TaskID    = Field(..., min_length=1, description="批次層級識別碼")
-    model:     ModelName = Field(..., min_length=1, description="Ollama 模型名稱")
-    promptID:  PromptID  = Field(..., min_length=1, description="Prompt 策略識別碼")
-    sysPrompt: str       = Field(default="", description="系統提示詞")
-    userPrompt: str      = Field(..., min_length=1, description="使用者提示詞")
-    items: List[Dict[str, Any]] = Field(default_factory=list, description="此任務包含的 item 清單（含 sentID/label）")
-    context: Dict[str, Any] = Field(default_factory=dict, description="Task 層級 context 欄位")
+# 待執行任務以 promptInfoDf 一列表示（欄位定義見 TaskBuilder.PROMPT_INFO_COLS）；
+# 推論引擎直接迭代該 df，不經過額外的 pydantic 物件。
