@@ -7,6 +7,11 @@ __pycache__/
 data/*
 !data/.gitkeep
 
+# 但保留 PPIDataset/HPRD50 資料集
+!data/PPIDataset/
+data/PPIDataset/*
+!data/PPIDataset/HPRD50/
+
 CLAUDE.md
 
 docs/
@@ -26,3 +31,6 @@ tmp_test/
 
 # 個人備忘
 todo.txt
+
+# Notebook
+pipeline_dataflow_inspect.ipynb
