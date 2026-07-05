@@ -7,29 +7,19 @@ import os
 import httpx
 import pandas as pd
 from collections import defaultdict
-from typing import Dict, List, Any, Tuple, Union
+from typing import Dict, Any, Union
 from pathlib import Path
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from tqdm.asyncio import tqdm
 from tqdm.contrib.logging import logging_redirect_tqdm
-from .schemas import ModelName, ResponseAns
-
-# response.csv 欄位順序的單一事實來源（推論引擎逐筆 append 的輸出檔，同時是斷點續跑的 checkpoint）。
-# 寫入端（appendCsv）與讀取端（DataLoader.loadCompletedTaskRunIDs / ResponseParser）都引用同一常數；
-# 改 schema 只需改這裡一處——但既有 response.csv 就得刪除，否則欄位對不上會 raise。
-#   model / promptCmbID / taskID：任務三元組（= checkpoint composite key，見 TASK_RUN_ID_COLUMNS）。
-#   systemPrompt / userPrompt   ：本次送模型的兩段 prompt 原文。
-#   responseAns                 ：模型原始文字回應（未解析）；失敗時為 "Error:..." marker，下游標 -1。
-#   items / sentence            ：該任務的樣本清單與 sentence（JSON 字串），供 ResponseParser 攤平回每個 item。
-RESPONSE_CSV_COLS: List[str] = [
-    "model", "promptCmbID", "taskID",
-    "systemPrompt", "userPrompt", "responseAns", "items", "sentence",
-]
-
-# response.csv 用來判斷任務是否已完成的 composite key 欄位（對應 TaskRunID 三元組）。
-TASK_RUN_ID_COLUMNS: Tuple[str, str, str] = ("model", "promptCmbID", "taskID")
+# response.csv 欄位順序（RESPONSE_CSV_COLS）的定義在 schemas：寫入端（本檔 appendCsv）與
+# 讀取端（DataLoader / ResponseParser）共用同一常數。
+from .schemas import ModelName, ResponseAns, RESPONSE_CSV_COLS
 
 
+#============================================================================#
+#   OllamaClient: 單次 API 呼叫層（連線池 + 重試）#
+#============================================================================#
 class OllamaClient:
     """非同步 Ollama API 客戶端，封裝連線池與 tenacity 重試（最多 3 次，指數退避）。"""
     def __init__(self, apiUrl: str, timeout: float, llmOptions: Dict[str, Any],
@@ -86,12 +76,15 @@ class OllamaClient:
         await self.httpClient.aclose()
 
 
+#============================================================================#
+#   LLMEngine: 任務調度層（Main 只呼叫 runAllTasks 這一個進入點）#
+#============================================================================#
 class LLMEngine:
     """支援多模型的非同步推論引擎。
 
     雙層併發控制：modelSemaphoreDict（每模型 in-flight 上限）+ modelConcurrencySemaphore（同時載入幾個模型）。
     每筆完成即 append 寫入 response.csv 並 fsync 落盤，中斷可從 checkpoint 續跑。
-    已完成任務的過濾由呼叫端（TaskBuilder.assemblePromptInfo）負責，引擎只執行收到的清單。
+    已完成任務的過濾由呼叫端（TaskBuilder.buildPromptInfo）負責，引擎只執行收到的清單。
     結果不透過回傳值傳遞，下游階段直接從 response.csv 讀取。
     """
 
@@ -107,6 +100,7 @@ class LLMEngine:
                     outputFile: Union[str, Path],
                     responseFormat: Dict[str, Any]) -> None:
         """同步進入點：依傳入設定建好引擎狀態，asyncio.run 跑完所有任務，finally 確保釋放連線池。"""
+        # 1) 把這一輪的設定收進 self（跨 async 方法共用），並建好 API 客戶端。
         self.concurrencyPerModel = concurrencyPerModel
         self.maxConcurrentModels = maxConcurrentModels
         self.outputFile = str(outputFile)
@@ -114,18 +108,19 @@ class LLMEngine:
             apiUrl=apiUrl, timeout=timeout, llmOptions=llmOptions,
             responseFormat=responseFormat,
         )
-        # 雙層併發控制：
+
+        # 2) 建雙層併發控制與寫檔鎖：
         #  - modelSemaphoreDict（內層）：限制「同一模型」的 in-flight 請求數。用 defaultdict 讓每個 model
         #    第一次被存取時自動建立專屬 Semaphore。
         #  - modelConcurrencySemaphore（外層）：限制「同時載入幾個模型」，避免一次塞爆 GPU 記憶體。
+        #  - fileLock：所有 append 寫檔共用一把鎖，序列化磁碟寫入，避免併發交錯寫出壞掉的 CSV 列。
         self.modelSemaphoreDict = defaultdict(lambda: asyncio.Semaphore(self.concurrencyPerModel))
         self.modelConcurrencySemaphore = asyncio.Semaphore(self.maxConcurrentModels)
         self.initializedModelSet = set()
-        # 所有 append 寫檔共用一把鎖，序列化磁碟寫入，避免併發交錯寫出壞掉的 CSV 列。
         self.fileLock = asyncio.Lock()
 
-        # 整條 Pipeline 是同步流程，只有推論這步進入非同步；把 asyncio.run 收斂在引擎內，
-        # 主程式端就只是一行同步呼叫，不必碰 event loop。
+        # 3) asyncio.run 跑完所有任務。整條 Pipeline 是同步流程，只有推論這步進入非同步；
+        #    把 asyncio.run 收斂在引擎內，主程式端就只是一行同步呼叫，不必碰 event loop。
         logging.info(f"[Engine] 派送任務: {len(taskDf)} 筆")
 
         async def runAndClose():
@@ -139,6 +134,9 @@ class LLMEngine:
         asyncio.run(runAndClose())
         logging.info(f"[Engine] 推論完成 → {self.outputFile}")
 
+    #============================================================================#
+    #   以下為 asyncio 內部方法（依呼叫層級排列：runTasks → 每模型 → 單筆 → 寫檔）#
+    #============================================================================#
     async def runTasks(self, taskDf: pd.DataFrame) -> None:
         """所有任務的調度入口：依 model 分組後以 gather 同時啟動各組，組內用 as_completed 交錯執行。
 

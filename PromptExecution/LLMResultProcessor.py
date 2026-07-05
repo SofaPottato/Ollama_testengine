@@ -13,41 +13,42 @@ from typing import Dict, Optional
 
 import pandas as pd
 
-from .schemas import makeRunKey
+from .schemas import PRED_SUFFIX, makeRunKey
+
+# 本檔獨用的衍生欄後綴（__pred 跨模組共用、定義在 schemas；__raw / __sysPrompt 只有這裡寫，供人工 review）。
+RAW_SUFFIX = '__raw'                # 模型原始回應
+SYS_PROMPT_SUFFIX = '__sysPrompt'   # 該組合的 system prompt
 
 
 class LLMResultProcessor:
-    """把長表 resultDf pivot 成 mlTable / fullResultInfo 兩張寬表。"""
+    """把長表 resultDf pivot 成 mlTable / fullResultInfo 兩張寬表。
 
-    # 衍生 runKey 欄位的後綴（下游可用後綴一次篩出同類欄）。
-    _PRED_SUFFIX = '__pred'
-    _RAW_SUFFIX = '__raw'
-    _SYS_PROMPT_SUFFIX = '__sysPrompt'
+    對外有兩個步驟，由 Main 照順序接起來：
+      1. writeMLTable       ：resultDf → mlTableDf（每樣本一列、每 runKey 一欄 __pred）。
+      2. writeFullResultInfo：在 mlTableDf 之上補 __raw / __sysPrompt → fullResultInfoDf。
+    """
+
     # pivot 時不能當 index 的欄：model/promptCmbID 是欄維度，predLabel/responseAns 是值。
     _NON_INDEX_COLS = {'model', 'promptCmbID', 'predLabel', 'responseAns'}
 
-    def _pivotWide(self, resultDf: pd.DataFrame, valueCol: str,
-                   suffix: str, fillValue) -> pd.DataFrame:
-        """長表 → 寬表的共用 pivot：index=樣本欄、columns=(model, promptCmbID)、values=valueCol。
-
-        index 欄動態偵測（排除 _NON_INDEX_COLS），上游新增資料欄不必改這裡。
-        欄名攤平成 runKey + suffix；缺值補 fillValue。回傳仍以樣本欄為 MultiIndex（供對齊）。
-        """
-        indexCols = [c for c in resultDf.columns if c not in self._NON_INDEX_COLS]
-        wideDf = resultDf.pivot_table(
-            index=indexCols, columns=['model', 'promptCmbID'], values=valueCol, aggfunc='first'
-        ).fillna(fillValue)
-        wideDf.columns = [makeRunKey(m, p) + suffix for m, p in wideDf.columns]
-        return wideDf
-
+    #============================================================================#
+    #   Step 1: resultDf → mlTableDf（精簡寬表，給 Evaluate 吃）#
+    #============================================================================#
     def writeMLTable(self, resultDf: pd.DataFrame) -> pd.DataFrame:
         """long → wide（精簡）：每樣本一列、每 runKey 一欄 {runKey}__pred（值為 predLabel）。
 
         某樣本在某 runKey 沒資料 → 補 -1（與「無法解析」共用 sentinel）。
         另記錄 parse rate：須用長表算，寬表的 -1 分不出「無資料」與「解析失敗」會數不準。
         """
-        predWideDf = self._pivotWide(resultDf, 'predLabel', self._PRED_SUFFIX, -1)
+        # 1) pivot long → wide：index=樣本欄（動態偵測，排除 _NON_INDEX_COLS，上游新增資料欄不必改這裡）、
+        #    columns=(model, promptCmbID)、values=predLabel；欄名攤平成 runKey__pred，缺值補 -1。
+        indexCols = [c for c in resultDf.columns if c not in self._NON_INDEX_COLS]
+        predWideDf = resultDf.pivot_table(
+            index=indexCols, columns=['model', 'promptCmbID'], values='predLabel', aggfunc='first'
+        ).fillna(-1)
+        predWideDf.columns = [makeRunKey(m, p) + PRED_SUFFIX for m, p in predWideDf.columns]
 
+        # 2) 記錄 parse rate（用長表算才準）。
         validCount = int((resultDf['predLabel'] != -1).sum())
         totalCount = len(resultDf)
         rate = f"{validCount / totalCount:.1%}" if totalCount else "n/a"
@@ -55,6 +56,9 @@ class LLMResultProcessor:
 
         return predWideDf.reset_index()
 
+    #============================================================================#
+    #   Step 2: mlTableDf + resultDf → fullResultInfoDf（含原文的完整寬表）#
+    #============================================================================#
     def writeFullResultInfo(self, resultDf: pd.DataFrame, mlTableDf: pd.DataFrame,
                             promptCmbDf: Optional[pd.DataFrame] = None) -> pd.DataFrame:
         """在 mlTableDf（__pred 寬表）之上補 __raw 與 __sysPrompt，供人工 review。
@@ -64,21 +68,25 @@ class LLMResultProcessor:
           - {runKey}__sysPrompt：該 runKey 當次用的 system prompt（promptCmbDf 為空則略過）。
         以樣本 index 欄 merge 對齊（1:1，不依賴列順序）。
         """
+        # 1) __raw 寬表：responseAns 做同款 pivot（index=樣本欄、columns=(model, promptCmbID)、缺值補空字串），
+        #    欄名攤平成 runKey__raw，再以 index 欄 1:1 merge 進 mlTableDf。
         indexCols = [c for c in resultDf.columns if c not in self._NON_INDEX_COLS]
-        rawWideDf = self._pivotWide(resultDf, 'responseAns', self._RAW_SUFFIX, '').reset_index()
-        # mlTableDf 已含 index 欄 + __pred；rawWideDf 含 index 欄 + __raw；以 index 欄 1:1 merge。
-        fullResultInfoDf = mlTableDf.merge(rawWideDf, on=indexCols, how='left')
+        rawWideDf = resultDf.pivot_table(
+            index=indexCols, columns=['model', 'promptCmbID'], values='responseAns', aggfunc='first'
+        ).fillna('')
+        rawWideDf.columns = [makeRunKey(m, p) + RAW_SUFFIX for m, p in rawWideDf.columns]
+        fullResultInfoDf = mlTableDf.merge(rawWideDf.reset_index(), on=indexCols, how='left')
 
-        # 每個 runKey 補一欄 __sysPrompt（該組合的 system prompt 原文）。
-        # runKey↔promptCmbID 的對應只在長表裡（寬表已沒這層維度），故由長表查。
+        # 2) 每個 runKey 補一欄 __sysPrompt（該組合的 system prompt 原文）。
+        #    runKey↔promptCmbID 的對應只在長表裡（寬表已沒這層維度），故由長表查。
         if promptCmbDf is None or promptCmbDf.empty:
             return fullResultInfoDf
         promptCmbIDToText = dict(zip(promptCmbDf['promptCmbID'], promptCmbDf['promptText']))
         newColsDict: Dict[str, pd.Series] = {}
         for row in resultDf[['model', 'promptCmbID']].drop_duplicates().itertuples(index=False):
-            colName = makeRunKey(row.model, row.promptCmbID) + self._SYS_PROMPT_SUFFIX
+            colName = makeRunKey(row.model, row.promptCmbID) + SYS_PROMPT_SUFFIX
             newColsDict[colName] = pd.Series(
                 promptCmbIDToText.get(row.promptCmbID, ''), index=fullResultInfoDf.index)
-        if newColsDict:
-            fullResultInfoDf = pd.concat([fullResultInfoDf, pd.DataFrame(newColsDict)], axis=1)
+        # resultDf 非空（parseToResultDf 空即 raise）→ 至少一組 (model, promptCmbID) → newColsDict 必非空。
+        fullResultInfoDf = pd.concat([fullResultInfoDf, pd.DataFrame(newColsDict)], axis=1)
         return fullResultInfoDf

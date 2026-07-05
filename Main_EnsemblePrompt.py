@@ -79,7 +79,10 @@ def runExperiment(splitName, datasetPath, outputRoot, promptCmbDf):
 
 
     dlObj = DataLoader()
-    datasetDf, labelSet = dlObj.loadDataset(datasetPath, taskType, labelColumn, sentenceColumns)
+    if taskType == "PPI":
+        datasetDf, labelSet = dlObj.loadDatasetPPI(datasetPath, labelColumn, sentenceColumns)
+    else:
+        datasetDf, labelSet = dlObj.loadDatasetBC5CDR(datasetPath, sentenceColumns)
     finishedTaskRunIDSet = dlObj.loadCompletedTaskRunIDs(responsePath)
 
 #============================================================================#
@@ -98,26 +101,25 @@ def runExperiment(splitName, datasetPath, outputRoot, promptCmbDf):
     # 註：真的要跑 BC5CDR，上面的 taskType/sentenceColumns/taskTemplate 也需改成 BC5CDR 版
     #     （sentenceColumns=['title','abstract']、taskTemplate 需含 {items} 佔位符）。
     maxItemsPerBatch = 20                        # 一篇多個 entity pair 時，每批最多幾個 pair
-    itemTemplate     = "{i}. {e1} - {e2}\n"      # 每個 pair 的渲染樣板，拼接後塞進 taskTemplate 的 {items}
-    itemColumns      = ["e1", "e2"]              # 要渲染進 itemTemplate 的 item 欄（None=全部非保留欄）
+    itemTemplate     = "{i}. {e1} - {e2}\n"      # 每個 pair 的組裝樣板，拼接後塞進 taskTemplate 的 {items}
+    itemColumns      = ["e1", "e2"]              # 要組裝進 itemTemplate 的 item 欄（None=全部非保留欄）
 
     tbObj = TaskBuilder()
     if taskType == "PPI":
-        userPromptDf = tbObj.buildUserPromptBatches(datasetDf, taskType, sentenceColumns, taskTemplate,
-                                                    labelColumn=labelColumn)
+        userPromptDf = tbObj.buildUserPromptPPI(datasetDf, sentenceColumns, taskTemplate, labelColumn)
     else:
-        userPromptDf = tbObj.buildUserPromptBatches(datasetDf, taskType, sentenceColumns, taskTemplate,
-                                                    maxItemsPerBatch=maxItemsPerBatch, itemTemplate=itemTemplate,
-                                                    itemColumns=itemColumns)
-    # userPromptDf → × models × prompts、跳過已完成 → promptInfoDf（傳入/回傳皆顯式，資料流一目了然）
-    promptInfoDf = tbObj.assemblePromptInfo(userPromptDf, promptCmbDf, selectedModels, finishedTaskRunIDSet)
+        userPromptDf = tbObj.buildUserPromptBC5CDR(datasetDf, sentenceColumns, taskTemplate,
+                                                   maxItemsPerBatch, itemTemplate, itemColumns)
+    # userPromptDf → × models × prompts、跳過已完成 → promptInfoDf
+    promptInfoDf = tbObj.buildPromptInfo(userPromptDf, promptCmbDf, selectedModels, finishedTaskRunIDSet)
 
     # 檢視檔保留所有欄位（sentence、items 皆原名原樣）。
     tbObj.savePromptInfo(promptInfoDf, datasetPromptInfoPath)  # 存待執行任務供檢視
 #============================================================================#
 #   Step 4: LLM 推論（結果 append 到 response.csv）#
 #============================================================================#
-    if not promptInfoDf.empty:
+    if not promptInfoDf.empty: 
+        #在buildPromptInfo 中透過finishedTaskRunIDSet 過濾掉已完成的任務，若 promptInfoDf 為空，表示所有任務都已完成，直接跳過推論步驟。
         logging.info(f"[Step 4/7] Running Inference ({len(promptInfoDf)} tasks)")
         ollamaUrl           = "http://localhost:11434/api/chat"  # Ollama API 端點
         ollamaTimeout       = 600                                         # 單次請求的最大等待秒數

@@ -10,7 +10,7 @@ from matplotlib.colors import ListedColormap
 from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
                              matthews_corrcoef, precision_score, recall_score)
 
-from .schemas import LabelSet, safeFileStem
+from .schemas import LabelSet, PRED_SUFFIX, safeFileStem
 
 
 class PromptCmbEval:
@@ -26,23 +26,30 @@ class PromptCmbEval:
 
     evalDir（產物輸出目錄）建構時定下；資料輸入（mlTableDf / labelSet）與各產物路徑於用到的方法呼叫時傳入。
     跨步驟共用的「計算結果」於 loadMLTableDf 一次初始化並存於 self，plot/save 方法直接取用。
-    """
 
-    _PRED_SUFFIX = '__pred'
+    對外有六個步驟，由 Main 照順序接起來：
+      1. loadMLTableDf        ：吃 Step 6 的寬表，備妥評估狀態。
+      2. evalPromptCmb        ：每個 runKey 算指標 + 對錯矩陣。
+      3. analyzeUpperBound    ：難題清單與準確率天花板（全部 / F1 前 10 / 前 20）。
+      4. plotConfusionMatrices：每個 runKey 一張混淆矩陣 PNG。
+      5. plotHeatmap          ：全 runKey × 樣本的對錯熱圖。
+      6. saveSummary          ：evalSummary.csv + 難題清單 CSV。
+    """
 
     def __init__(self, evalDir: Path):
         # evalDir 是「這個評估器往哪寫」的固定屬性（root）；底下各產物的檔名於各 plot/save 方法呼叫時再給。
         self.evalDir = Path(evalDir)
 
-    # ── 流程步驟方法（主程式依序呼叫）─────────────────────────────────────────
-
+    #============================================================================#
+    #   Step 1: mlTableDf → 評估狀態（predCols / trueLabel / 快取容器）#
+    #============================================================================#
     def loadMLTableDf(self, mlTableDf: pd.DataFrame):
         """吃 Step 6 的寬表，備妥後續評估要用的欄位與狀態。"""
         self.inputDf = mlTableDf.copy()
 
         self.idCols = ['sentID']
         # 預測欄一律以 __pred 後綴辨識：寬表帶 originalAns / passage 等 index 欄時也不會被誤當預測欄。
-        self.predCols = [col for col in self.inputDf.columns if col.endswith(self._PRED_SUFFIX)]
+        self.predCols = [col for col in self.inputDf.columns if col.endswith(PRED_SUFFIX)]
 
         self.yTrueLabelSeries = self.inputDf['trueLabel']
         self.correctnessMatrixDf = pd.DataFrame(index=self.inputDf.index)
@@ -63,6 +70,9 @@ class PromptCmbEval:
             f"預測欄={len(self.predCols)}, index欄={self.idCols} → {self.evalDir}"
         )
 
+    #============================================================================#
+    #   Step 2: 每個 runKey 算指標（Acc/P/R/F1/MCC）+ 對錯矩陣#
+    #============================================================================#
     def evalPromptCmb(self, labelSet: LabelSet):
         """遍歷所有預測欄算指標並記錄每個樣本的對錯矩陣。
 
@@ -82,7 +92,7 @@ class PromptCmbEval:
 
         correctnessByCol = {}
         for predColName in self.predCols:
-            # 有效預測遮罩：isin(validLabels) 濾掉 -1，同時套用到 true 與 pred，確保兩邊對齊同一批樣本。
+            # 1) 有效預測遮罩：isin(validLabels) 濾掉 -1，同時套用到 true 與 pred，確保兩邊對齊同一批樣本。
             yPredSeries = self.inputDf[predColName]
             validMaskSeries = yPredSeries.isin(validLabels)
             # 整欄都無效（全 -1，該 runKey 全解析失敗）→ 跳過該 runKey 的指標。
@@ -93,10 +103,10 @@ class PromptCmbEval:
             yPredValidSeries = yPredSeries[validMaskSeries]
             self.validLabelSeriesByCol[predColName] = (yTrueValidSeries, yPredValidSeries)  # 快取供混淆矩陣重用
 
-            # 指標；zero_division=0 讓無正類預測時回 0 而非報錯，MCC 原生支援多分類。
-            # 欄序固定：modelPromptCmbID → 五項指標 → validCount，與 evalSummary.csv 一致。
+            # 2) 算五項指標；zero_division=0 讓無正類預測時回 0 而非報錯，MCC 原生支援多分類。
+            #    欄序固定：modelPromptCmbID → 五項指標 → validCount，與 evalSummary.csv 一致。
             resultRowDict = {
-                "modelPromptCmbID": predColName.removesuffix(self._PRED_SUFFIX),
+                "modelPromptCmbID": predColName.removesuffix(PRED_SUFFIX),
                 "accuracy":  round(accuracy_score(yTrueValidSeries, yPredValidSeries), 2),
                 "precision": round(precision_score(yTrueValidSeries, yPredValidSeries, average=avg, zero_division=0), 2),
                 "recall":    round(recall_score(yTrueValidSeries, yPredValidSeries, average=avg, zero_division=0), 2),
@@ -106,6 +116,7 @@ class PromptCmbEval:
             }
             self.metricsResultsList.append(resultRowDict)
 
+            # 3) 記對錯欄：用全體樣本（含 -1；-1 必不等於 trueLabel，一律判錯）。
             correctnessByCol[predColName] = (self.inputDf[predColName] == self.yTrueLabelSeries).astype(int)
 
         if correctnessByCol:
@@ -116,6 +127,9 @@ class PromptCmbEval:
         else:
             logging.warning("[Eval] 無有效結果，未產生 evalSummary.csv")
 
+    #============================================================================#
+    #   Step 3: 難題清單 + 準確率天花板（全部 / F1 前 10 / 前 20）#
+    #============================================================================#
     def analyzeUpperBound(self):
         """計算難題（所有 runKey 都答錯的樣本）與理論上限。
 
@@ -139,18 +153,16 @@ class PromptCmbEval:
         # 全體 Upper Bound = 非難題比例（用上所有 runKey 時的準確率天花板）。
         totalSampleCount = len(self.inputDf)
         solvableSampleCount = totalSampleCount - len(self.hardSamplesDf)
-        self.upperBound = solvableSampleCount / totalSampleCount if totalSampleCount > 0 else 0
+        self.upperBound = solvableSampleCount / totalSampleCount
 
         # 只取 F1 前 N 名 runKey 的子矩陣各自再算一次 Upper Bound（N=10, 20）。metricsSummaryDf 已按 f1Score
-        # 由高到低排序；runKey 不足 N 個時 head(n) 自動取全部；無有效指標或無樣本時回 (0.0, 樣本數)。
+        # 由高到低排序；runKey 不足 N 個時 head(n) 自動取全部。
+        # （能走到這裡代表已過 correctnessMatrixDf.empty 檢查，totalSampleCount>0、metricsSummaryDf 非 None 皆成立。）
         topNUpperBoundDict = {}
         for n in (10, 20):
-            if self.metricsSummaryDf is None or totalSampleCount == 0:
-                topNUpperBoundDict[n] = (0.0, totalSampleCount)
-                continue
             # modelPromptCmbID 是去掉 __pred 後綴的名稱；補回後綴才對得上 correctnessMatrixDf 的欄。
             topNameList = self.metricsSummaryDf['modelPromptCmbID'].head(n).tolist()
-            topColList = [f"{name}{self._PRED_SUFFIX}" for name in topNameList]
+            topColList = [f"{name}{PRED_SUFFIX}" for name in topNameList]
             topColList = [c for c in topColList if c in self.correctnessMatrixDf.columns]
             if not topColList:
                 topNUpperBoundDict[n] = (0.0, totalSampleCount)
@@ -167,6 +179,9 @@ class PromptCmbEval:
             f"Top20={self.upperBoundTop20:.2%}（難題 {hardTop20} 筆）"
         )
 
+    #============================================================================#
+    #   Step 4: 每個 runKey 一張混淆矩陣 PNG#
+    #============================================================================#
     def plotConfusionMatrices(self, labelSet: LabelSet, plotsDir: Optional[Path] = None):
         """為每個 runKey 繪製混淆矩陣 PNG（排除 -1），存至 plotsDir（預設 evalDir/plots）。"""
         logging.info("[Eval] 繪製混淆矩陣中")
@@ -182,7 +197,7 @@ class PromptCmbEval:
             if validLabelsTuple is None:
                 continue
             yTrueValidSeries, yPredValidSeries = validLabelsTuple
-            displayName = predColName.removesuffix(self._PRED_SUFFIX)
+            displayName = predColName.removesuffix(PRED_SUFFIX)
 
             # labels=validLabels 確保即使某類別無預測，矩陣仍為 N×N。
             confusionMatrixArr = confusion_matrix(yTrueValidSeries, yPredValidSeries, labels=validLabels)
@@ -201,6 +216,9 @@ class PromptCmbEval:
             plt.savefig(str(savePath), bbox_inches='tight')
             plt.close()
 
+    #============================================================================#
+    #   Step 5: 全 runKey × 樣本的對錯熱圖#
+    #============================================================================#
     def plotHeatmap(self, heatmapPath: Optional[Path] = None):
         """繪製所有 runKey 對每個樣本的對錯熱圖（綠=對、紅=錯），存至 heatmapPath（預設 evalDir/correctnessHeatmap.png）。"""
         if self.correctnessMatrixDf.empty:
@@ -210,7 +228,7 @@ class PromptCmbEval:
         logging.info("[Eval] 繪製對錯熱圖中")
         plt.figure(figsize=(12, 8))
 
-        displayDf = self.correctnessMatrixDf.rename(columns=lambda c: c.removesuffix(self._PRED_SUFFIX))
+        displayDf = self.correctnessMatrixDf.rename(columns=lambda c: c.removesuffix(PRED_SUFFIX))
         sns.heatmap(displayDf.T, cmap=ListedColormap(["#d73027", "#1a9850"]),
                     vmin=0, vmax=1, cbar=False)
         plt.title("Model Correctness Heatmap (Green=Correct)")
@@ -221,6 +239,9 @@ class PromptCmbEval:
         plt.savefig(str(savePath), bbox_inches='tight')
         plt.close()
 
+    #============================================================================#
+    #   Step 6: evalSummary.csv + 難題清單 CSV#
+    #============================================================================#
     def saveSummary(self, summaryPath: Optional[Path] = None,
                     reviewPath: Optional[Path] = None):
         """輸出指標總表（按 F1 排序）與難題清單；預設 evalDir/evalSummary.csv、evalDir/FalsePredictionByAllPromptCmb.csv。"""
@@ -234,10 +255,13 @@ class PromptCmbEval:
                 ("accupperBound (top10 f1)",  self.upperBoundTop10),
                 ("accupperBound (top20 f1)",  self.upperBoundTop20),
             ]
+            # 先把三列組好、最後一次 concat（不在迴圈內反覆 concat 重建 df）。
+            appendRowList = []
             for label, value in upperBoundRowList:
                 row = {col: "" for col in summaryDf.columns}
                 row["modelPromptCmbID"] = f"{label}: {value:.2%}"
-                summaryDf = pd.concat([summaryDf, pd.DataFrame([row])], ignore_index=True)
+                appendRowList.append(row)
+            summaryDf = pd.concat([summaryDf, pd.DataFrame(appendRowList)], ignore_index=True)
             summaryDf.to_csv(str(summaryPath), index=False, encoding='utf-8-sig')
 
         if self.hardSamplesDf is not None:

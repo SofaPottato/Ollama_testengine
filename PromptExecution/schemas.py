@@ -1,5 +1,6 @@
 """Pydantic schema、自定義例外、資料模型的單一事實來源。"""
 import json
+from dataclasses import dataclass
 from pydantic import BaseModel, Field, PrivateAttr, model_validator
 from typing import Dict, Any, List, FrozenSet, TypeAlias
 
@@ -12,7 +13,9 @@ from pathvalidate import sanitize_filename
 RESERVED_ITEM_FIELDS: FrozenSet[str] = frozenset({'sentID', 'label'})
 
 
-# ── 跨模組共用工具（去重：JSON 欄解析、檔名清洗）──────────────────────────
+#============================================================================#
+#   跨模組共用工具（去重：JSON 欄解析、檔名清洗）#
+#============================================================================#
 def isBlankCell(value: Any) -> bool:
     """CSV 空欄判斷：None 或 pandas NaN。"""
     return value is None or (isinstance(value, float) and pd.isna(value))
@@ -34,14 +37,18 @@ def safeFileStem(name: Any) -> str:
     return sanitize_filename(str(name), replacement_text='_').replace('+', '_').replace(' ', '_')
 
 
-# ── 語意化型別別名：純為提升可讀性與 IDE 提示，型別檢查器仍視為 str ──────────
+#============================================================================#
+#   語意化型別別名：純為提升可讀性與 IDE 提示，型別檢查器仍視為 str#
+#============================================================================#
 ModelName:   TypeAlias = str   # Ollama 模型名稱，如 "llama3.2:1b"
 PromptCmbID: TypeAlias = str   # Prompt 組合識別碼
 TaskID:      TypeAlias = str   # Task 批次層級識別碼
 ResponseAns: TypeAlias = str   # LLM 原始文字回應（未解析）
 
 
-# ── runKey：把一次「模型 × Prompt 組合」壓成單一識別字串（格式的唯一來源）──────
+#============================================================================#
+#   runKey：把一次「模型 × Prompt 組合」壓成單一識別字串（格式的唯一來源）#
+#============================================================================#
 RUN_KEY_SEPARATOR = '|'   # 用 '|' 而非 '_'，因模型名常含 '_'/':'
 RunKey: TypeAlias = str   # 形如 "llama3.2:1b|EMO01 + Role01"
 
@@ -57,7 +64,38 @@ def makeRunKey(model: ModelName, promptCmbID: PromptCmbID) -> RunKey:
     return f"{model}{RUN_KEY_SEPARATOR}{promptCmbID}"
 
 
-# ── 標籤集合 ──────────────────────────────────────────────────────────────
+# 預測欄後綴：欄名 = runKey + '__pred'。LLMResultProcessor 寫欄名、Evaluate 依此後綴篩欄，
+# 跨模組契約故放 schemas（__raw / __sysPrompt 只有 LLMResultProcessor 用，定義在該檔）。
+PRED_SUFFIX = '__pred'
+
+
+#============================================================================#
+#   TaskRunID 與 response.csv schema（checkpoint 的單一事實來源）#
+#============================================================================#
+@dataclass(frozen=True)
+class TaskRunID:
+    """單次 LLM 推論的唯一識別三元組；response.csv checkpoint 以此比對是否已完成。"""
+    model:    ModelName
+    promptCmbID: PromptCmbID
+    taskID:   TaskID
+
+
+# response.csv 欄位順序的單一事實來源（推論引擎逐筆 append 的輸出檔，同時是斷點續跑的 checkpoint）。
+# 寫入端（OllamaEngine.appendCsv）與讀取端（DataLoader.loadCompletedTaskRunIDs / ResponseParser）都引用同一常數；
+# 改 schema 只需改這裡一處——但既有 response.csv 就得刪除，否則欄位對不上會 raise。
+#   model / promptCmbID / taskID：任務三元組（= checkpoint composite key，對應 TaskRunID）。
+#   systemPrompt / userPrompt   ：本次送模型的兩段 prompt 原文。
+#   responseAns                 ：模型原始文字回應（未解析）；失敗時為 "Error:..." marker，下游標 -1。
+#   items / sentence            ：該任務的樣本清單與 sentence（JSON 字串），供 ResponseParser 攤平回每個 item。
+RESPONSE_CSV_COLS: List[str] = [
+    "model", "promptCmbID", "taskID",
+    "systemPrompt", "userPrompt", "responseAns", "items", "sentence",
+]
+
+
+#============================================================================#
+#   標籤集合（LabelSet）#
+#============================================================================#
 class LabelSet(BaseModel):
     """
     標籤集合設定。classes 在清單中的索引即為整數標籤 labelCode（0..N-1），未命中一律 -1。
@@ -129,7 +167,9 @@ class LabelSet(BaseModel):
         }
 
 
-# ── Pipeline 例外體系 ─────────────────────────────────────────────────────
+#============================================================================#
+#   Pipeline 例外體系#
+#============================================================================#
 # 階層化例外：各階段內部明確 raise 對應子類，讓 traceback 一眼看出失敗在哪一步。
 # Main 目前不攔（直接讓它 traceback，實驗情境足夠）；需要時上層可捕 PipelineError 一網打盡。
 class PipelineError(Exception):
