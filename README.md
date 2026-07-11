@@ -52,12 +52,12 @@ prompts:
 | 6. 後處理 | [`LLMResultProcessor`](PromptExecution/LLMResultProcessor.py) | 長表 → 寬表 `mlTable.csv` / `fullResultInfo.csv`（pivot）|
 | 7. 評估 | [`Evaluate` (`PromptCmbEval`)](PromptExecution/Evaluate.py) | `mlTable` → 指標總表、混淆矩陣、對錯熱圖、難題清單 |
 
-型別、schema、跨模組共用常數與自訂例外集中在 [`schemas.py`](PromptExecution/schemas.py)；logger 與隨機種子的初始化在 [`ExperimentInitializer`](PromptExecution/ExperimentInitializer.py)。
+跨模組共用的資料模型/型別（`LabelSet`、`TaskRunID`）、自訂例外體系與共用工具（`parseJsonCell`、`RESERVED_ITEM_FIELDS`）集中在 [`util.py`](PromptExecution/util.py)；單一模組自用的東西則就近放在各自模組（如 runKey 格式在 `LLMResultProcessor`、Ollama `format` schema 在 `OllamaEngine`）。logger 與隨機種子的初始化在 [`ExperimentInitializer`](PromptExecution/ExperimentInitializer.py)。
 
 ### 幾個設計重點
 
 - **斷點續跑（checkpoint / resume）**：`response.csv` 同時是輸出檔與 checkpoint。每筆推論完成即 `append` 並 `fsync` 落盤；重跑時 Step 2 會讀回已完成的 `(model, promptCmbID, taskID)` 三元組，Step 3 據此跳過，中斷後可無痛續跑。**若要重新跑一輪，刪除或備份 `response.csv` 即可。**
-- **結構化輸出（structured output）**：透過 Ollama 的 `format` JSON schema（由 `LabelSet.buildOllamaOutputFormat` 產生）強制模型只能輸出 `classes` 之一，大幅減少解析雜訊。少數不遵守的仍由 `labelToLabelCode` 兜底回 `-1`。
+- **結構化輸出（structured output）**：透過 Ollama 的 `format` JSON schema（由 `OllamaEngine.buildOllamaOutputFormat` 從 `labelSet.classes` 產生）強制模型只能輸出 `classes` 之一，大幅減少解析雜訊。少數不遵守的仍由 `labelToLabelCode` 兜底回 `-1`。
 - **雙層併發控制**：`concurrencyPerModel`（每個模型的 in-flight 上限）+ `maxConcurrentModels`（同時載入幾個模型，避免塞爆 GPU 記憶體）。網路錯誤自動重試（tenacity，最多 3 次指數退避）。
 - **失敗不中斷**：單筆推論失敗會寫入 `"Error:..."` marker 而非拋例外，下游 `ResponseParser` 看到後標 `-1`（無法判定），整批照常完成。指標計算一律排除 `-1`。
 - **Upper Bound 分析**：評估報告除了各組合的 Accuracy / Precision / Recall / F1 / MCC，還算出「完美挑選組合」時的準確率天花板——全部組合、F1 前 10、F1 前 20 各一份。若天花板遠低於目標，代表再怎麼試 prompt 也無效，需從資料或模型本身改進。
@@ -175,7 +175,7 @@ EnsemblePrompt/
 │   ├── ResponseParser.py           # Step 5
 │   ├── LLMResultProcessor.py       # Step 6
 │   ├── Evaluate.py                 # Step 7
-│   ├── schemas.py                  # 型別 / schema / 例外 / 共用常數的單一事實來源
+│   ├── util.py                     # 共享資料模型/型別 / 例外體系 / 共用工具的家
 │   └── ExperimentInitializer.py    # logger + 隨機種子
 └── data/
     ├── PromptGeneration/           # Prompt 方法池 YAML

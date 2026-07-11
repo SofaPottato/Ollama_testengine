@@ -11,8 +11,9 @@ from pathlib import Path
 from typing import List
 
 import pandas as pd
+from pathvalidate import sanitize_filename
 
-from .schemas import LabelSet, ParsingError, RESERVED_ITEM_FIELDS, parseJsonCell, safeFileStem
+from .util import LabelSet, ParsingError, RESERVED_ITEM_FIELDS, parseJsonCell
 
 
 #============================================================================#
@@ -80,7 +81,7 @@ class ResponseParser:
       predLabel  ：模型預測轉成 labelCode（0..N-1）；JSON 壞、label 不在 classes、"Error:" 一律 -1。
       responseAns：模型原始回應字串（同一 batch 的多 item 共用）。
       + item 其他欄（如 e1/e2，排除 RESERVED_ITEM_FIELDS）與 sentence 欄（只補空缺、不覆蓋前面的欄）。
-    另按 promptCmbID 分檔輸出 <singleOutputDir>/<promptCmbID>_result.csv，供快速檢視單一組合。
+    另按 promptCmbID 分檔輸出 <singlePromptCmbOutputDir>/<promptCmbID>_result.csv，供快速檢視單一組合。
 
     對外有三個步驟，由 Main 照順序接起來：
       1. loadResponse   ：讀 response.csv → responseDf。
@@ -162,16 +163,18 @@ class ResponseParser:
     #============================================================================#
     #   Step 3: resultDf → result.csv + 按 promptCmbID 分檔#
     #============================================================================#
-    def saveResults(self, resultDf: pd.DataFrame, resultPath: Path, singleOutputDir: Path) -> None:
+    def saveResults(self, resultDf: pd.DataFrame, resultPath: Path, singlePromptCmbOutputDir: Path) -> None:
         """輸出合併版 result.csv，並按 promptCmbID 分檔（供快速檢視單一組合）。
 
-        分檔用 safeFileStem 把 promptCmbID 洗成跨平台安全的檔名。此檔為存查產物；
-        Step 6 直接吃記憶體中的 resultDf，不從這裡讀回。
+        分檔用 promptCmbID 當檔名；promptCmbID 只含 '+' 與空白這類非法/易誤字元，
+        故 sanitize_filename 後再把 '+'、空白換底線即可（此檔為存查產物，
+        Step 6 直接吃記憶體中的 resultDf，不從這裡讀回）。
         """
         resultPath = Path(resultPath)
-        singleOutputDir = Path(singleOutputDir)
+        singlePromptCmbOutputDir = Path(singlePromptCmbOutputDir)
         resultDf.to_csv(str(resultPath), index=False, encoding='utf-8-sig')
         for promptCmbID, groupDf in resultDf.groupby('promptCmbID'):
-            singleCsvPath = singleOutputDir / f"{safeFileStem(promptCmbID)}_result.csv"
+            fileStem = sanitize_filename(str(promptCmbID), replacement_text='_').replace('+', '_').replace(' ', '_')
+            singleCsvPath = singlePromptCmbOutputDir / f"{fileStem}_result.csv"
             groupDf.to_csv(singleCsvPath, index=False, encoding='utf-8-sig')
         logging.info(f"[Parser] 解析完成: {len(resultDf)} samples → {resultPath}")

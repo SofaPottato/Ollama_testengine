@@ -7,14 +7,46 @@ import os
 import httpx
 import pandas as pd
 from collections import defaultdict
-from typing import Dict, Any, Union
+from typing import Dict, Any, List, Union
 from pathlib import Path
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 from tqdm.asyncio import tqdm
 from tqdm.contrib.logging import logging_redirect_tqdm
-# response.csv 欄位順序（RESPONSE_CSV_COLS）的定義在 schemas：寫入端（本檔 appendCsv）與
-# 讀取端（DataLoader / ResponseParser）共用同一常數。
-from .schemas import ModelName, ResponseAns, RESPONSE_CSV_COLS
+
+
+#============================================================================#
+#   Ollama structured-output schema：由 labelSet 的 classes 產生 `format` JSON schema#
+#============================================================================#
+def buildOllamaOutputFormat(classes: List[str], taskType: str) -> Dict[str, Any]:
+    """產生 Ollama `format` 用的 JSON schema（強制模型只能輸出 classes 之一）。
+
+    taskType="PPI"：單筆預測 {"label": <enum>}；其餘（BC5CDR）：{"answers": [{"id": int, "label": <enum>}]}。
+    只有 Ollama 線路用得到，故與引擎同檔；吃 classes 原始 list，不必依賴 util.LabelSet。
+    """
+    # 用 enum 把 label 限定成 classes 之一：Ollama 端就會強制模型只輸出這些字串，
+    # 大幅減少 ResponseParser 要處理的雜訊（少數不遵守的仍由 labelToLabelCode 兜底回 -1）。
+    labelProp = {"type": "string", "enum": classes}
+    if taskType == "PPI":
+        return {
+            "type": "object",
+            "properties": {"label": labelProp},
+            "required": ["label"],
+        }
+    # batch：要求每筆帶 id（1-based 序號），讓 ResponseParser 能把答案對回正確的 pair。
+    return {
+        "type": "object",
+        "properties": {
+            "answers": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {"id": {"type": "integer"}, "label": labelProp},
+                    "required": ["id", "label"],
+                },
+            }
+        },
+        "required": ["answers"],
+    }
 
 
 #============================================================================#
@@ -46,7 +78,7 @@ class OllamaClient:
         retry=retry_if_exception_type((httpx.RequestError, httpx.HTTPStatusError)),
         reraise=True
     )
-    async def generate(self, modelName: ModelName, sysPrompt: str, userPrompt: str) -> ResponseAns:
+    async def generate(self, modelName: str, sysPrompt: str, userPrompt: str) -> str:
         """送出單次推論請求，回傳模型文字回應。網路錯誤自動重試，超限後往上拋。"""
         # stream=False：要完整回應而非逐 token 串流（批次解析不需要串流）。
         # format=responseFormat 讓 Ollama 端強制輸出符合 schema 的 JSON。
@@ -165,7 +197,7 @@ class LLMEngine:
                 for modelName, modelDf in modelGroupList
             ])
 
-    async def processTaskByModel(self, modelName: ModelName,
+    async def processTaskByModel(self, modelName: str,
                                  modelDf: pd.DataFrame,
                                  progressBar: tqdm) -> None:
         """處理單一模型的所有任務；外層 modelConcurrencySemaphore 控制同時載入幾個模型。"""
@@ -198,7 +230,7 @@ class LLMEngine:
             responseAns = await self.tryGenerate(row)
             await self.appendCsv(row, responseAns)
 
-    async def tryGenerate(self, row) -> ResponseAns:
+    async def tryGenerate(self, row) -> str:
         """送出 LLM 請求；例外與空回應都統一回 Error 字串，讓批次能繼續且下游用同方式辨識。"""
         # 單筆失敗「不 raise」，否則 gather 會把整批中斷。改回 "Error:..." 字串，讓這筆照常寫進 response.csv
         # （算「已嘗試/已完成」），下游 ResponseParser 看到 "Error:" 標 -1。
@@ -212,8 +244,10 @@ class LLMEngine:
 
         return responseAns or "Error: Max retries exceeded or connection failed"
 
-    async def appendCsv(self, row, responseAns: ResponseAns) -> None:
+    async def appendCsv(self, row, responseAns: str) -> None:
         """以 fileLock 序列化 append 寫 response.csv；fsync 確保中斷時 checkpoint 不遺失最後一筆。"""
+        # 這個 dict 即 response.csv 的欄位契約與唯一事實來源：鍵的插入順序 = 寫出的欄位順序，
+        # 前三欄（model/promptCmbID/taskID）為 checkpoint 三元組，須與 DataLoader 讀取端一致。
         rowDataDict = {
             "model":        row.model,
             "promptCmbID":  row.promptCmbID,
@@ -229,8 +263,8 @@ class LLMEngine:
         async with self.fileLock:
             b_fileExists = os.path.isfile(self.outputFile)
             with open(self.outputFile, 'a', encoding='utf-8-sig', newline='') as f:
-                # 固定 fieldnames = RESPONSE_CSV_COLS，保證欄位順序與下游驗證一致。
-                csvWriter = csv.DictWriter(f, fieldnames=RESPONSE_CSV_COLS)
+                # fieldnames 直接取自 rowDataDict 的鍵順序（即上面定義的欄位契約），保證表頭與寫入一致。
+                csvWriter = csv.DictWriter(f, fieldnames=list(rowDataDict))
                 if not b_fileExists:
                     csvWriter.writeheader()
                 csvWriter.writerow(rowDataDict)

@@ -13,8 +13,8 @@ import logging
 import pandas as pd
 from pathlib import Path
 
-INPUT_PATH  = "data/bcvcdrRaw/BCVCDR_Processed.csv"
-OUTPUT_PATH = "data/test/sample_tasks.csv"
+INPUT_PATH  = "data\\bcvcdr\\BCVCDR_Processed.csv"
+OUTPUT_PATH = "data\\bcvcdr\\sample_tasks.csv"
 
 
 def preprocess():

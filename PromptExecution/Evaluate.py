@@ -7,10 +7,11 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
+from pathvalidate import sanitize_filename
 from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
                              matthews_corrcoef, precision_score, recall_score)
 
-from .schemas import LabelSet, PRED_SUFFIX, safeFileStem
+from .util import LabelSet
 
 
 class PromptCmbEval:
@@ -49,7 +50,7 @@ class PromptCmbEval:
 
         self.idCols = ['sentID']
         # 預測欄一律以 __pred 後綴辨識：寬表帶 originalAns / passage 等 index 欄時也不會被誤當預測欄。
-        self.predCols = [col for col in self.inputDf.columns if col.endswith(PRED_SUFFIX)]
+        self.predCols = [col for col in self.inputDf.columns if col.endswith('__pred')]
 
         self.yTrueLabelSeries = self.inputDf['trueLabel']
         self.correctnessMatrixDf = pd.DataFrame(index=self.inputDf.index)
@@ -106,7 +107,7 @@ class PromptCmbEval:
             # 2) 算五項指標；zero_division=0 讓無正類預測時回 0 而非報錯，MCC 原生支援多分類。
             #    欄序固定：modelPromptCmbID → 五項指標 → validCount，與 evalSummary.csv 一致。
             resultRowDict = {
-                "modelPromptCmbID": predColName.removesuffix(PRED_SUFFIX),
+                "modelPromptCmbID": predColName.removesuffix('__pred'),
                 "accuracy":  round(accuracy_score(yTrueValidSeries, yPredValidSeries), 2),
                 "precision": round(precision_score(yTrueValidSeries, yPredValidSeries, average=avg, zero_division=0), 2),
                 "recall":    round(recall_score(yTrueValidSeries, yPredValidSeries, average=avg, zero_division=0), 2),
@@ -162,7 +163,7 @@ class PromptCmbEval:
         for n in (10, 20):
             # modelPromptCmbID 是去掉 __pred 後綴的名稱；補回後綴才對得上 correctnessMatrixDf 的欄。
             topNameList = self.metricsSummaryDf['modelPromptCmbID'].head(n).tolist()
-            topColList = [f"{name}{PRED_SUFFIX}" for name in topNameList]
+            topColList = [f"{name}__pred" for name in topNameList]
             topColList = [c for c in topColList if c in self.correctnessMatrixDf.columns]
             if not topColList:
                 topNUpperBoundDict[n] = (0.0, totalSampleCount)
@@ -197,7 +198,7 @@ class PromptCmbEval:
             if validLabelsTuple is None:
                 continue
             yTrueValidSeries, yPredValidSeries = validLabelsTuple
-            displayName = predColName.removesuffix(PRED_SUFFIX)
+            displayName = predColName.removesuffix('__pred')
 
             # labels=validLabels 確保即使某類別無預測，矩陣仍為 N×N。
             confusionMatrixArr = confusion_matrix(yTrueValidSeries, yPredValidSeries, labels=validLabels)
@@ -212,7 +213,10 @@ class PromptCmbEval:
             plt.xlabel('Predicted')
             plt.tight_layout()
 
-            savePath = plotsDirPath / f"CM{safeFileStem(displayName)}.png"
+            # displayName 是 runKey（含 model 名的 ':' / '|' 等非法字元），故用 sanitize_filename
+            # 洗掉非法字元後，再把 '+'、空白換底線，確保 PNG 檔名跨平台安全。
+            fileStem = sanitize_filename(str(displayName), replacement_text='_').replace('+', '_').replace(' ', '_')
+            savePath = plotsDirPath / f"CM{fileStem}.png"
             plt.savefig(str(savePath), bbox_inches='tight')
             plt.close()
 
@@ -226,14 +230,29 @@ class PromptCmbEval:
             return
 
         logging.info("[Eval] 繪製對錯熱圖中")
-        plt.figure(figsize=(12, 8))
+        displayDf = self.correctnessMatrixDf.rename(columns=lambda c: c.removesuffix('__pred'))
 
-        displayDf = self.correctnessMatrixDf.rename(columns=lambda c: c.removesuffix(PRED_SUFFIX))
-        sns.heatmap(displayDf.T, cmap=ListedColormap(["#d73027", "#1a9850"]),
-                    vmin=0, vmax=1, cbar=False)
+        # y 軸用 sentID（每個樣本的 task ID）當刻度，比位置序號更能對照原始資料；缺 sentID 才退回序號。
+        if 'sentID' in self.inputDf.columns:
+            displayDf = displayDf.set_axis(self.inputDf['sentID'].astype(str).values, axis=0)
+            yLabelText = "Task ID"
+        else:
+            yLabelText = "Sample Index"
+
+        # 圖寬隨 runKey 數（x）動態延展、圖高隨樣本數（y）延展，欄多時名稱才不會擠在一起。
+        rowCount, colCount = displayDf.shape
+        figWidth = max(12, colCount * 0.7)
+        figHeight = max(8, rowCount * 0.22)
+        plt.figure(figsize=(figWidth, figHeight))
+
+        ax = sns.heatmap(displayDf, cmap=ListedColormap(["#d73027", "#1a9850"]),
+                         vmin=0, vmax=1, cbar=False)
+        # x 軸整串 runKey 較長：斜放 45° + 右對齊比純垂直好讀（末端對齊各自的欄）；圖已加寬故不重疊。
+        plt.setp(ax.get_xticklabels(), rotation=45, ha='right', rotation_mode='anchor', fontsize=8)
+        plt.setp(ax.get_yticklabels(), rotation=0, fontsize=7)
         plt.title("Model Correctness Heatmap (Green=Correct)")
-        plt.xlabel("Sample Index")
-        plt.ylabel("Models")
+        plt.xlabel("Models")
+        plt.ylabel(yLabelText)
         plt.tight_layout()
         savePath = Path(heatmapPath) if heatmapPath is not None else self.evalDir / "correctnessHeatmap.png"
         plt.savefig(str(savePath), bbox_inches='tight')

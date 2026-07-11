@@ -4,7 +4,8 @@ result.csv（long）→ 兩張寬表：
   - mlTable          ：精簡寬表，只含 index 欄 + 各 runKey 的 __pred，給 Evaluate 吃。
   - fullResultInfo   ：在 __pred 之上再補 __raw（模型原文）與 __sysPrompt（system prompt），給人工 review。
 
-runKey = makeRunKey(model, promptCmbID)（寬表的欄維度識別；格式定義見 schemas）。
+runKey = makeRunKey(model, promptCmbID)（寬表的欄維度識別）。runKey 格式只在本檔產生（寬表欄名），
+故連同分隔符定義於此，非跨模組契約。
 所有衍生欄一律帶後綴（__pred / __raw / __sysPrompt）方便下游用後綴過濾。
 無狀態：長表由呼叫端傳入，中間結果以回傳值串接，不存於 self。
 """
@@ -13,11 +14,23 @@ from typing import Dict, Optional
 
 import pandas as pd
 
-from .schemas import PRED_SUFFIX, makeRunKey
+# runKey：把一次「模型 × Prompt 組合」壓成單一識別字串（寬表的欄維度識別）。
+RUN_KEY_SEPARATOR = '|'   # 用 '|' 而非 '_'，因模型名常含 '_'/':'
 
-# 本檔獨用的衍生欄後綴（__pred 跨模組共用、定義在 schemas；__raw / __sysPrompt 只有這裡寫，供人工 review）。
+# 本檔獨用的衍生欄後綴。
 RAW_SUFFIX = '__raw'                # 模型原始回應
 SYS_PROMPT_SUFFIX = '__sysPrompt'   # 該組合的 system prompt
+
+
+def makeRunKey(model: str, promptCmbID: str) -> str:
+    """model + promptCmbID → runKey。形如 "llama3.2:1b|EMO01 + Role01"。
+
+    長表(result.csv)不存此欄，只在下列輸出出現：
+      - mlTable / fullResultInfo 的欄名（再加 __pred / __raw / __sysPrompt 後綴）。
+      - evalSummary 的 modelPromptCmbID 欄值（Evaluate 以 removesuffix('__pred') 還原）。
+      - 混淆矩陣 PNG 檔名（各檔自行 sanitize 成跨平台安全字串）。
+    """
+    return f"{model}{RUN_KEY_SEPARATOR}{promptCmbID}"
 
 
 class LLMResultProcessor:
@@ -46,7 +59,7 @@ class LLMResultProcessor:
         predWideDf = resultDf.pivot_table(
             index=indexCols, columns=['model', 'promptCmbID'], values='predLabel', aggfunc='first'
         ).fillna(-1)
-        predWideDf.columns = [makeRunKey(m, p) + PRED_SUFFIX for m, p in predWideDf.columns]
+        predWideDf.columns = [makeRunKey(m, p) + '__pred' for m, p in predWideDf.columns]
 
         # 2) 記錄 parse rate（用長表算才準）。
         validCount = int((resultDf['predLabel'] != -1).sum())

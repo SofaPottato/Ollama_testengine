@@ -7,7 +7,7 @@ from typing import Dict, List, Optional, Union
 import pandas as pd
 import yaml
 
-from .schemas import DataLoadError
+from .util import DataLoadError
 
 
 class PromptCmbGen:

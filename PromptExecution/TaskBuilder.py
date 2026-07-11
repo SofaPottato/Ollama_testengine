@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional, Set, Union
 
 import pandas as pd
 
-from .schemas import RESERVED_ITEM_FIELDS, TaskBuildError, TaskRunID, isBlankCell, parseJsonCell
+from .util import RESERVED_ITEM_FIELDS, TaskBuildError, TaskRunID, parseJsonCell
 
 
 # userPromptDf 的欄位（buildUserPromptPPI / buildUserPromptBC5CDR 產出的東西）：Dataset CSV 每一列攤平、切批後長這樣。
@@ -85,10 +85,11 @@ class TaskBuilder:
         for _, row in taskDf.iterrows():
             taskID = str(row['taskID'])
             taskSentenceDict: Dict[str, Any] = {col: row[col] for col in sentenceColumns}
-            # 把 items 這個 JSON 欄解析成 list（每筆含 sentID/label/e1/e2）；欄位是空的就代表沒有 pair，直接 fail-fast。
-            if isBlankCell(row['items']):
+            # 把 items 這個 JSON 欄解析成 list（每筆含 sentID/label/e1/e2）；欄位是空的（None/NaN）就代表沒有 pair，直接 fail-fast。
+            itemsCell = row['items']
+            if itemsCell is None or (isinstance(itemsCell, float) and pd.isna(itemsCell)):
                 raise TaskBuildError(f"Task {taskID} 的欄位 'items' 為空。")
-            allItemList = parseJsonCell(row['items'])
+            allItemList = parseJsonCell(itemsCell)
 
             for offset in range(0, len(allItemList), maxItemsPerBatch):
                 # 1) 切批：依 maxItemsPerBatch 切出這一批；taskID 一律用 taskID_offset（單批就是 _0），格式統一。

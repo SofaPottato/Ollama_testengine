@@ -4,11 +4,11 @@ from pathlib import Path
 from typing import List, Optional, Set, Tuple, Union
 
 import pandas as pd
+from .util import DataLoadError, LabelSet, TaskRunID, parseJsonCell
 
-from .schemas import DataLoadError, LabelSet, RESPONSE_CSV_COLS, TaskRunID, parseJsonCell
 
-
-# response.csv 用來判斷任務是否已完成的 composite key 欄位（對應 TaskRunID 三元組）；只有本檔讀 checkpoint 時用到。
+# response.csv 用來判斷任務是否已完成的 composite key 欄位（對應 TaskRunID 三元組）。
+# checkpoint 只讀這三欄，故載入時也只驗這三欄（其餘欄位由 ResponseParser 消化，非本檔關切）。
 TASK_RUN_ID_COLUMNS: Tuple[str, str, str] = ("model", "promptCmbID", "taskID")
 
 
@@ -127,24 +127,24 @@ class DataLoader:
     def loadCompletedTaskRunIDs(self, responsePath: Union[str, Path]) -> Set[TaskRunID]:
         """讀 response.csv 取得已完成任務的 TaskRunID set，供斷點續跑。
 
-        檔案不存在 → 回空 set（全新一輪）；schema 不符 / 讀取失敗 → raise DataLoadError。
+        檔案不存在 → 回空 set（全新一輪）；缺 checkpoint 主鍵欄位 / 讀取失敗 → raise DataLoadError。
         """
         # 1) 檔案不存在就是全新一輪，直接回空 set。
         csvPath = Path(responsePath)
         if not csvPath.exists():
             return set()
 
-        # 2) 讀檔 + schema 驗證：壞檔或缺欄位都 raise，提示使用者刪除/備份後重跑。
+        # 2) 讀檔 + 主鍵欄位驗證：壞檔或缺 checkpoint 主鍵欄位都 raise，提示使用者刪除/備份後重跑。
         try:
             rawDf = pd.read_csv(csvPath, encoding='utf-8-sig')
         except (pd.errors.ParserError, pd.errors.EmptyDataError, OSError, UnicodeDecodeError) as e:
             raise DataLoadError(
                 f"response.csv 讀取失敗（壞檔或編碼問題）: {e}。請刪除或備份 {csvPath} 後重跑。"
             ) from e
-        missingColSet = set(RESPONSE_CSV_COLS) - set(rawDf.columns)
+        missingColSet = set(TASK_RUN_ID_COLUMNS) - set(rawDf.columns)
         if missingColSet:
             raise DataLoadError(
-                f"response.csv schema 不符，缺欄位: {sorted(missingColSet)}。請刪除或備份 {csvPath} 後重跑。"
+                f"response.csv 缺少 checkpoint 主鍵欄位: {sorted(missingColSet)}。請刪除或備份 {csvPath} 後重跑。"
             )
 
         # 3) 只取三個 key 欄、dropna 後組成 set；strip 對齊寫入端格式，避免空白造成比對失準。
