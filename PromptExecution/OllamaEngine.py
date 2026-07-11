@@ -20,19 +20,28 @@ from tqdm.contrib.logging import logging_redirect_tqdm
 def buildOllamaOutputFormat(classes: List[str], taskType: str) -> Dict[str, Any]:
     """產生 Ollama `format` 用的 JSON schema（強制模型只能輸出 classes 之一）。
 
-    taskType="PPI"：單筆預測 {"label": <enum>}；其餘（BC5CDR）：{"answers": [{"id": int, "label": <enum>}]}。
+    taskType="PPI"：單筆預測 {"reasoning": str, "label": <enum>}；
+    其餘（BC5CDR）：{"answers": [{"id": int, "reasoning": str, "label": <enum>}]}。
     只有 Ollama 線路用得到，故與引擎同檔；吃 classes 原始 list，不必依賴 util.LabelSet。
+
+    欄位順序刻意「reasoning 在前、label 在後」：Ollama（llama.cpp GBNF）會照 properties/required
+    的順序生成 token，先寫思考再定答案，讓中間推理 token 能實際影響最終 label（Chain-of-Thought）。
+    ResponseParser.decodePredLabels 只讀 label，reasoning 純供人工檢視（保留在 responseAns/__raw 原文，不另立欄）。
+    注意：reasoning 會佔用生成長度，llmOptions 的 num_predict 必須夠大，否則會在 reasoning 中途被截斷，
+    導致 JSON 不完整、label 缺失，整筆被判 -1。
     """
     # 用 enum 把 label 限定成 classes 之一：Ollama 端就會強制模型只輸出這些字串，
     # 大幅減少 ResponseParser 要處理的雜訊（少數不遵守的仍由 labelToLabelCode 兜底回 -1）。
     labelProp = {"type": "string", "enum": classes}
+    reasoningProp = {"type": "string"}   # 自由文字思考，不加約束
     if taskType == "PPI":
         return {
             "type": "object",
-            "properties": {"label": labelProp},
-            "required": ["label"],
+            "properties": {"reasoning": reasoningProp, "label": labelProp},
+            "required": ["reasoning", "label"],   # 順序即生成順序：先思考、後解答
         }
     # batch：要求每筆帶 id（1-based 序號），讓 ResponseParser 能把答案對回正確的 pair。
+    # 每筆內同樣先 reasoning 後 label（逐 pair 各自思考再作答）。
     return {
         "type": "object",
         "properties": {
@@ -40,8 +49,8 @@ def buildOllamaOutputFormat(classes: List[str], taskType: str) -> Dict[str, Any]
                 "type": "array",
                 "items": {
                     "type": "object",
-                    "properties": {"id": {"type": "integer"}, "label": labelProp},
-                    "required": ["id", "label"],
+                    "properties": {"id": {"type": "integer"}, "reasoning": reasoningProp, "label": labelProp},
+                    "required": ["id", "reasoning", "label"],
                 },
             }
         },

@@ -30,13 +30,13 @@ def main():
     #   Step 1: 生成 Prompt 組合（PromptTech YAML →　窮舉組合 → 寫 promptCmbPath）#
     #============================================================================#
     logging.info("[Step 1/7] Generating Prompt Combinations (shared by train/test)")
-    b_exhaustiveCmb    = False                                                       # True=窮舉組合(Auto)；False=手動指定(Manual)
+    b_exhaustiveCmb    = True                                                       # True=窮舉組合(Auto)；False=手動指定(Manual)
     selectedPromptTechList = ["EMO", "Role", "Few_shot"]             # Auto：參與組合的方法分類；['ALLMethod']=全部
-    maxCmbNum          = 3                                                           # Auto：一組最多包含幾個方法分類
+    maxCmbNum          = 1                                                           # Auto：一組最多包含幾個方法分類
     manualPromptCmbList    = [["EMO01", "RAR02"],                      # Manual：明確列出的組合（b_exhaustiveCmb=False 時生效）
                           ["S2A01", "RE201"]]
 
-    promptTechPath     = "data/PromptGeneration/PromptTechnique_PPI.yaml"     # Prompt 方法池(Technique)來源 YAML
+    promptTechPath     = "data/PromptGeneration/PromptTechnique_PPISimpified.yaml"     # Prompt 方法池(Technique)來源 YAML
     promptCmbPath      = "data/output/PPI/HPRD50/ppiPromptCmb_manual.csv"                            # 生成的 Prompt 組合 CSV（共用）
 
     pgObj = PromptCmbGen()
@@ -46,11 +46,11 @@ def main():
 
     #============================================================================#
     #   Step 2~7: 對 train、test 各跑一次（中段流程共用 runExperiment）#
-    #============================================================================#
-    trainDatasetPath = "data/PPIDataset/HPRD50/HPRD50_train.csv" # 所需欄位:　（taskID,passage,label）
+    #============================================================================#                                                                         
+    trainDatasetPath = "data/PPIDataset/HPRD50/HPRD50_train.csv" # 所需欄位:　（taskID,passage,label）                
     testDatasetPath  = "data/PPIDataset/HPRD50/HPRD50_test.csv"
-    trainOutputRoot  = "data/test/PPI/HPRD50/train"
-    testOutputRoot   = "data/test/PPI/HPRD50/test"
+    trainOutputRoot  = "data/testoutput/PPI/HPRD50/train"
+    testOutputRoot   = "data/testoutput/PPI/HPRD50/test"
 
 
 
@@ -98,7 +98,7 @@ def runExperiment(splitName, datasetPath, outputRoot, promptCmbDf):
         "Answer with exactly one of the allowed labels: no, yes.\n"
     )
     # BC5CDR 模式專用參數（僅 taskType=='BC5CDR' 時使用；PPI 時忽略）。
-    maxItemsPerBatch = 20                        # 一篇多個 entity pair 時，每批最多幾個 pair
+    maxItemsPerBatch = 10                        # 一篇多個 entity pair 時，每批最多幾個 pair
     itemTemplate     = "{i}: Chemical: {e1} | Disease: {e2}\n"      # 每個 pair 的組裝樣板，拼接後塞進 taskTemplate 的 {items}
     itemColumns      = ["e1", "e2"]              # 要組裝進 itemTemplate 的 item 欄（None=全部非保留欄）
 
@@ -118,11 +118,11 @@ def runExperiment(splitName, datasetPath, outputRoot, promptCmbDf):
         logging.info(f"[Step 4/7] Running Inference ({len(promptInfoDf)} tasks)")
         ollamaUrl           = "http://localhost:11434/api/chat"  # Ollama API 端點
         ollamaTimeout       = 600                                         # 單次請求的最大等待秒數
-        concurrencyPerModel = 2                                       # 每個模型同時發送的最大並發請求數
+        concurrencyPerModel = 8                                       # 每個模型同時發送的最大並發請求數
         maxConcurrentModels = 1                                      # 同時運行推論的最大模型數量
         llmOptions = {
             "temperature": 0,        # 取樣隨機性；0 表示完全確定性輸出
-            "num_predict": 60,      # 最多生成的 token 數量
+            "num_predict": -1,     # 最多生成的 token 數量；schema 為「reasoning 在前、label 在後」，需留足空間給思考，否則會在 reasoning 中途截斷導致 label 缺失、整筆判 -1
             "num_ctx":     8192,    # 模型的 context window 大小（token）
             "num_gpu":     99,      # 使用的 GPU 層數；99 表示盡量全部放 GPU
         }
