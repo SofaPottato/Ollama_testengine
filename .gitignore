@@ -12,6 +12,10 @@ data/*
 data/PPIDataset/*
 !data/PPIDataset/HPRD50/
 
+# 保留 PromptGeneration 提示詞資料
+!data/PromptGeneration/
+!data/PromptGeneration/*
+
 CLAUDE.md
 
 docs/

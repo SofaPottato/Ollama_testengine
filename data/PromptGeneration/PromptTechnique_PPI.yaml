@@ -1,0 +1,184 @@
+prompts:
+#=====================================================================
+# PPI (Protein-Protein Interaction) prompt set, adapted from the
+# BC5CDR (Chemical-Disease) version.
+#
+# DATA / ENTITY CONVENTION (AIMed):
+#   - Exactly two candidate proteins are tagged as PROTEIN1 and PROTEIN2.
+#   - Every OTHER protein mention is blinded as PROTEIN -> treat as
+#     background / distractor only, never as a target.
+#
+# TASK: binary classification.
+#   Does PROTEIN1 interact with PROTEIN2 within the sentence?
+#   "Interaction" = physical binding / complex formation OR a direct
+#   functional-regulatory link (phosphorylation, activation, inhibition).
+#
+# OUTPUT CONTRACT (enforced by Ollama `format` JSON schema; see
+# LabelSet.buildResponseSchemaForTask in PromptExecution/schemas.py):
+#   The model is constrained to emit EXACTLY {"label": "no"} or
+#   {"label": "yes"} — one label, no free text, no reasoning tokens.
+#   LABEL MAPPING (must match labelSet ["no","yes"]):
+#       Interaction      -> label = "yes"
+#       No Interaction   -> label = "no"
+#   Because constrained decoding leaves no room for visible chain-of-thought,
+#   every method below is phrased so the reasoning happens INTERNALLY and the
+#   only emitted output is that single label. Do NOT ask the model to print
+#   spans / lists / rewrites — the schema makes that impossible.
+#=====================================================================
+
+#============EMO======================================================
+# Emotional stimuli. Generic ones kept as-is; the two that invoked a
+# clinical/patient frame were re-cast for a basic-research / interactome
+# context. If you want IDENTICAL stimuli across datasets for a fair
+# technique comparison, revert 02/04 to the BC5CDR wording.
+  EMO:
+    01: |
+      This is very important to my career
+    02: |
+      If you misclassify an interaction here, it could corrupt the interactome knowledge base and mislead downstream drug-target discovery.
+    03: |
+      If you make a mistake, I will lose my job.
+    04: |
+      The accuracy of your classification will directly impact the reliability of the protein interaction network and the validity of subsequent research.
+    05: |
+      Your performance on this task will be a critical factor in my professional reputation and future opportunities in computational biology and interactomics research.
+
+#============Role=====================================================
+  Role:
+    01: |
+      You are an expert Biocurator for a major protein-protein interaction (PPI) knowledge graph
+    02: |
+      Act as a Senior Molecular Biologist specializing in signal transduction and protein complexes
+    03: |
+      You are a Rigorous Scientific Peer Reviewer
+    04: |
+      You are a meticulous Data Curator for a protein interaction database (e.g., IntAct / BioGRID)
+    05: |
+      You are a seasoned Research Scientist specializing in protein-protein interactions and interactomics
+
+#============SYSTEM TO ATTENTION (S2A)================================
+  S2A:
+    01: |
+      Distill the "objective and non-personal" interaction evidence from the text. Filter out experimental motivation, background context, citations, and any mention of proteins OTHER than PROTEIN1 and PROTEIN2 (the blinded "PROTEIN" tokens). Using only the clauses, verbs, and biological facts that describe a physical or functional link between PROTEIN1 and PROTEIN2, decide whether they interact. Do all of this reasoning internally and output only the label (yes = interaction, no = no interaction).
+    02: |
+      Internally, keep only the sentences or clauses that directly describe the relationship between PROTEIN1 and PROTEIN2; discard all background context, citations, and any information about other proteins (the blinded "PROTEIN" mentions). Based strictly on that filtered evidence, decide whether PROTEIN1 and PROTEIN2 interact, then output only the label (yes / no).
+    03: |
+      Internally extract only the specific text spans that provide evidence for an interaction between PROTEIN1 and PROTEIN2, treat the rest of the text (including all blinded "PROTEIN" mentions) as noise, and classify the pair using only that evidence. Output only the label (yes = interaction, no = no interaction).
+
+#============RAR======================================================
+# Note: PPI is not inherently temporal/causal (it is about binding /
+# association), so the original "temporal & causal sequence" framing was
+# re-cast to "make the molecular link explicit".
+  RAR:
+    01: |
+      Internally rephrase and expand the question to make it precise, then respond with only the label (yes = interaction, no = no interaction).
+    02: |
+      Internally rewrite the provided text into a single clear statement describing how PROTEIN1 and PROTEIN2 are related (e.g., binding, complex formation, phosphorylation, activation, inhibition, or no stated link). Use that statement to decide whether they interact, then output only the label (yes / no).
+    03: |
+      Internally rephrase and expand the text to make the relationship between PROTEIN1 and PROTEIN2 explicit and unambiguous. Based on that, decide whether PROTEIN1 and PROTEIN2 interact and output only the label (yes / no).
+
+#============RE2======================================================
+  RE2:
+    01: |
+      Read the sentence again
+    02: |
+      Re-read the text a second time to verify whether there is direct evidence that PROTEIN1 and PROTEIN2 interact, then output only the label (yes / no)
+    03: |
+      First, read the sentence to identify all protein entities mentioned (PROTEIN1, PROTEIN2, and the blinded PROTEIN mentions).
+      Now, re-read the sentence again, but this time ignore all other proteins and focus strictly on the syntactic path connecting PROTEIN1 and PROTEIN2. Then output only the label (yes / no).
+
+#============Self_ASK================================================
+# The original "positive vs negative outcome (activation/inhibition)"
+# sub-question was dropped from the decision, because in binary PPI BOTH
+# activation and inhibition count as an Interaction. The signal that
+# matters is: is there a direct link, and is it factual vs speculative?
+  Self_ASK:
+    01: |
+      Are follow-up questions needed here? If yes, work through them internally, then output only the final label (yes = interaction, no = no interaction).
+    02: |
+      Before classifying, ask yourself internally:
+      'Where exactly in the text is the evidence that PROTEIN1 and PROTEIN2 interact?'
+      'Is there any negation word that flips the meaning (e.g., does not bind, failed to interact, no association)?'
+      'Is the interaction stated as an established fact, or only as a hypothesis / speculation?'
+      If you cannot find a specific span that answers 'yes' to the evidence question, output the label no. Otherwise output the label yes.
+    03: |
+      To determine the relationship between PROTEIN1 and PROTEIN2, ask yourself internally:
+      Does the text explicitly state a physical or functional link between PROTEIN1 and PROTEIN2 (e.g., bind, interact, associate, form a complex, phosphorylate, regulate)?
+      Is the link direct between the two, or only inferred through a third (blinded PROTEIN) protein?
+      Is the statement asserted as a fact, or is it negated / speculative?
+      Answer each sub-question internally, then output only the label (yes = interaction, no = no interaction).
+
+#============Analogical Prompting (AP)================================
+  AP:
+    01: |
+      Before deciding, internally recall 3 distinct examples from the biomedical literature where two proteins clearly INTERACT (e.g., bind, form a complex, phosphorylate one another) and 3 examples where two proteins are merely mentioned together but do NOT interact (co-occurrence, parallel listing of measurements, or no stated link). Use that contrast to classify PROTEIN1 and PROTEIN2, and output only the label (yes / no).
+    02: |
+      Step 1 (internal): Recall a standard, high-quality sentence from a molecular biology journal that establishes a clear protein-protein interaction.
+      Step 2 (internal): Map the grammatical roles (Subject, Verb, Object) of the input sentence onto your recalled example.
+      Step 3: If the structural mapping aligns and a genuine interaction verb links PROTEIN1 and PROTEIN2, output the label yes. If the two proteins are only co-mentioned, or the link is speculative or negated, output the label no.
+
+#============Contrastive=============================================
+  Contrastive:
+    01: |
+      Contrastive Learning Examples:
+      Incorrect Approach (Superficial): "PROTEIN1 and PROTEIN2 are both elevated in the same tissue, therefore they interact."
+      Critique: Co-occurrence or correlated expression is not evidence of a physical or functional interaction.
+      Correct Approach (Deep Mechanistic): "PROTEIN1 directly binds PROTEIN2 and phosphorylates it, forming a stable complex, as shown by co-immunoprecipitation."
+      Strength: This identifies a specific binding / enzymatic relationship supported by an experimental method.
+      Instructions:
+      Follow the Correct Approach logic and avoid the Incorrect Approach pitfalls. Classify the PROTEIN1-PROTEIN2 pair by focusing on a directly stated physical or functional interaction rather than mere co-occurrence or shared context, then output only the label (yes = interaction, no = no interaction).
+
+#============Few-shot================================================
+# Negative examples are deliberately written in the same style as the
+# FALSE rows in the AIMed data (parallel co-mention, "Levels of X and Y
+# rise...") so the model learns that listing two proteins together is
+# NOT an interaction. The demonstrated output mirrors the enforced
+# Ollama JSON schema so the model sees the exact target format.
+#   01 = 1-shot, 02 = 3-shot, 03 = 5-shot. The sets are nested (each adds
+#   to the previous) so the ONLY variable across the three is the number of
+#   demonstrations; they cover binding / phosphorylation / inhibition for
+#   the positive class and the two hard negatives (parallel co-mention, and
+#   an interaction routed through a third blinded PROTEIN, not PROTEIN1/2).
+  Few_shot:
+    01: |
+      Example 1:
+      Text: "PROTEIN1 directly binds to PROTEIN2 and forms a stable complex in vivo."
+      Output: {"label": "yes"}
+      ---
+      Now analyze the following text and output only the label (yes = interaction, no = no interaction):
+    02: |
+      Example 1:
+      Text: "PROTEIN1 directly binds to PROTEIN2 and forms a stable complex in vivo."
+      Output: {"label": "yes"}
+      ---
+      Example 2:
+      Text: "Levels of PROTEIN1 and PROTEIN2 both rise during progressive passages, whereas only PROTEIN increases in the control cultures."
+      Output: {"label": "no"}
+      ---
+      Example 3:
+      Text: "PROTEIN1 phosphorylates PROTEIN2, activating the downstream signaling cascade."
+      Output: {"label": "yes"}
+      ---
+      Now analyze the following text and output only the label (yes = interaction, no = no interaction):
+    03: |
+      Example 1:
+      Text: "PROTEIN1 directly binds to PROTEIN2 and forms a stable complex in vivo."
+      Output: {"label": "yes"}
+      ---
+      Example 2:
+      Text: "Levels of PROTEIN1 and PROTEIN2 both rise during progressive passages, whereas only PROTEIN increases in the control cultures."
+      Output: {"label": "no"}
+      ---
+      Example 3:
+      Text: "PROTEIN1 phosphorylates PROTEIN2, activating the downstream signaling cascade."
+      Output: {"label": "yes"}
+      ---
+      Example 4:
+      Text: "PROTEIN1 binds PROTEIN, which in turn regulates PROTEIN2."
+      Output: {"label": "no"}
+      ---
+      Example 5:
+      Text: "PROTEIN1 inhibits PROTEIN2 by sequestering it in the cytoplasm."
+      Output: {"label": "yes"}
+      ---
+      Now analyze the following text and output only the label (yes = interaction, no = no interaction):

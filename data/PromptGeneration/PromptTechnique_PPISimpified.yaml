@@ -1,0 +1,32 @@
+prompts:
+  EMO:
+    01: |
+      This is very important to my career
+    02: |
+      If you misclassify an interaction here, it could corrupt the interactome knowledge base and mislead downstream drug-target discovery.
+  Role:
+    01: |
+      You are an expert Biocurator for a major protein-protein interaction (PPI) knowledge graph
+    02: |
+      Act as a Senior Molecular Biologist specializing in signal transduction and protein complexes
+  Few_shot:
+    01: |
+      Example 1:
+      Text: "PROTEIN1 directly binds to PROTEIN2 and forms a stable complex in vivo."
+      Output: {"label": "yes"}
+      ---
+      Now analyze the following text and output only the label (yes = interaction, no = no interaction):
+    02: |
+      Example 1:
+      Text: "PROTEIN1 directly binds to PROTEIN2 and forms a stable complex in vivo."
+      Output: {"label": "yes"}
+      ---
+      Example 2:
+      Text: "Levels of PROTEIN1 and PROTEIN2 both rise during progressive passages, whereas only PROTEIN increases in the control cultures."
+      Output: {"label": "no"}
+      ---
+      Example 3:
+      Text: "PROTEIN1 phosphorylates PROTEIN2, activating the downstream signaling cascade."
+      Output: {"label": "yes"}
+      ---
+      Now analyze the following text and output only the label (yes = interaction, no = no interaction):
