@@ -51,6 +51,23 @@ class PromptCmbGen:
         return promptTechPoolDict
 
     #============================================================================#
+    #   共用：大小寫通用的鍵值查表#
+    #============================================================================#
+    def buildCaseInsensitiveKeyDict(self, keyList: List[str], keyKindName: str) -> Dict[str, str]:
+        """把鍵清單轉成 {小寫鍵: 方法池原始鍵} 查表，讓使用者填的名稱大小寫（與前後空白）皆可對上。
+
+        兩個鍵只差大小寫時保留先出現的那個並 warning，避免查表結果隨 YAML 的定義順序漂移。
+        """
+        lookupDict: Dict[str, str] = {}
+        for key in keyList:
+            lowerKey = key.strip().lower()
+            if lowerKey in lookupDict:
+                logging.warning(f"[PromptGen] {keyKindName} '{key}' 與 '{lookupDict[lowerKey]}' 僅大小寫不同，將沿用先出現的。")
+                continue
+            lookupDict[lowerKey] = key
+        return lookupDict
+
+    #============================================================================#
     #   Step 2: promptTechPoolDict → promptCmbDf（Auto 窮舉 / Manual 手動）#
     #============================================================================#
     def genPromptCmb(self, promptTechPoolDict: Dict[str, Dict],
@@ -63,6 +80,7 @@ class PromptCmbGen:
         依 b_exhaustiveCmb 各走完整路徑：
           - Auto ：對選定方法分類做 1..maxCmbNum 層組合，再對各分類的項目做笛卡兒積。
           - Manual：只生成 manualPromptCmbList 明確列出的組合；找不到的 Prompt ID 略過。
+        兩模式填入的方法分類與 Prompt ID 皆大小寫通用（並容忍前後空白），實際輸出一律用方法池 YAML 的原始寫法。
         每組 record 皆為 {promptCmbID: id 以 ' + ' 串接, promptText: text 以換行串接}。
         最後統一排序（兩模式共用），結果為空即 raise。
         """
@@ -71,14 +89,17 @@ class PromptCmbGen:
         if b_exhaustiveCmb:
             logging.info("[PromptGen] 生成模式: Auto (Exhaustive)")
             # 1) 決定參與組合的方法分類：'ALLMethod' 代表全部；否則過濾掉方法池裡不存在的。
-            #    'ALLMethod' 比對大小寫通用（並容忍前後空白），如 'allmethod'、'AllMethod' 皆可。
+            #    分類名與 'ALLMethod' 皆大小寫通用（並容忍前後空白），如 'role'、'AllMethod' 都對得上；
+            #    對上後一律換回方法池 YAML 的原始寫法，promptCmbID 才不會隨使用者打的大小寫而變。
             if len(selectedPromptTechList) == 1 and selectedPromptTechList[0].strip().lower() == 'allmethod':
                 targetMethodList = list(promptTechPoolDict.keys())
             else:
-                invalidList = [m for m in selectedPromptTechList if m not in promptTechPoolDict]
+                methodLookupDict = self.buildCaseInsensitiveKeyDict(list(promptTechPoolDict.keys()), "方法分類")
+                invalidList = [m for m in selectedPromptTechList if m.strip().lower() not in methodLookupDict]
                 if invalidList:
                     logging.warning(f"[PromptGen] 方法池中找不到，將略過: {invalidList}")
-                targetMethodList = [m for m in selectedPromptTechList if m in promptTechPoolDict]
+                targetMethodList = [methodLookupDict[m.strip().lower()]
+                                    for m in selectedPromptTechList if m.strip().lower() in methodLookupDict]
 
             if not targetMethodList:
                 raise DataLoadError("沒有任何有效的 selectedPromptTechList，請檢查參數與方法池 YAML。")
@@ -105,19 +126,23 @@ class PromptCmbGen:
             if not manualPromptCmbList:
                 logging.warning("[PromptGen] manualPromptCmbList 為空，沒有組合可生成。")
 
-            # 1) 先把方法池攤平成 {PromptID: text}，之後照 manualPromptCmbList 給的 ID 直接查。
+            # 1) 先把方法池攤平成 {PromptID: text}，之後照 manualPromptCmbList 給的 ID 直接查；
+            #    另建小寫查表，讓填入的 ID 大小寫通用（如 'emo01'、'Emo01' 皆可對上 'EMO01'）。
             flatPoolDict: Dict[str, str] = {}
             for cat, itemsDict in promptTechPoolDict.items():
                 for k, text in itemsDict.items():
                     flatPoolDict[f"{cat}{str(k).zfill(2)}"] = text.strip()
+            idLookupDict = self.buildCaseInsensitiveKeyDict(list(flatPoolDict.keys()), "Prompt ID")
 
-            # 2) 逐組合查 ID：找得到的收進來、找不到的略過並 warning；一組全找不到就整組不收。
+            # 2) 逐組合查 ID：找得到的收進來（一律換回方法池的原始寫法）、找不到的略過並 warning；
+            #    一組全找不到就整組不收。
             for comboKeyList in manualPromptCmbList:
                 idList, textList = [], []
                 for itemKey in comboKeyList:
-                    if itemKey in flatPoolDict:
-                        idList.append(itemKey)
-                        textList.append(flatPoolDict[itemKey])
+                    canonicalID = idLookupDict.get(itemKey.strip().lower())
+                    if canonicalID:
+                        idList.append(canonicalID)
+                        textList.append(flatPoolDict[canonicalID])
                     else:
                         logging.warning(f"[PromptGen] 找不到 Prompt ID '{itemKey}'，已略過。")
                 if idList:

@@ -1,4 +1,7 @@
 prompts:
+# 精簡版 PPI 方法池：從 PromptTechnique_PPI.yaml 取 EMO / Role / Few_shot 各前兩個，
+# 內容需與主池逐字一致（只是子集），改主池時記得同步這裡。
+# 輸出契約同主池：{"reasoning": "<free text>", "label": "no"|"yes"}，reasoning 先寫、label 後給。
   EMO:
     01: |
       This is very important to my career
@@ -13,20 +16,20 @@ prompts:
     01: |
       Example 1:
       Text: "PROTEIN1 directly binds to PROTEIN2 and forms a stable complex in vivo."
-      Output: {"label": "yes"}
+      Output: {"reasoning": "The verb 'binds' states a direct physical association between PROTEIN1 and PROTEIN2, and they are reported to form a stable complex.", "label": "yes"}
       ---
-      Now analyze the following text and output only the label (yes = interaction, no = no interaction):
+      Now analyze the following text: write your reasoning, then give the label (yes = interaction, no = no interaction):
     02: |
       Example 1:
       Text: "PROTEIN1 directly binds to PROTEIN2 and forms a stable complex in vivo."
-      Output: {"label": "yes"}
+      Output: {"reasoning": "The verb 'binds' states a direct physical association between PROTEIN1 and PROTEIN2, and they are reported to form a stable complex.", "label": "yes"}
       ---
       Example 2:
       Text: "Levels of PROTEIN1 and PROTEIN2 both rise during progressive passages, whereas only PROTEIN increases in the control cultures."
-      Output: {"label": "no"}
+      Output: {"reasoning": "PROTEIN1 and PROTEIN2 are only listed in parallel as two separately measured quantities; no verb links one to the other, so this is co-occurrence, not an interaction.", "label": "no"}
       ---
       Example 3:
       Text: "PROTEIN1 phosphorylates PROTEIN2, activating the downstream signaling cascade."
-      Output: {"label": "yes"}
+      Output: {"reasoning": "'Phosphorylates' is a direct enzymatic action of PROTEIN1 on PROTEIN2, which counts as a functional interaction.", "label": "yes"}
       ---
-      Now analyze the following text and output only the label (yes = interaction, no = no interaction):
+      Now analyze the following text: write your reasoning, then give the label (yes = interaction, no = no interaction):

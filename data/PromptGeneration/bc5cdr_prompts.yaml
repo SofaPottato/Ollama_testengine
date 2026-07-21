@@ -6,21 +6,29 @@ prompts:
 #   whether the Chemical induces the Disease (chemical-induced disease, CID),
 #   based strictly on the text.
 #
-# OUTPUT CONTRACT (enforced by Ollama `format` JSON schema; see
-# LabelSet.buildResponseSchemaForTask in PromptExecution/schemas.py):
-#   The model is constrained to emit EXACTLY
-#       {"answers": [{"id": <int>, "label": "no"|"yes"}, ...]}
-#   one answer per pair, no free text, no reasoning tokens.
+# OUTPUT CONTRACT (enforced by the Ollama `format` JSON schema; see
+# buildOllamaOutputFormat in PromptExecution/OllamaEngine.py):
+#   The model emits EXACTLY
+#       {"answers": [{"id": <int>, "reasoning": "<free text>", "label": "no"|"yes"}, ...]}
+#   one answer per pair, keyed by the pair's 1-based id from the user prompt.
+#   Field order is part of the schema: within each answer the reasoning is
+#   generated FIRST and the label LAST, so the written-out reasoning tokens
+#   actually condition that pair's answer (visible chain-of-thought).
 #   LABEL MAPPING (must match labelSet ["no","yes"]):
 #       Chemical induces the Disease            -> label = "yes"
 #       No induction (incl. treatment / merely  -> label = "no"
 #       co-mentioned / negated / speculative)
+#   Only `label` is scored (ResponseParser.decodePredLabels); the reasonings
+#   are concatenated into result.csv's responseReason column (one blob per
+#   batch, tagged by [id]) for human inspection only.
 #   Notes for this batch mode:
 #     - The system prompt is shared across ALL pairs in the batch, so every
 #       method speaks of "each Chemical-Disease pair", never a single pair.
-#     - Constrained decoding leaves no room for visible chain-of-thought, so
-#       every method reasons INTERNALLY and emits only the labels. Do NOT ask
-#       the model to print spans / lists / rewrites.
+#     - Reasoning is now emitted, so every method tells the model to WRITE
+#       its analysis into each pair's reasoning field rather than doing it
+#       silently. Keep it to one or two sentences PER PAIR: a batch of 10
+#       pairs multiplies the generation length, and a truncated JSON loses
+#       the trailing answers, which the parser then scores as -1.
 #=====================================================================
 
 #============EMO================================
@@ -51,52 +59,53 @@ prompts:
 #============SYSTEM TO ATTENTION=================================
   S2A:
     01: |
-      Distill the "objective and non-personal" information from the text. Filter out subjective opinions, market popularity, cost considerations, and irrelevant background. Using only the objective clinical facts, experimental data, and statistical evidence, decide for each Chemical-Disease pair whether the Chemical induces the Disease. Do this reasoning internally and output only the labels (yes = induces, no = does not).
+      Distill the "objective and non-personal" information from the text. Filter out subjective opinions, market popularity, cost considerations, and irrelevant background. For each Chemical-Disease pair, write in its reasoning field the objective clinical facts, experimental data, and statistical evidence you kept, then give that pair's label (yes = induces, no = does not).
     02: |
-      Internally keep only the sentences or clauses that directly describe whether a chemical causes or induces a disease; discard background context, citations, and unrelated entities. Based strictly on that filtered evidence, decide for each Chemical-Disease pair whether the Chemical induces the Disease, then output only the labels (yes / no).
+      Keep only the sentences or clauses that directly describe whether a chemical causes or induces a disease; discard background context, citations, and unrelated entities. For each Chemical-Disease pair, quote that filtered evidence in its reasoning field, then give the label (yes / no) based strictly on it.
     03: |
-      Internally extract only the specific text spans that provide evidence of a chemical inducing a disease, and treat the rest of the text as noise. Using only that evidence, classify each Chemical-Disease pair and output only the labels (yes = induces, no = does not).
+      For each Chemical-Disease pair, quote in its reasoning field only the specific text spans that provide evidence of the Chemical inducing the Disease, treating the rest of the text as noise. Classify each pair using only those spans and give its label (yes = induces, no = does not).
 #============RAR=================================#EXEPLAINALL
   RAR:
     01: |
-      Internally rephrase and expand the question to make it precise, then respond with only the labels (yes = induces, no = does not).
+      For each Chemical-Disease pair, rephrase and expand the question in its reasoning field to make it precise and answer it, then give that pair's label (yes = induces, no = does not).
     02: |
-      Internally rewrite the relevant text into a logical sequence of events describing how each Chemical affects its paired Disease, making the causal links explicit. Use that sequence to decide, for each pair, whether the Chemical induces the Disease, then output only the labels (yes / no).
+      For each Chemical-Disease pair, rewrite the relevant text in its reasoning field into a logical sequence of events describing how the Chemical affects the paired Disease, making the causal links explicit. Use that sequence to decide whether the Chemical induces the Disease, then give the label (yes / no).
     03: |
-      Internally rephrase and expand the text to make the relationship between each Chemical and its paired Disease explicit and unambiguous. Based on that, decide for each pair whether the Chemical induces the Disease and output only the labels (yes / no).
+      For each Chemical-Disease pair, rephrase and expand the text in its reasoning field to make the relationship between the Chemical and the paired Disease explicit and unambiguous. Based on that, decide whether the Chemical induces the Disease and give the label (yes / no).
   #============RE2=================================
   RE2:
     01: |
       Read the text again
     02: |
-      Re-read the text a second time to verify whether there is direct evidence that the Chemical induces the Disease, then output only the labels (yes / no)
+      Re-read the text a second time to verify whether there is direct evidence that the Chemical induces the Disease; state in each pair's reasoning field what that second reading found, then give the label (yes / no)
     03: |
       First, read the text to identify all biological entities mentioned.
-      Now, re-read it again, but this time ignore unrelated entities and focus strictly on the syntactic path connecting each Chemical and its paired Disease. Then output only the labels (yes / no).
+      Now, re-read it again, but this time ignore unrelated entities and focus strictly on the syntactic path connecting each Chemical and its paired Disease. Write that path in the pair's reasoning field, then give the label (yes / no).
   #============Self_ASK================================
   Self_ASK:
     01: |
-      Are follow-up questions needed here? If yes, work through them internally, then output only the final labels (yes = induces, no = does not).
+      Are follow-up questions needed here? If so, write them out in each pair's reasoning field and answer them there, then give the final label (yes = induces, no = does not).
     02: |
-      Before classifying each Chemical-Disease pair, ask yourself internally:
+      For each Chemical-Disease pair, answer these questions in its reasoning field before classifying:
       'Where exactly in the text is the evidence that the Chemical induces the Disease?'
       'Is there any negation word that flips the meaning?'
       'Is the induction stated as a fact, or just a hypothesis?'
-      If you cannot find a specific sentence that answers 'yes' to the evidence question, output the label no for that pair. Otherwise output the label yes.
+      If you cannot point to a specific sentence that answers 'yes' to the evidence question, give that pair the label no. Otherwise give it the label yes.
     03: |
-      To classify each Chemical-Disease pair, ask yourself internally:
+      To classify each Chemical-Disease pair, answer these questions in its reasoning field:
       Does the text explicitly state that the Chemical causes, induces, or leads to the Disease?
       Is the link direct, or only a co-occurrence (or the Chemical merely treating the Disease)?
       Is the statement asserted as a fact, or is it negated / speculative?
-      Answer each sub-question internally, then output the label yes only when the Chemical induces the Disease, otherwise no.
+      Answer each sub-question in turn, then give the label yes only when the Chemical induces the Disease, otherwise no.
   #============Analogical Prompting================================
   AP:
     01: |
-      Before deciding, internally recall 3 distinct examples from the biomedical literature where a chemical clearly induces / causes a disease and 3 examples where a chemical and a disease are only co-mentioned or the chemical treats the disease. Use that contrast to classify each Chemical-Disease pair, and output only the labels (yes / no).
+      Before deciding, recall in the reasoning field 3 distinct examples from the biomedical literature where a chemical clearly induces / causes a disease and 3 examples where a chemical and a disease are only co-mentioned or the chemical treats the disease. Use that contrast to classify each Chemical-Disease pair, then give its label (yes / no).
     02: |
-      Step 1 (internal): Recall a standard, high-quality sentence from a medical journal that establishes a clear chemical-induced disease.
-      Step 2 (internal): Map the grammatical roles (Subject, Verb, Object) of the input sentence onto your recalled example.
-      Step 3: If the structural mapping aligns and a genuine causation verb links the Chemical and the Disease, output the label yes; if the link is only co-occurrence, speculative, or negated, output the label no.
+      For each Chemical-Disease pair, work through these steps in its reasoning field:
+      Step 1: Recall a standard, high-quality sentence from a medical journal that establishes a clear chemical-induced disease.
+      Step 2: Map the grammatical roles (Subject, Verb, Object) of the input sentence onto your recalled example.
+      Step 3: If the structural mapping aligns and a genuine causation verb links the Chemical and the Disease, give the label yes; if the link is only co-occurrence, speculative, or negated, give the label no.
   #============Contrastive================================
   Contrastive:
     01: |
@@ -106,9 +115,11 @@ prompts:
       Correct Approach (Deep Causal): "Chemical X binds to receptor Z, triggering oxidative stress that leads to cell death in tissue Y, as demonstrated in [Study]."
       Strength: This identifies a specific biological pathway and cites evidence.
       Instructions:
-      Follow the Correct Approach logic and avoid the Incorrect Approach pitfalls. Classify each Chemical-Disease pair by focusing on direct mechanistic causation rather than mere co-occurrence, then output only the labels (yes = induces, no = does not).
-# The demonstrated labels mirror the enforced Ollama JSON schema (one
-# "label" per pair) so the model sees the exact target vocabulary.
+      Follow the Correct Approach logic and avoid the Incorrect Approach pitfalls. For each Chemical-Disease pair, state in its reasoning field which of the two patterns the text matches, focusing on direct mechanistic causation rather than mere co-occurrence, then give the label (yes = induces, no = does not).
+# The demonstrated answers mirror the enforced Ollama JSON schema (one
+# {id, reasoning, label} object per pair, reasoning first) so the model sees
+# both the exact target vocabulary and the expected length/style of the
+# per-pair reasoning.
 #   01 = 1-shot, 02 = 3-shot, 03 = 5-shot. The sets are nested (each adds to
 #   the previous) so the ONLY variable across the three is the number of
 #   demonstrations; they cover induction in animals / dechallenge / overdose
@@ -118,42 +129,42 @@ prompts:
     01: |
       Example 1:
       Text: "Prolonged administration of Chemical X produced hepatic necrosis (Disease Y) in the treated animals."
-      Chemical X - Disease Y -> label: yes
+      Answer: {"id": 1, "reasoning": "'Produced hepatic necrosis in the treated animals' states that Chemical X caused Disease Y.", "label": "yes"}
       ---
-      Now classify each Chemical-Disease pair below, outputting one label per pair (yes = induces, no = does not):
+      Now classify each Chemical-Disease pair below: for every pair write its reasoning, then give its label (yes = induces, no = does not):
     02: |
       Example 1:
       Text: "Prolonged administration of Chemical X produced hepatic necrosis (Disease Y) in the treated animals."
-      Chemical X - Disease Y -> label: yes
+      Answer: {"id": 1, "reasoning": "'Produced hepatic necrosis in the treated animals' states that Chemical X caused Disease Y.", "label": "yes"}
       ---
       Example 2:
       Text: "Chemical X is commonly used to treat Disease Y and was well tolerated."
-      Chemical X - Disease Y -> label: no
+      Answer: {"id": 1, "reasoning": "Chemical X is the treatment for Disease Y, not its cause; a therapeutic relation is not induction.", "label": "no"}
       ---
       Example 3:
       Text: "Patients on Chemical X developed renal failure (Disease Y), which resolved after withdrawal."
-      Chemical X - Disease Y -> label: yes
+      Answer: {"id": 1, "reasoning": "Disease Y appeared under Chemical X and resolved on withdrawal (dechallenge), which is direct evidence of induction.", "label": "yes"}
       ---
-      Now classify each Chemical-Disease pair below, outputting one label per pair (yes = induces, no = does not):
+      Now classify each Chemical-Disease pair below: for every pair write its reasoning, then give its label (yes = induces, no = does not):
     03: |
       Example 1:
       Text: "Prolonged administration of Chemical X produced hepatic necrosis (Disease Y) in the treated animals."
-      Chemical X - Disease Y -> label: yes
+      Answer: {"id": 1, "reasoning": "'Produced hepatic necrosis in the treated animals' states that Chemical X caused Disease Y.", "label": "yes"}
       ---
       Example 2:
       Text: "Chemical X is commonly used to treat Disease Y and was well tolerated."
-      Chemical X - Disease Y -> label: no
+      Answer: {"id": 1, "reasoning": "Chemical X is the treatment for Disease Y, not its cause; a therapeutic relation is not induction.", "label": "no"}
       ---
       Example 3:
       Text: "Patients on Chemical X developed renal failure (Disease Y), which resolved after withdrawal."
-      Chemical X - Disease Y -> label: yes
+      Answer: {"id": 1, "reasoning": "Disease Y appeared under Chemical X and resolved on withdrawal (dechallenge), which is direct evidence of induction.", "label": "yes"}
       ---
       Example 4:
       Text: "Chemical X and Disease Y were both reported in the cohort, but no causal link was established."
-      Chemical X - Disease Y -> label: no
+      Answer: {"id": 1, "reasoning": "The two are only co-mentioned and the text explicitly denies a causal link.", "label": "no"}
       ---
       Example 5:
       Text: "Chemical X overdose has been reported to cause seizures (Disease Y)."
-      Chemical X - Disease Y -> label: yes
+      Answer: {"id": 1, "reasoning": "'Reported to cause seizures' asserts causation from Chemical X to Disease Y.", "label": "yes"}
       ---
-      Now classify each Chemical-Disease pair below, outputting one label per pair (yes = induces, no = does not):
+      Now classify each Chemical-Disease pair below: for every pair write its reasoning, then give its label (yes = induces, no = does not):
