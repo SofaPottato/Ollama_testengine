@@ -29,15 +29,15 @@ def main():
     #============================================================================#
     #   Step 1: 生成 Prompt 組合（PromptTech YAML →　窮舉組合 → 寫 promptCmbPath）#
     #============================================================================#
-    logging.info("[Step 1/7] Generating Prompt Combinations (shared by train/test)")
-    b_exhaustiveCmb    = True                                                       # True=窮舉組合(Auto)；False=手動指定(Manual)
-    selectedPromptTechList = ["EMO", "Role", "Few_shot"]             # Auto：參與組合的方法分類；['ALLMethod']=全部
-    maxCmbNum          = 1                                                           # Auto：一組最多包含幾個方法分類
-    manualPromptCmbList    = [["EMO01", "RAR02"],                      # Manual：明確列出的組合（b_exhaustiveCmb=False 時生效）
-                          ["S2A01", "RE201"]]
+    logging.info("[Step 1/7] Generating Prompt Combinations (shared by training/test)")
+    b_exhaustiveCmb    = False                                                                                 # True=窮舉組合(Auto)；False=手動指定(Manual)
+    selectedPromptTechList = ["EMO", "Role", "Few_shot"]                                 # Auto：參與組合的方法分類；['ALLMethod']=全部
+    maxCmbNum          = 2                                                                                      # Auto：一組最多包含幾個方法分類
+    manualPromptCmbList    = [["EMO01"], ["EMO01", "Few_shot01"],["RAR01"],["R2A01"]]      # Manual：明確列出的組合（b_exhaustiveCmb=False 時生效）
 
-    promptTechPath     = "data/PromptGeneration/PromptTechnique_PPISimpified.yaml"     # Prompt 方法池(Technique)來源 YAML
-    promptCmbPath      = "data/output/PPI/HPRD50/ppiPromptCmb_manual.csv"                            # 生成的 Prompt 組合 CSV（共用）
+
+    promptTechPath     = "data/PromptGeneration/PromptTechnique_PPI.yaml"                    # Prompt 方法池(Technique)來源 YAML
+    promptCmbPath      = "data/output/PPI/HPRD50/PPIPromptCmb_Manual.csv"                                # 生成的 Prompt 組合 CSV（共用）
 
     pgObj = PromptCmbGen()
     promptTechPoolDict = pgObj.loadMethodPool(promptTechPath)
@@ -45,23 +45,23 @@ def main():
     pgObj.savePromptCmb(promptCmbDf, promptCmbPath)
 
     #============================================================================#
-    #   Step 2~7: 對 train、test 各跑一次（中段流程共用 runExperiment）#
-    #============================================================================#                                                                         
-    trainDatasetPath = "data/PPIDataset/HPRD50/HPRD50_train.csv" # 所需欄位:　（taskID,passage,label）                
-    testDatasetPath  = "data/PPIDataset/HPRD50/HPRD50_test.csv"
-    trainOutputRoot  = "data/testoutput/PPI/HPRD50/train"
-    testOutputRoot   = "data/testoutput/PPI/HPRD50/test"
+    #   Step 2~7: 對 training、test 各跑一次（中段流程共用 runExperiment）#
+    #============================================================================#
+    trainingDatasetPath = "data/PPIDataset/HPRD50/HPRD50_training.csv" # 所需欄位:　（taskID,passage,label）
+    testDatasetPath     = "data/PPIDataset/HPRD50/HPRD50_test.csv"
+    trainingOutputRoot  = "testRun/training"
+    testOutputRoot      = "testRun/test"
 
 
 
-    runExperiment("train", trainDatasetPath, trainOutputRoot, promptCmbDf)
+    runExperiment("training", trainingDatasetPath, trainingOutputRoot, promptCmbDf)
     runExperiment("test", testDatasetPath, testOutputRoot, promptCmbDf)
 
-    logging.info("[Pipeline] 流程結束（train + test 皆完成）")
+    logging.info("[Pipeline] 流程結束（training + test 皆完成）")
 
 
 def runExperiment(splitName, datasetPath, outputRoot, promptCmbDf):
-    """對單一 split（train 或 test）跑 Step 2~7。promptCmbDf 由 train/test 共用，外部傳入。"""
+    """對單一 split（training 或 test）跑 Step 2~7。promptCmbDf 由 training/test 共用，外部傳入。"""
     logging.info("==================================================")
     logging.info(f"   資料集: {splitName}  →  {outputRoot}")
     logging.info("==================================================")

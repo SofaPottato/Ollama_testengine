@@ -20,7 +20,7 @@ class PromptCmbGen:
       2. genPromptCmb  ：依窮舉(Auto)/手動(Manual)模式枚舉組合 → promptCmbDf。
       3. savePromptCmb ：把 promptCmbDf 寫成 CSV 存查。
 
-    產出 promptCmbDf 兩欄（train/test 共用同一份）：
+    產出 promptCmbDf 兩欄（training/test 共用同一份）：
       - promptCmbID：組合內各方法 ID 以 ' + ' 串接（如 'EMO01 + Role01'），下游 prompt 維度的識別碼。
       - promptText ：組合內各方法的 systemPrompt 原文以換行串接，即該組合實際送模型的 system prompt。
     """
@@ -71,7 +71,8 @@ class PromptCmbGen:
         if b_exhaustiveCmb:
             logging.info("[PromptGen] 生成模式: Auto (Exhaustive)")
             # 1) 決定參與組合的方法分類：'ALLMethod' 代表全部；否則過濾掉方法池裡不存在的。
-            if selectedPromptTechList == ['ALLMethod']:
+            #    'ALLMethod' 比對大小寫通用（並容忍前後空白），如 'allmethod'、'AllMethod' 皆可。
+            if len(selectedPromptTechList) == 1 and selectedPromptTechList[0].strip().lower() == 'allmethod':
                 targetMethodList = list(promptTechPoolDict.keys())
             else:
                 invalidList = [m for m in selectedPromptTechList if m not in promptTechPoolDict]

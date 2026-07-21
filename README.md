@@ -2,7 +2,7 @@
 
 以**本地 LLM（Ollama）**在生物醫學關係抽取任務上，系統性地**窮舉組合多種 Prompt 技巧（prompt technique）並評估其效能**的實驗流水線。
 
-核心問題：對同一個分類任務，把不同的 Prompt 技巧（情緒激勵、角色扮演、Few-shot…）**排列組合**成不同的 system prompt，哪一種組合表現最好？把它們當成一個 ensemble，準確率的天花板（upper bound）又在哪裡？EnsemblePrompt 把「生成組合 → 推論 → 解析 → 評估」整條流程自動化，一次跑完 train 與 test。
+核心問題：對同一個分類任務，把不同的 Prompt 技巧（情緒激勵、角色扮演、Few-shot…）**排列組合**成不同的 system prompt，哪一種組合表現最好？把它們當成一個 ensemble，準確率的天花板（upper bound）又在哪裡？EnsemblePrompt 把「生成組合 → 推論 → 解析 → 評估」整條流程自動化，一次跑完 training 與 test。
 
 目前內建兩種任務型別：
 
@@ -40,7 +40,7 @@ prompts:
 
 ## Pipeline（7 個步驟）
 
-整條流程由 [Main_EnsemblePrompt.py](Main_EnsemblePrompt.py) 串接。Step 1 產生的 Prompt 組合由 train / test **共用同一份**，Step 2~7 對每個 split 各跑一次。
+整條流程由 [Main_EnsemblePrompt.py](Main_EnsemblePrompt.py) 串接。Step 1 產生的 Prompt 組合由 training / test **共用同一份**，Step 2~7 對每個 split 各跑一次。
 
 | 步驟 | 模組 | 輸入 → 輸出 |
 |------|------|-------------|
@@ -104,10 +104,10 @@ promptTechPath         = "data/PromptGeneration/PromptTechnique_PPISimpified.yam
 Dataset 與輸出路徑：
 
 ```python
-trainDatasetPath = "data/PPIDataset/HPRD50/HPRD50_train.csv"  # 必要欄位：taskID, passage, label
-testDatasetPath  = "data/PPIDataset/HPRD50/HPRD50_test.csv"
-trainOutputRoot  = "data/output/PPI/HPRD50/train"
-testOutputRoot   = "data/output/PPI/HPRD50/test"
+trainingDatasetPath = "data/PPIDataset/HPRD50/HPRD50_train.csv"  # 必要欄位：taskID, passage, label
+testDatasetPath     = "data/PPIDataset/HPRD50/HPRD50_test.csv"
+trainingOutputRoot  = "data/output/PPI/HPRD50/train"
+testOutputRoot      = "data/output/PPI/HPRD50/test"
 ```
 
 在 `runExperiment()`（Step 3 / Step 4）：
@@ -145,7 +145,7 @@ HPRD50.d1.s0_3,"Identification of residues in the PROTEIN1 that contact ... PROT
 每個 split 的輸出目錄（如 `data/output/PPI/HPRD50/train/`）底下：
 
 ```
-ppiPromptCmb.csv               # Step 1：生成的所有 Prompt 組合（train/test 共用，放在上一層）
+ppiPromptCmb.csv               # Step 1：生成的所有 Prompt 組合（training/test 共用，放在上一層）
 datasetPromptInfo.csv          # Step 3：待執行任務清單（含 system/user prompt），供檢視
 response.csv                   # Step 4：模型原始回應 + checkpoint（斷點續跑來源）
 result.csv                     # Step 5：解析後的長表（一 item 一列）
@@ -165,7 +165,7 @@ eval/
 
 ```
 EnsemblePrompt/
-├── Main_EnsemblePrompt.py          # 進入點：串接 7 步，對 train/test 各跑一次
+├── Main_EnsemblePrompt.py          # 進入點：串接 7 步，對 training/test 各跑一次
 ├── requirements.txt
 ├── PromptExecution/                # 各階段模組（每檔一個階段，無狀態、資料流在 Main 一眼可見）
 │   ├── PromptCmbGen.py             # Step 1
