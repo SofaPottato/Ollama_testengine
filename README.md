@@ -6,7 +6,7 @@
 
 目前內建兩種任務型別：
 
-- **PPI**（Protein-Protein Interaction）：二元分類，判斷句子中 `PROTEIN1` 與 `PROTEIN2` 是否有交互作用（`yes` / `no`）。
+- **PPI**（Protein-Protein Interaction）：二元分類，判斷句子中 `PROTEIN1` 與 `PROTEIN2` 是否有交互作用（`yes` / `no`）。內建 AIMed / BioInfer / HPRD50 / IEPA / LLL 五套標準資料集。
 - **BC5CDR**（Chemical-Disease）：一篇文章含多個 entity pair，批次判斷（batch inference）。
 
 ---
@@ -40,15 +40,15 @@ prompts:
 
 ## Pipeline（7 個步驟）
 
-整條流程由 [Main_EnsemblePrompt.py](Main_EnsemblePrompt.py) 串接。Step 1 產生的 Prompt 組合由 training / test **共用同一份**，Step 2~7 對每個 split 各跑一次。
+整條流程由 [Main_EnsemblePrompt.py](Main_EnsemblePrompt.py) 串接。Step 1 產生的 Prompt 組合由 train / test **共用同一份**，Step 2~7 對每個 split 各跑一次。
 
 | 步驟 | 模組 | 輸入 → 輸出 |
 |------|------|-------------|
-| 1. 生成 Prompt 組合 | [`PromptCmbGen`](PromptExecution/PromptCmbGen.py) | 方法池 YAML → `ppiPromptCmb.csv`（`promptCmbID`, `promptText`） |
+| 1. 生成 Prompt 組合 | [`PromptCmbGen`](PromptExecution/PromptCmbGen.py) | 方法池 YAML → `PPIPromptCmb.csv`（`promptCmbID`, `promptText`） |
 | 2. 載入資料與 checkpoint | [`DataLoader`](PromptExecution/DataLoader.py) | Dataset CSV → `(datasetDf, labelSet)`；`response.csv` → 已完成任務集合 |
 | 3. 建構待執行任務 | [`TaskBuilder`](PromptExecution/TaskBuilder.py) | `datasetDf × models × prompts` → `promptInfoDf`（跳過已完成的）|
 | 4. LLM 推論 | [`OllamaEngine` (`LLMEngine`)](PromptExecution/OllamaEngine.py) | 非同步呼叫 Ollama，逐筆 append 到 `response.csv` |
-| 5. 解析輸出 | [`ResponseParser`](PromptExecution/ResponseParser.py) | `response.csv` → 長表 `result.csv`（一 item 一列）|
+| 5. 解析輸出 | [`ResponseParser`](PromptExecution/ResponseParser.py) | `response.csv` → 長表 `result.csv`（一 item 一列，answer 與 reasoning 分欄）|
 | 6. 後處理 | [`LLMResultProcessor`](PromptExecution/LLMResultProcessor.py) | 長表 → 寬表 `mlTable.csv` / `fullResultInfo.csv`（pivot）|
 | 7. 評估 | [`Evaluate` (`PromptCmbEval`)](PromptExecution/Evaluate.py) | `mlTable` → 指標總表、混淆矩陣、對錯熱圖、難題清單 |
 
@@ -58,6 +58,9 @@ prompts:
 
 - **斷點續跑（checkpoint / resume）**：`response.csv` 同時是輸出檔與 checkpoint。每筆推論完成即 `append` 並 `fsync` 落盤；重跑時 Step 2 會讀回已完成的 `(model, promptCmbID, taskID)` 三元組，Step 3 據此跳過，中斷後可無痛續跑。**若要重新跑一輪，刪除或備份 `response.csv` 即可。**
 - **結構化輸出（structured output）**：透過 Ollama 的 `format` JSON schema（由 `OllamaEngine.buildOllamaOutputFormat` 從 `labelSet.classes` 產生）強制模型只能輸出 `classes` 之一，大幅減少解析雜訊。少數不遵守的仍由 `labelToLabelCode` 兜底回 `-1`。
+  - PPI 為 `{"reasoning": str, "label": <enum>}`；BC5CDR 為 `{"answers": [{"id": int, "reasoning": str, "label": <enum>}]}`（`id` 是 1-based 序號，讓解析端把答案對回正確的 pair）。
+- **schema 內建 Chain-of-Thought**：schema 的欄位順序刻意是**先 `reasoning`、後 `label`**。Ollama（llama.cpp GBNF）會照 `properties` / `required` 的順序生成 token，所以模型必須先寫完思考才能定答案，中間的推理 token 能實際影響最終 label。`reasoning` 只供人工檢視（`__reason` 欄），不參與指標計算。
+  - **代價**：reasoning 會吃掉生成長度，`llmOptions` 的 `num_predict` 必須夠大（目前設 `-1` 不限制）。若在 reasoning 中途被截斷，JSON 不完整 → `label` 缺失 → 整筆判 `-1`。
 - **雙層併發控制**：`concurrencyPerModel`（每個模型的 in-flight 上限）+ `maxConcurrentModels`（同時載入幾個模型，避免塞爆 GPU 記憶體）。網路錯誤自動重試（tenacity，最多 3 次指數退避）。
 - **失敗不中斷**：單筆推論失敗會寫入 `"Error:..."` marker 而非拋例外，下游 `ResponseParser` 看到後標 `-1`（無法判定），整批照常完成。指標計算一律排除 `-1`。
 - **Upper Bound 分析**：評估報告除了各組合的 Accuracy / Precision / Recall / F1 / MCC，還算出「完美挑選組合」時的準確率天花板——全部組合、F1 前 10、F1 前 20 各一份。若天花板遠低於目標，代表再怎麼試 prompt 也無效，需從資料或模型本身改進。
@@ -94,20 +97,21 @@ python Main_EnsemblePrompt.py
 在 `main()`（Step 1）：
 
 ```python
-b_exhaustiveCmb        = True                         # True=窮舉(Auto)；False=手動(Manual)
-selectedPromptTechList = ["EMO", "Role", "Few_shot"] # 參與組合的分類；["ALLMethod"]=全部
-maxCmbNum              = 3                            # 一組最多含幾個分類
-manualPromptCmbList    = [["EMO01", "RAR02"], ...]   # 手動模式下明確列出的組合
-promptTechPath         = "data/PromptGeneration/PromptTechnique_PPISimpified.yaml"
+b_exhaustiveCmb        = True                          # True=窮舉(Auto)；False=手動(Manual)
+selectedPromptTechList = ["EMO", "Role", "Few_shot"]   # 參與組合的分類；["ALLMethod"]=全部
+maxCmbNum              = 2                             # 一組最多含幾個分類
+manualPromptCmbList    = [["EMO01"], ["EMO01", "Few_shot01"], ["RAR01"], ["S2A01"]]  # 手動模式下明確列出的組合
+promptTechPath         = "data/PromptGeneration/PromptTechnique_PPI.yaml"
+promptCmbPath          = "data/output/Promptoutput/PPIPromptCmb.csv"  # 生成的組合（train/test 共用）
 ```
 
 Dataset 與輸出路徑：
 
 ```python
-trainingDatasetPath = "data/PPIDataset/HPRD50/HPRD50_train.csv"  # 必要欄位：taskID, passage, label
-testDatasetPath     = "data/PPIDataset/HPRD50/HPRD50_test.csv"
-trainingOutputRoot  = "data/output/PPI/HPRD50/train"
-testOutputRoot      = "data/output/PPI/HPRD50/test"
+trainDatasetPath = "data/PPIDataset/HPRD50/HPRD50_train.csv"  # 必要欄位：taskID, passage, label
+testDatasetPath  = "data/PPIDataset/HPRD50/HPRD50_test.csv"
+trainOutputRoot  = "data/output/ppi/HPRD50train"
+testOutputRoot   = "data/output/ppi/HPRD50test"
 ```
 
 在 `runExperiment()`（Step 3 / Step 4）：
@@ -115,14 +119,17 @@ testOutputRoot      = "data/output/PPI/HPRD50/test"
 ```python
 selectedModels      = ["llama3.2:1b"]  # 要測試的 Ollama 模型清單，可放多個
 ollamaUrl           = "http://localhost:11434/api/chat"
-concurrencyPerModel = 2                # 每個模型的並發請求數
+ollamaTimeout       = 600              # 單次請求的最大等待秒數
+concurrencyPerModel = 8                # 每個模型的並發請求數
 maxConcurrentModels = 1                # 同時載入的模型數
-llmOptions = {"temperature": 0, "num_predict": 60, "num_ctx": 8192, "num_gpu": 99}
+llmOptions = {"temperature": 0, "num_predict": -1, "num_ctx": 8192, "num_gpu": 99}
 ```
+
+`num_predict` 設 `-1`（不限生成長度）是配合 schema 的 reasoning 欄位——長度不足會讓思考被截斷、整筆判 `-1`，詳見上方「schema 內建 Chain-of-Thought」。
 
 ### 切換到 BC5CDR
 
-在 `runExperiment()` 把 `taskType` 改為 `"BC5CDR"`，並對應調整：`sentenceColumns=["title", "abstract"]`、`taskTemplate` 需含 `{items}` 佔位符、設定 `itemTemplate` / `itemColumns`。Dataset CSV 需含 `taskID` + `items`（JSON array，每筆含 `sentID` / `label` / `e1` / `e2`）欄位。
+在 `runExperiment()` 把 `taskType` 改為 `"BC5CDR"`，並對應調整：`sentenceColumns=["title", "abstract"]`、`taskTemplate` 需含 `{items}` 佔位符、設定 `itemTemplate` / `itemColumns` / `maxItemsPerBatch`（一篇多個 entity pair 時每批最多幾個）。Dataset CSV 需含 `taskID` + `items`（JSON array，每筆含 `sentID` / `label` / `e1` / `e2`）欄位，可由 [`DatasetPreprocess/bc5cdr.py`](DatasetPreprocess/bc5cdr.py) 產生。
 
 ---
 
@@ -138,20 +145,30 @@ HPRD50.d1.s0_3,"Identification of residues in the PROTEIN1 that contact ... PROT
 
 `label` 欄推導出 `labelSet`（類別清單），其在清單中的索引即整數標籤 `labelCode`（`0..N-1`），比對時大小寫不敏感、去空白。
 
+### 前處理（DatasetPreprocess）
+
+`data/PPIDataset/` 底下的五套資料集以「原始 XML + 攤平 CSV」形式存放（如 `AIMed-train.xml` / `AIMed-train.csv`），欄位是 `docid, isValid, passage, passageid`，**不能直接餵給 Pipeline**。[DatasetPreprocess/](DatasetPreprocess/) 負責轉成上述標準格式：
+
+- [`iepa.py`](DatasetPreprocess/iepa.py)：PPI 格式轉換（`isValid==TRUE` → `yes`，`passageid + row index` → `taskID`），輸出到同名子資料夾如 `data/PPIDataset/IEPA/IEPA_test.csv`。HPRD50 / IEPA 已轉好可直接使用。
+- [`bc5cdr.py`](DatasetPreprocess/bc5cdr.py)：BC5CDR 格式轉換，依 PMID 分組，每組一筆 task，entity pair 打包成 `items` JSON array（`Relation_Type==CID` → `yes`）。
+
+兩支都是獨立腳本，路徑寫在檔頭常數，直接執行即可：`python DatasetPreprocess/iepa.py`。
+
 ---
 
 ## 輸出檔案
 
-每個 split 的輸出目錄（如 `data/output/PPI/HPRD50/train/`）底下：
+Step 1 的 Prompt 組合由 train/test 共用，寫在獨立路徑 `data/output/Promptoutput/PPIPromptCmb.csv`。
+
+每個 split 的輸出目錄（如 `data/output/ppi/HPRD50train/`）底下：
 
 ```
-ppiPromptCmb.csv               # Step 1：生成的所有 Prompt 組合（training/test 共用，放在上一層）
 datasetPromptInfo.csv          # Step 3：待執行任務清單（含 system/user prompt），供檢視
 response.csv                   # Step 4：模型原始回應 + checkpoint（斷點續跑來源）
 result.csv                     # Step 5：解析後的長表（一 item 一列）
-Result_PromptCmb/              # Step 5：按 promptCmbID 分檔，方便檢視單一組合
+singlePromptCmbOutput/         # Step 5：按 promptCmbID 分檔，方便檢視單一組合
 mlTable.csv                    # Step 6：精簡寬表（每樣本一列、每 runKey 一欄 __pred），給評估吃
-fullResultInfo.csv             # Step 6：完整寬表，另含 __raw（原文）與 __sysPrompt，供人工 review
+fullResultInfo.csv             # Step 6：完整寬表，另含 __raw / __reason / __sysPrompt，供人工 review
 eval/
   evalSummary.csv                       # 各 runKey 指標（按 F1 排序）+ 末尾三列 Upper Bound
   FalsePredictionByAllPromptCmb.csv     # 所有組合都答錯的難題清單
@@ -177,8 +194,11 @@ EnsemblePrompt/
 │   ├── Evaluate.py                 # Step 7
 │   ├── util.py                     # 共享資料模型/型別 / 例外體系 / 共用工具的家
 │   └── ExperimentInitializer.py    # logger + 隨機種子
+├── DatasetPreprocess/              # 原始資料集 → 標準 Dataset CSV（獨立腳本，不在 Pipeline 內）
+│   ├── iepa.py                     # PPI 格式轉換
+│   └── bc5cdr.py                   # BC5CDR 格式轉換
 └── data/
-    ├── PromptGeneration/           # Prompt 方法池 YAML
-    ├── PPIDataset/                 # PPI / BC5CDR 資料集
-    └── output/                     # 實驗輸出
+    ├── PromptGeneration/           # Prompt 方法池 YAML（PPI / PPISimpified / bc5cdr）
+    ├── PPIDataset/                 # AIMed / BioInfer / HPRD50 / IEPA / LLL（原始 XML + CSV）
+    └── output/                     # 實驗輸出（未納入版控）
 ```
