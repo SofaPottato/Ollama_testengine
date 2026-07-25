@@ -7,10 +7,8 @@ __pycache__/
 data/*
 !data/.gitkeep
 
-# 但保留 PPIDataset/HPRD50 資料集
+# 但保留 PPIDataset 全部資料集（XML 原始檔 + 各前處理輸出）
 !data/PPIDataset/
-data/PPIDataset/*
-!data/PPIDataset/HPRD50/
 
 # 保留 PromptGeneration 提示詞資料
 !data/PromptGeneration/
