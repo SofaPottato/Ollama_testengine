@@ -80,7 +80,7 @@ def extractReason(text: str) -> str:
     batch（BC5CDR）：{"answers":[{"id","reasoning","label"}]} → 各筆 reasoning 併成單一 blob
       （逐筆以 [id] 標註、換行分隔）。刻意「不 demux 到各 item 列」：整批共用一格，維持整批狀態，
       之後不再加工，要看再自己看——與 responseAns 同一種「整批共用、複製到每列」的處理方式。
-    空 / "Error:" / 非合法 JSON → ""（原文仍完整保留在 responseAns，此欄只是方便檢視的抽取值）。
+    空 / "Error:" / 非合法 JSON → ""（原文仍完整保留在 response.csv 的 response 欄，此欄只是方便檢視的抽取值）。
     """
     if not text or "Error:" in text:
         return ""
@@ -183,7 +183,7 @@ class ResponseParser:
                 logging.warning(f"[Parser] 跳過任務: items 為空 (model={model}, promptCmbID={promptCmbID})")
                 continue
             # 原始回應（含 reasoning）：解碼與抽 reasoning 都以它為準；存進 result 前再把 reasoning 剝掉。
-            responseAnsRaw = str(taskRow.responseAns)
+            responseAnsRaw = str(taskRow.response)
             predLabels   = decodePredLabels(responseAnsRaw, len(itemList), labelSet)
             # reasoning 一次抽好（整批一格），與 responseAns 一樣複製到本批展開出的每個 item 列。
             responseReason = extractReason(responseAnsRaw)

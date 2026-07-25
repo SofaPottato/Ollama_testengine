@@ -26,7 +26,7 @@ def buildOllamaOutputFormat(classes: List[str], taskType: str) -> Dict[str, Any]
 
     欄位順序刻意「reasoning 在前、label 在後」：Ollama（llama.cpp GBNF）會照 properties/required
     的順序生成 token，先寫思考再定答案，讓中間推理 token 能實際影響最終 label（Chain-of-Thought）。
-    ResponseParser.decodePredLabels 只讀 label，reasoning 純供人工檢視（保留在 responseAns/__raw 原文，不另立欄）。
+    ResponseParser.decodePredLabels 只讀 label，reasoning 純供人工檢視（保留在 response/__raw 原文，不另立欄）。
     注意：reasoning 會佔用生成長度，llmOptions 的 num_predict 必須夠大，否則會在 reasoning 中途被截斷，
     導致 JSON 不完整、label 缺失，整筆被判 -1。
     """
@@ -236,24 +236,24 @@ class LLMEngine:
                 self.initializedModelSet.add(row.model)
 
             # 先拿結果（失敗也回 Error 字串而非 raise），再寫檔。
-            responseAns = await self.tryGenerate(row)
-            await self.appendCsv(row, responseAns)
+            response = await self.tryGenerate(row)
+            await self.appendCsv(row, response)
 
     async def tryGenerate(self, row) -> str:
         """送出 LLM 請求；例外與空回應都統一回 Error 字串，讓批次能繼續且下游用同方式辨識。"""
         # 單筆失敗「不 raise」，否則 gather 會把整批中斷。改回 "Error:..." 字串，讓這筆照常寫進 response.csv
         # （算「已嘗試/已完成」），下游 ResponseParser 看到 "Error:" 標 -1。
         try:
-            responseAns = await self.ollamaClientObj.generate(
+            response = await self.ollamaClientObj.generate(
                 row.model, row.sysPrompt, row.userPrompt
             )
         except Exception as e:
             logging.error(f"[Engine] 任務 {row.taskID} 失敗: {e}")
-            responseAns = ""
+            response = ""
 
-        return responseAns or "Error: Max retries exceeded or connection failed"
+        return response or "Error: Max retries exceeded or connection failed"
 
-    async def appendCsv(self, row, responseAns: str) -> None:
+    async def appendCsv(self, row, response: str) -> None:
         """以 fileLock 序列化 append 寫 response.csv；fsync 確保中斷時 checkpoint 不遺失最後一筆。"""
         # 這個 dict 即 response.csv 的欄位契約與唯一事實來源：鍵的插入順序 = 寫出的欄位順序，
         # 前三欄（model/promptCmbID/taskID）為 checkpoint 三元組，須與 DataLoader 讀取端一致。
@@ -263,7 +263,7 @@ class LLMEngine:
             "taskID":       row.taskID,
             "systemPrompt": row.sysPrompt,
             "userPrompt":   row.userPrompt,
-            "responseAns":  responseAns,
+            "response":     response,
             "items":        json.dumps(row.items, ensure_ascii=False),
             "sentence":     json.dumps(row.sentence, ensure_ascii=False),
         }
